@@ -40,6 +40,8 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args);
 
+static int cmd_info(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -49,6 +51,7 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si","让程序单步执行N个指令后暂停，N缺省值为1",cmd_si},
+	{ "info","info r打印寄存器状态，info w打印监视点状态",cmd_info},
 
 	/* TODO: Add more commands */
 
@@ -92,6 +95,12 @@ static int cmd_si(char *args){
 	
 	if(args_len) n=atoi(args);
 	cpu_exec(n);
+	return 0;
+}
+
+static int cmd_info(char *args){
+
+
 	return 0;
 }
 
