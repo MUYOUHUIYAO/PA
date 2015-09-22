@@ -99,7 +99,7 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
-
+	//if(strcmp
 
 	return 0;
 }
