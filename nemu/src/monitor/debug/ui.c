@@ -82,13 +82,13 @@ void ui_mainloop() {
 		char *str_end = str + strlen(str);
 
 		/* extract the first token as the command */
-		char *cmd = strtok(str, " ");
+		char *cmd = strtok(str, " "); //指向命令
 		if(cmd == NULL) { continue; }
 
 		/* treat the remaining string as the arguments,
 		 * which may need further parsing
 		 */
-		char *args = cmd + strlen(cmd) + 1;
+		char *args = cmd + strlen(cmd) + 1;	//指向命令参数
 		if(args >= str_end) {
 			args = NULL;
 		}
