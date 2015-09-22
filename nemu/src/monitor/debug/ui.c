@@ -85,7 +85,7 @@ static int cmd_si(char *args){
 	int i;
 	for(i=0;i<args_len;i++){
 		if(!(args[i]>='0'&&args[i]<='9')){
-			printf("输入格式错误");
+			printf("输入格式错误\n");
 			return 0;
 		}
 	}
