@@ -99,7 +99,7 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
-	if(strcmp("r",args)){
+	if(!strcmp("r",args)){
 		printf("eax\t\t0x%X\t\t%ud",cpu.eax,cpu.eax);
 		printf("ebx\t\t0x%X\t\t%ud",cpu.ebx,cpu.ebx);
 		printf("ecx\t\t0x%X\t\t%ud",cpu.ecx,cpu.ecx);
