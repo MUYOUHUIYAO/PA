@@ -99,7 +99,17 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
-	//if(strcmp
+	if(strcmp("r",args)){
+		printf("eax\t\t0x%X\t\t%ud",cpu.eax,cpu.eax);
+		printf("ebx\t\t0x%X\t\t%ud",cpu.ebx,cpu.ebx);
+		printf("ecx\t\t0x%X\t\t%ud",cpu.ecx,cpu.ecx);
+		printf("edx\t\t0x%X\t\t%ud",cpu.edx,cpu.edx);
+		printf("esp\t\t0x%X\t\t0x%X",cpu.esp,cpu.esp);
+		printf("ebp\t\t0x%X\t\t0x%X",cpu.ebp,cpu.ebp);
+		printf("esi\t\t0x%X\t\t%ud",cpu.esi,cpu.esi);
+		printf("edi\t\t0x%X\t\t%ud",cpu.edi,cpu.edi);
+		printf("eip\t\t0x%X\t\t0x%X",cpu.eip,cpu.eip);
+	}
 
 	return 0;
 }
