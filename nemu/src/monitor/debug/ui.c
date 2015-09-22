@@ -48,7 +48,7 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-	{"si [N]","让程序单步执行N个指令后暂停，N缺省值为1",cmd_si},
+	{ "si","让程序单步执行N个指令后暂停，N缺省值为1",cmd_si},
 
 	/* TODO: Add more commands */
 
