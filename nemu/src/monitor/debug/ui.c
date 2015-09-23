@@ -63,6 +63,11 @@ static int cmd_help(char *args) {
 	/* extract the first argument */
 	char *arg = strtok(NULL, " ");
 	int i;
+	
+	bool f;
+	char s[100]="1*2+3+0x23-11*(6-3/2)";
+	uint32_t m=expr(s,&f);
+	printf("%d",m);
 
 	if(arg == NULL) {
 		/* no argument given */
