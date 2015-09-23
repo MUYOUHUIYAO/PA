@@ -4,6 +4,5 @@
 #include "common.h"
 
 uint32_t expr(char *, bool *);
-bool make_token(char *e) ;
 
 #endif

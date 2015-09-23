@@ -79,8 +79,9 @@ static int cmd_help(char *args) {
 		}
 		printf("Unknown command '%s'\n", arg);
 	}
+	bool f;
+	expr("1+2*3+(2-$eax)/*$ebx",&f);
 	return 0;
-	make_token("1+2*3+(2-$eax)/*$ebx");
 }
 
 static int cmd_si(char *args){
