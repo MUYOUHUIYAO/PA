@@ -65,7 +65,7 @@ static int cmd_help(char *args) {
 	int i;
 	
 	bool f;
-	char s[100]="1*2+3+0x23-11*(6-3/2)";
+	char s[100]="1*2+3";
 	uint32_t m=expr(s,&f);
 	printf("%d",m);
 
