@@ -64,6 +64,9 @@ static int cmd_help(char *args) {
 	char *arg = strtok(NULL, " ");
 	int i;
 
+		bool f;
+	printf("%d",expr("1+2*3+(2-$eax)/*$ebx",&f));
+
 	if(arg == NULL) {
 		/* no argument given */
 		for(i = 0; i < NR_CMD; i ++) {
@@ -79,8 +82,6 @@ static int cmd_help(char *args) {
 		}
 		printf("Unknown command '%s'\n", arg);
 	}
-	bool f;
-	printf("%d",expr("1+2*3+(2-$eax)/*$ebx",&f));
 	return 0;
 }
 
