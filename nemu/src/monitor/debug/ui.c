@@ -66,7 +66,8 @@ static int cmd_help(char *args) {
 
 	bool f;
 	char s[20]="1+2*3+(2-$eax)/*$ebx";
-	printf("%d",expr(s,&f));
+	expr(s,&f);
+	//printf("%d",);
 
 	if(arg == NULL) {
 		/* no argument given */
