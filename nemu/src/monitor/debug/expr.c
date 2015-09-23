@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ
+	NOTYPE = 256, EQ,DEC_NUM,HEX_NUM,BIN_NUM,REG
 
 	/* TODO: Add more token types */
 
@@ -24,7 +24,16 @@ static struct rule {
 
 	{" +",	NOTYPE},				// spaces
 	{"\\+", '+'},					// plus
-	{"==", EQ}						// equal
+	{"-",'-'},						//minus
+	{"/",'/'},						//divide
+	{"\\*",'*'},			
+	{"==",EQ},				//equal
+	{"(",'('},
+	{")",')'},
+	{"[0-9]+",DEC_NUM},		//十进制整数
+	{"0x[0-9a-fA-F]+",HEX_NUM},			//十六进制整数
+	{"[0-1]+",BIN_NUM},		//二进制整数
+	{"\\$[eE][a-zA-Z]{2}",REG}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -77,11 +86,23 @@ static bool make_token(char *e) {
 				 * to record the token in the array ``tokens''. For certain 
 				 * types of tokens, some extra actions should be performed.
 				 */
-
+				if(rules[i].token_type!=NOTYPE)
+					tokens[nr_token].type=rules[i].token_type;
 				switch(rules[i].token_type) {
+					//case NOTYPE: break;
+					case '+':
+					case  '-' :
+					case  '/' :
+					case  '*':
+					case  EQ:
+					case  '(': 
+					case  ')':
+					case  DEC_NUM:case  HEX_NUM:case BIN_NUM:
+							strncpy(tokens[nr_token].str,substr_start,substr_len);
+							break;
 					default: panic("please implement me");
 				}
-
+				nr_token++;
 				break;
 			}
 		}
@@ -89,6 +110,10 @@ static bool make_token(char *e) {
 		if(i == NR_REGEX) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
+		}
+		int k;
+		for(k=0;k<nr_token;k++){
+			printf("%d\t%s\n",tokens[k].type,tokens[k].str);
 		}
 	}
 
