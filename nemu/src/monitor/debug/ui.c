@@ -64,11 +64,6 @@ static int cmd_help(char *args) {
 	char *arg = strtok(NULL, " ");
 	int i;
 
-	bool f;
-	char s[20]="1+2*3+(2-$eax)/*$ebx";
-	expr(s,&f);
-	//printf("%d",);
-
 	if(arg == NULL) {
 		/* no argument given */
 		for(i = 0; i < NR_CMD; i ++) {
