@@ -130,9 +130,9 @@ static int cmd_x(char *args){
 		
 		n=atoi(num_str);
 		sscanf(addr,"0x%X",&_addr);
-		printf("%s\t\t",addr);
+		printf("%s:\t",addr);
 		for(i=0;i<n;i++){
-			printf("%#.10X\t",swaddr_read(_addr,4));
+			printf("%#.8x\t",swaddr_read(_addr,4));
 			_addr+=4;
 		}
 		printf("\n");
