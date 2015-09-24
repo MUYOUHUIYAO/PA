@@ -28,7 +28,7 @@ static struct rule {
 	{"/",'/'},						//divide
 	{"\\*",'*'},			
 	{"==",EQ},				//equal
-	{"(",'('},
+	{"\\(",'('},
 	{")",')'},
 	{"[0-9]+",DEC_NUM},		//十进制整数
 	{"0x[0-9a-fA-F]+",HEX_NUM},			//十六进制整数
@@ -121,7 +121,7 @@ static bool make_token(char *e) {
 }
 
 uint32_t expr(char *e, bool *success) {
-	printf("hello");
+	//printf("hello");
 	if(!make_token(e)) {
 		*success = false;
 		return 0;

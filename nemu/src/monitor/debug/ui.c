@@ -66,6 +66,10 @@ static int cmd_help(char *args) {
 	/* extract the first argument */
 	char *arg = strtok(NULL, " ");
 	int i;
+	
+	char e[100]="10*0x132-120/(12-2)+*$edx";
+	bool b;
+	expr(e,&b);
 
 	if(arg == NULL) {
 		/* no argument given */
@@ -132,7 +136,7 @@ static int cmd_x(char *args){
 		sscanf(addr,"0x%X",&_addr);
 		printf("%s:\t",addr);
 		for(i=0;i<n;i++){
-			printf("%#.8x\t",swaddr_read(_addr,4));
+			printf("0x%.8x\t",swaddr_read(_addr,4));
 			_addr+=4;
 		}
 		printf("\n");
