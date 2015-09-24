@@ -42,6 +42,8 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -52,6 +54,7 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si","让程序单步执行N个指令后暂停，N缺省值为1",cmd_si},
 	{ "info","info r打印寄存器状态，info w打印监视点状态",cmd_info},
+	{"x","x N EXPR求出表达式EXPR的值，将结果作为起始内存地址，求十六进制输出的连续N个4字节",cmd_x}
 
 	/* TODO: Add more commands */
 
@@ -63,11 +66,6 @@ static int cmd_help(char *args) {
 	/* extract the first argument */
 	char *arg = strtok(NULL, " ");
 	int i;
-	
-	bool f;
-	char s[100]="1*2+3";
-	uint32_t m=expr(s,&f);
-	printf("%d",m);
 
 	if(arg == NULL) {
 		/* no argument given */
@@ -117,6 +115,27 @@ static int cmd_info(char *args){
 	}
 
 	return 0;
+}
+
+static int cmd_x(char *args){
+		size_t n=1;
+		char *addr,*num_str;
+		swaddr_t _addr;
+		int i=0;
+		
+		num_str=strtok(args," ");
+		if(num_str==NULL) return 0;
+		addr=strtok(NULL," ");
+		if(addr==NULL) return 0;
+		
+		n=atoi(num_str);
+		sscanf(addr,"0x%X",&_addr);
+		printf("%s",addr);
+		for(i=0;i<n;i++){
+			printf("0x%X\t",swaddr_read(_addr,4));
+		}
+		printf("\n");
+		return 0;
 }
 
 void ui_mainloop() {
