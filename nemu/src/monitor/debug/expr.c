@@ -221,6 +221,7 @@ uint32_t expr(char *e, bool *success) {
 			}
 	}
 
+	*success=true;
 	return num_stack[--s1];
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
