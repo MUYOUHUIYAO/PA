@@ -126,6 +126,7 @@ static int cmd_x(char *args){
 		char *addr,*num_str;
 		swaddr_t _addr;
 		int i=0;
+		bool f;
 		
 		num_str=strtok(args," ");
 		if(num_str==NULL) return 0;
@@ -133,8 +134,10 @@ static int cmd_x(char *args){
 		if(addr==NULL) return 0;
 		
 		n=atoi(num_str);
-		sscanf(addr,"0x%X",&_addr);
-		printf("%s:\t",addr);
+		_addr=expr(addr,&f);
+		if(f==false) return 0;
+		//sscanf(addr,"0x%X",&_addr);
+		printf("0x%x:\t",_addr);
 		for(i=0;i<n;i++){
 			printf("0x%.8x\t",swaddr_read(_addr,4));
 			_addr+=4;
