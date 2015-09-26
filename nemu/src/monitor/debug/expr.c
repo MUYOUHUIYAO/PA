@@ -103,7 +103,7 @@ static bool make_token(char *e) {
 							tokens[nr_token].stage=0;break;
 					default: panic("please implement me");
 				}
-				nr_token++;
+				if(rules[i].token_type!=NOTYPE) nr_token++;
 				break;
 			}
 		}
@@ -132,77 +132,77 @@ uint32_t expr(char *e, bool *success) {
 	Token  sign_stack[16];
 	Token space={NOTYPE," ",100};;
 	int i,s1,s2;
-	
+
 	sign_stack[0]=space;
 	s1=0;s2=1;i=0;
-	
+
 	while(s2){
 			int type=(i==nr_token?space.type:tokens[i].type);
+			int stage=(i==nr_token?space.stage:tokens[i].stage);
 			int stype;
-			uint32_t op1,op2;
+			int op1,op2;
 			char *s;
 			if(!(type==HEX_NUM||type==DEC_NUM||type==REG)){
-					if(s2==0){
-							sign_stack[s2++]=tokens[i];
-					}else{
-							if(type=='*'){
-									if(i==0) tokens[i].stage=2;
-							}else if(!(tokens[i-1].type==HEX_NUM||tokens[i-1].type==DEC_NUM||tokens[i-1].type==REG||tokens[i-1].type==')')){
-									tokens[i].stage=2;
-							}
-							if(s2==1) sign_stack[s2++]=tokens[i];
-							else{
-									stype=sign_stack[s2-1].type-type;
-									if(stype<=0){
-											switch(sign_stack[s2-1].type){
-													case '+': 
-														op1=num_stack[--s1];
-														op2=num_stack[--s1];
-														num_stack[s1++]=op1+op2;
-														sign_stack[s2-1]=(i==nr_token?space:tokens[i]);
-														break;
-													case '-':
-														op1=num_stack[--s1];
-														op2=num_stack[--s1];
-														num_stack[s1++]=op2-op1;
-														sign_stack[s2-1]=(i==nr_token?space:tokens[i]);
-														break;
-													case '*':
-														/*if(sign_stack[s2-1].stage==2){
-																swaddr_read(num_stack[--s1],4);
-														}*/
-														if(sign_stack[s2-1].stage==4){
-																op1=num_stack[--s1];
-																op2=num_stack[--s1];
-																num_stack[s1++]=op2*op1;
-																sign_stack[s2-1]=(i==nr_token?space:tokens[i]);
-																break;
-														}
-													case '/':
-														op1=num_stack[--s1];
-														op2=num_stack[--s1];
-														num_stack[s1++]=op2/op1;
-														sign_stack[s2-1]=(i==nr_token?space:tokens[i]);
-														break;
-													case EQ:
-														op1=num_stack[--s1];
-														op2=num_stack[--s1];
-														num_stack[s1++]=op2==op1;
-														sign_stack[s2-1]=(i==nr_token?space:tokens[i]);
-														break;
-													case '(':
-														if(type==')') s2-=1;
-														else sign_stack[s2++]=(i==nr_token?space:tokens[i]);
-														break;
-													case NOTYPE:
-														if(type==NOTYPE) --s2;
-													default:break;
-											}
-									}else{
-											sign_stack[s2++]=(i==nr_token?space:tokens[i]);
-									}
-							}
-					}
+                    if(type=='*'){
+                            if(i==0) tokens[i].stage=2;
+                            else if(!(tokens[i-1].type==HEX_NUM||tokens[i-1].type==DEC_NUM||tokens[i-1].type==REG||tokens[i-1].type==')'))
+                            tokens[i].stage=2;
+                    }
+                    stype=sign_stack[s2-1].stage-stage;
+                    if(stype>0){
+                            sign_stack[s2++]=(i==nr_token?space:tokens[i]);
+                            if(i<nr_token)  i++;
+                    }
+                    while(stype<=0){
+                            switch(sign_stack[s2-1].type){
+                                    case '+':
+                                        op1=num_stack[--s1];
+                                        op2=num_stack[--s1];
+                                        num_stack[s1++]=op1+op2;
+                                        break;
+                                    case '-':
+                                        op1=num_stack[--s1];
+                                        op2=num_stack[--s1];
+                                        num_stack[s1++]=op2-op1;
+                                        break;
+                                    case '*':
+                                        /*if(sign_stack[s2-1].stage==2){
+                                                swaddr_read(num_stack[--s1],4);
+                                        }*/
+                                        if(sign_stack[s2-1].stage==4){
+                                                op1=num_stack[--s1];
+                                                op2=num_stack[--s1];
+                                                num_stack[s1++]=op2*op1;
+                                                break;
+                                        }
+                                    case '/':
+                                        op1=num_stack[--s1];
+                                        op2=num_stack[--s1];
+                                        num_stack[s1++]=op2/op1;
+                                        break;
+                                    case EQ:
+                                        op1=num_stack[--s1];
+                                        op2=num_stack[--s1];
+                                        num_stack[s1++]=(op2==op1);
+                                        break;
+                                    case '(':
+                                        if(type!=')') ++s2;
+                                        break;
+                                    default:break;
+                            }
+                            --s2;           //栈顶元素出栈
+                            if(s2==0) break;
+                            if(sign_stack[s2-1].type=='('&&type!=')') {
+                                    sign_stack[s2++]=(i==nr_token?space:tokens[i]);
+                                    if(i<nr_token)  i++;
+                                    break;
+                            }
+                            if(sign_stack[s2].type=='('&&type==')'){
+                                    if(i<nr_token)  i++;
+                                    break;
+                            }
+                            stype=sign_stack[s2-1].stage-stage;
+                    }
 			}else{
 					switch(type){
 						case DEC_NUM:
@@ -217,10 +217,10 @@ uint32_t expr(char *e, bool *success) {
 							break;
 						default:break;
 					}
+                    if(i<nr_token)  i++;
 			}
-			if(i<nr_token&&tokens[i].type!=')')  i++;
 	}
-		
+
 	return num_stack[--s1];
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
