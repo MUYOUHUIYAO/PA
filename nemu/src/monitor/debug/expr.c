@@ -240,6 +240,8 @@ uint32_t expr(char *e, bool *success) {
 									return 0;
 							}
 							num_stack[s1++]=op1;
+							printf("%d\n",op1);
+							break;
 						default:break;
 					}
                     if(i<nr_token)  i++;
