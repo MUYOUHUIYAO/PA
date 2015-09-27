@@ -222,6 +222,7 @@ uint32_t expr(char *e, bool *success) {
 							}else if(strcasecmp("$ebx",s)){
 									op1=cpu.ebx;
 							}else if(strcasecmp("$ecx",s)){
+									printf("ecx=%u",cpu.ecx);
 									op1=cpu.ecx;
 							}else if(strcasecmp("$edx",s)){
 									op1=cpu.edx;
