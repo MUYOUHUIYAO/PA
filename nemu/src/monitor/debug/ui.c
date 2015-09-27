@@ -169,6 +169,7 @@ static int cmd_w(char *args){
 	result=expr(args,&f);
 	if(f==false) return 0;
 	r=new_wp(args,result);
+	if(r==NULL) {printf("ERRER\n"); return 0;}
 	printf("%d\t%s\t%d\n",r->NO,r->expr,r->result);
 	return 0;
 }
