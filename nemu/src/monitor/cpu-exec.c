@@ -4,8 +4,6 @@
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
 
-static WP *head;
-
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the ``si'' command.
@@ -77,7 +75,7 @@ void cpu_exec(volatile uint32_t n) {
 #endif
 
 		/* TODO: check watchpoints here. */
-		WP *tail=head;
+		WP *tail=getHead();
 		uint32_t result;
 		bool f;
 		while(tail){

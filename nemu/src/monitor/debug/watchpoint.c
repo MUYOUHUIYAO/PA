@@ -79,3 +79,7 @@ void free_wp(int NUM){
 	}
 }
 
+WP* getHead(){
+	return head;
+}
+
