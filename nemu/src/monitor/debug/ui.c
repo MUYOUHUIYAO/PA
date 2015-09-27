@@ -165,9 +165,11 @@ static int cmd_w(char *args){
 	if(args==NULL) return 0;
 	uint32_t result;
 	bool f;
+	WP *r;
 	result=expr(args,&f);
 	if(f==false) return 0;
-	new_wp(args,result);
+	r=new_wp(args,result);
+	printf("%d\t%s\t%d\n",r->NO,r->expr,r->result);
 	return 0;
 }
 
