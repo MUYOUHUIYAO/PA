@@ -79,9 +79,9 @@ void cpu_exec(volatile uint32_t n) {
 		uint32_t result;
 		bool f;
 		while(tail){
-			result=expr(tail->expr,&f);printf("%d\n",result);
+			result=expr(tail->expr,&f);
 			if(f==false) return;
-			if(result!=tail->result){printf("hello\n");
+			if(result!=tail->result){
 				nemu_state=STOP;
 				return;
 			}

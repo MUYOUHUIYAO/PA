@@ -48,6 +48,8 @@ static int cmd_p(char *args);
 
 static int cmd_w(char *args);
 
+static int cmd_d(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -60,7 +62,8 @@ static struct {
 	{ "info","info r打印寄存器状态，info w打印监视点状态",cmd_info},
 	{"x","x N EXPR求出表达式EXPR的值，将结果作为起始内存地址，求十六进制输出的连续N个4字节",cmd_x},
 	{"p","求表达式EXPR的值",cmd_p},
-	{"w","w EXPR 当表达式值发生变化时终止程序运行",cmd_w}
+	{"w","w EXPR 当表达式值发生变化时终止程序运行",cmd_w},
+	{"d","d N 删除序号为N的监视点",cmd_d}
 	/* TODO: Add more commands */
 
 };
@@ -169,9 +172,18 @@ static int cmd_w(char *args){
 	result=expr(args,&f);
 	if(f==false) return 0;
 	r=new_wp(args,result);
-	if(r==NULL) {printf("ERRER\n"); return 0;}
-	printf("%d\t%s\t%d\n",r->NO,r->expr,r->result);
+	printf("成功创建序号为%d的监视点\n",r->NO);
 	return 0;
+}
+
+static int cmd_d(char *args){
+	if(args==NULL) return 0;
+	int n=atoi(args);
+	if(n<1||n>32) return 0;
+	free_wp(n);
+	printf("成功删除序号为%d的监视点\n",n);
+	return 0;
+	
 }
 
 void ui_mainloop() {
