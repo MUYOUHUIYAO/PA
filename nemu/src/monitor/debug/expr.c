@@ -122,7 +122,6 @@ static bool make_token(char *e) {
 }
 
 uint32_t expr(char *e, bool *success) {
-	//printf("hello");
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
@@ -217,13 +216,11 @@ uint32_t expr(char *e, bool *success) {
 							break;
 						case REG:
 							s=(i==nr_token?space.str:tokens[i].str);
-							printf("%s\t",s);
 							if(!strcasecmp("$eax",s)){
 									op1=cpu.eax;
 							}else if(!strcasecmp("$ebx",s)){
 									op1=cpu.ebx;
 							}else if(!strcasecmp("$ecx",s)){
-									printf("ecx=%u",cpu.ecx);
 									op1=cpu.ecx;
 							}else if(!strcasecmp("$edx",s)){
 									op1=cpu.edx;
@@ -242,7 +239,6 @@ uint32_t expr(char *e, bool *success) {
 									return 0;
 							}
 							num_stack[s1++]=op1;
-							printf("%d\n",op1);
 							break;
 						default:break;
 					}
