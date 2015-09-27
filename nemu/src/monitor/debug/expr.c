@@ -217,6 +217,7 @@ uint32_t expr(char *e, bool *success) {
 							break;
 						case REG:
 							s=(i==nr_token?space.str:tokens[i].str);
+							printf("%s\t",s);
 							if(!strcasecmp("$eax",s)){
 									op1=cpu.eax;
 							}else if(strcasecmp("$ebx",s)){
