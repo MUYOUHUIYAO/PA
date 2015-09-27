@@ -162,6 +162,12 @@ static int cmd_p(char *args){
 }
 
 static int cmd_w(char *args){
+	if(args==NULL) return 0;
+	uint32_t result;
+	bool f;
+	result=expr(args,&f);
+	if(f==false) return 0;
+	new_wp(args,result);
 	return 0;
 }
 

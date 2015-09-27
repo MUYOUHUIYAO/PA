@@ -20,7 +20,7 @@ void init_wp_list() {
 
 /* TODO: Implement the functionality of watchpoint */
 
-WP* new_wp(char *s){
+WP* new_wp(char *s,uint32_t result){
 	if(free_==NULL) {
 		printf("监视点以满\n");
 		return NULL;
@@ -32,11 +32,13 @@ WP* new_wp(char *s){
 			head->next=NULL;
 			head->NO=1;
 			strcpy(head->expr,s);
+			head->result=result;
 			return tail;
 	}
 	while(tail->next) tail=tail->next;
 	tail->next=free_;
 	free_->NO=tail->NO+1;
+	free_->result=result;
 	strcpy(free_->expr,s);
 	free_=free_->next;
 	tail->next->next=NULL;
