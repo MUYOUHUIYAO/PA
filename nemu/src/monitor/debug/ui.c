@@ -44,6 +44,8 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
+static int cmd_p(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -54,8 +56,8 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si","让程序单步执行N个指令后暂停，N缺省值为1",cmd_si},
 	{ "info","info r打印寄存器状态，info w打印监视点状态",cmd_info},
-	{"x","x N EXPR求出表达式EXPR的值，将结果作为起始内存地址，求十六进制输出的连续N个4字节",cmd_x}
-
+	{"x","x N EXPR求出表达式EXPR的值，将结果作为起始内存地址，求十六进制输出的连续N个4字节",cmd_x},
+	{"p","求表达式EXPR的值",cmd_p}
 	/* TODO: Add more commands */
 
 };
@@ -143,6 +145,16 @@ static int cmd_x(char *args){
 			_addr+=4;
 		}
 		printf("\n");
+		return 0;
+}
+
+static int cmd_p(char *args){
+		if(args==NULL) return 0;
+		uint32_t result;
+		bool f;
+		result=expr(args,&f);
+		if(f==false) return 0;
+		printf("0x%x",result);
 		return 0;
 }
 
