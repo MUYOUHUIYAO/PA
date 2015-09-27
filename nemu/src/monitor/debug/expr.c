@@ -220,22 +220,22 @@ uint32_t expr(char *e, bool *success) {
 							printf("%s\t",s);
 							if(!strcasecmp("$eax",s)){
 									op1=cpu.eax;
-							}else if(strcasecmp("$ebx",s)){
+							}else if(!strcasecmp("$ebx",s)){
 									op1=cpu.ebx;
-							}else if(strcasecmp("$ecx",s)){
+							}else if(!strcasecmp("$ecx",s)){
 									printf("ecx=%u",cpu.ecx);
 									op1=cpu.ecx;
-							}else if(strcasecmp("$edx",s)){
+							}else if(!strcasecmp("$edx",s)){
 									op1=cpu.edx;
-							}else if(strcasecmp("$esi",s)){
+							}else if(!strcasecmp("$esi",s)){
 									op1=cpu.esi;
-							}else if(strcasecmp("$edi",s)){
+							}else if(!strcasecmp("$edi",s)){
 									op1=cpu.edi;
-							}else if(strcasecmp("$ebp",s)){
+							}else if(!strcasecmp("$ebp",s)){
 									op1=cpu.ebp;
-							}else if(strcasecmp("$esp",s)){
+							}else if(!strcasecmp("$esp",s)){
 									op1=cpu.esp;
-							}else if(strcasecmp("$eip",s)){
+							}else if(!strcasecmp("$eip",s)){
 									op1=cpu.eip;
 							}else{
 									*success=false;
