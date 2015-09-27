@@ -26,7 +26,7 @@ WP* new_wp(char *s,uint32_t result){
 		return NULL;
 	}
 	WP *tail=head;
-	if(tail==NULL){
+	if(tail==NULL){printf("hello\n");
 			head=free_;
 			free_=free_->next;
 			head->next=NULL;
