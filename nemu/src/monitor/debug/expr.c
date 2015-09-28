@@ -129,7 +129,8 @@ uint32_t expr(char *e, bool *success) {
 
 	uint32_t num_stack[16];
 	Token  sign_stack[16];
-	Token space={NOTYPE," ",100};;
+	Token space={NOTYPE," ",100};
+	char regstr[8][4]={"a","c","d","b","sp","bp","si","di"};
 	int i,s1,s2;
 
 	sign_stack[0]=space;
@@ -216,7 +217,7 @@ uint32_t expr(char *e, bool *success) {
 							break;
 						case REG:
 							s=(i==nr_token?space.str:tokens[i].str);
-							if(!strcasecmp("$eax",s)){
+							/*if(!strcasecmp("$eax",s)){
 									op1=cpu.eax;
 							}else if(!strcasecmp("$ebx",s)){
 									op1=cpu.ebx;
@@ -237,6 +238,37 @@ uint32_t expr(char *e, bool *success) {
 							}else{
 									*success=false;
 									return 0;
+							}
+							num_stack[s1++]=op1;
+							break;*/
+							int index;
+							if(!strcasecmp("eip",s)) {
+								op1=cpu.eip;
+								break;
+							}
+							for(index=0;index<8;index++){
+								if(strcasestr(s,regstr[index]) ) break;
+							}
+							if(index==8){
+								*success=false;
+								return 0;
+							}
+							if(index<4){
+								if(strcasestr(s,"e")){
+									op1=reg_l(index);
+								}else if(strcasestr(s,"x")) op1=reg_w(index);
+								else if(strcasestr(s,"h")) op1=reg_b(index);
+								else if(strcasestr(s,"l")) op1=reg_b((index+4));
+								else{
+									*success=false;
+									return 0;
+								}
+							}else{
+								if(strcasestr(s,"e")){
+									op1=reg_l(index);
+								}else{
+									op1=reg_w(index);
+								}
 							}
 							num_stack[s1++]=op1;
 							break;

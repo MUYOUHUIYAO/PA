@@ -2,6 +2,7 @@
 #define __COMMON_H__
 
 #define USE_RAMDISK
+#define _GNU_SOURCE
 
 /* You will define this macro in PA4 */
 //#define HAS_DEVICE

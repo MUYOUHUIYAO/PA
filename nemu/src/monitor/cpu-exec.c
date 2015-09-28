@@ -83,6 +83,7 @@ void cpu_exec(volatile uint32_t n) {
 			if(f==false) return;
 			if(result!=tail->result){
 				nemu_state=STOP;
+				tail->result=result;
 				return;
 			}
 			tail=tail->next;
