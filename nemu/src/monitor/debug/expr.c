@@ -257,8 +257,8 @@ uint32_t expr(char *e, bool *success) {
 								if(strcasestr(s,"e")){
 									op1=reg_l(index);
 								}else if(strcasestr(s,"x")) op1=reg_w(index);
-								else if(strcasestr(s,"h")) op1=reg_b(index);
-								else if(strcasestr(s,"l")) op1=reg_b((index+4));
+								else if(strcasestr(s,"l")) op1=reg_b(index);
+								else if(strcasestr(s,"h")) op1=reg_b((index+4));
 								else{
 									*success=false;
 									return 0;
