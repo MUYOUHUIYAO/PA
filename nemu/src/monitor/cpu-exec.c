@@ -83,6 +83,9 @@ void cpu_exec(volatile uint32_t n) {
 			if(f==false) return;
 			if(result!=tail->result){
 				nemu_state=STOP;
+				printf("监视点%d:  %s\n",tail->NO,tail->expr);
+				printf("原值 result=%d\n",tail->result);
+				printf("新值 result=%d\n",result);
 				tail->result=result;
 				return;
 			}
