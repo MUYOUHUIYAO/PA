@@ -81,6 +81,8 @@ void free_wp(int NUM){
 	tail->next=ptr->next;			
 	ptr->next=free_;
 	free_=ptr;
+	tail=head;
+	head->NO=1;
 	while(tail->next){			//更新序号
 		tail->next->NO=tail->NO+1;
 		tail=tail->next;
