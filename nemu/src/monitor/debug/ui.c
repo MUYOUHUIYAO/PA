@@ -126,8 +126,12 @@ static int cmd_info(char *args){
 		printf("eip\t\t0x%X\t\t0x%X\n",cpu.eip,cpu.eip);
 	}else if(!strcmp("w",args)){
 		WP *tail=getHead();
+		if(tail==NULL){
+			printf("监视点列表为空\n");
+		}
 		while(tail){
 			printf("监视点%d: %s\tresult=%d\n",tail->NO,tail->expr,tail->result);
+			tail=tail->next;
 		}
 	}else{
 			return 0;
