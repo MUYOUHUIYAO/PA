@@ -124,8 +124,14 @@ static int cmd_info(char *args){
 		printf("esi\t\t0x%X\t\t%u\n",cpu.esi,cpu.esi);
 		printf("edi\t\t0x%X\t\t%u\n",cpu.edi,cpu.edi);
 		printf("eip\t\t0x%X\t\t0x%X\n",cpu.eip,cpu.eip);
+	}else if(!strcmp("w",args)){
+		WP *tail=getHead();
+		while(tail){
+			printf("监视点%d: %s\tresult=%d\n",tail->NO,tail->expr,tail->result);
+		}
+	}else{
+			return 0;
 	}
-
 	return 0;
 }
 
