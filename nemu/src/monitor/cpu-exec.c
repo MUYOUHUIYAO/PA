@@ -87,7 +87,6 @@ void cpu_exec(volatile uint32_t n) {
 				printf("原值 result=%d\n",tail->result);
 				printf("新值 result=%d\n",result);
 				tail->result=result;
-				return;
 			}
 			tail=tail->next;
 		}
