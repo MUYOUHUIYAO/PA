@@ -22,11 +22,11 @@ void init_wp_list() {
 
 WP* new_wp(char *s,uint32_t result){
 	if(free_==NULL) {
-		printf("监视点以满\n");
+		printf("监视点已满\n");
 		return NULL;
 	}
 	WP *tail=head;
-	if(tail==NULL){
+	if(tail==NULL){			//从free_链表头取节点
 			head=free_;
 			free_=free_->next;
 			head->next=NULL;
@@ -51,11 +51,17 @@ void free_wp(int NUM){
 		return;
 	}
 	WP *tail=head,*ptr=head->next;
-	if(tail->NO==NUM){
-		head->next=free_->next;
-		free_->next=head;
-		head=NULL;
-		return;
+	if(tail->NO==NUM){							//向free_链表头释放节点
+		if(tail->next==NULL){
+			head->next=free_;
+			free_=head;
+			head=NULL;
+			return;
+		}else{
+			head=head->next;
+			tail->next=free_;
+			free_=tail;
+		}
 	}
 	while(ptr&&ptr->NO!=NUM){
 		tail=ptr;
@@ -68,11 +74,12 @@ void free_wp(int NUM){
 	if(free_==NULL){				//free_链表为空
 		free_=ptr;
 		ptr->next=NULL;
+		tail->next=NULL;
 		return;
 	}
 	tail->next=ptr->next;			
-	ptr->next=free_->next;
-	free_->next=ptr;
+	ptr->next=free_;
+	free_=ptr;
 	while(tail->next){			//更新序号
 		tail->next->NO=tail->NO+1;
 		tail=tail->next;
