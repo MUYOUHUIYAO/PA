@@ -61,6 +61,7 @@ void free_wp(int NUM){
 			head=head->next;
 			tail->next=free_;
 			free_=tail;
+			return;
 		}
 	}
 	while(ptr&&ptr->NO!=NUM){
