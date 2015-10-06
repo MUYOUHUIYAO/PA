@@ -45,10 +45,10 @@ WP* new_wp(char *s,uint32_t result){
 	return tail->next;
 }
 
-void free_wp(int NUM){
+bool free_wp(int NUM){
 	if(head==NULL) {
 		printf("没有监视点\n");
-		return;
+		return false;
 	}
 	WP *tail=head,*ptr=head->next;
 	if(tail->NO==NUM){							//向free_链表头释放节点
@@ -56,7 +56,7 @@ void free_wp(int NUM){
 			head->next=free_;
 			free_=head;
 			head=NULL;
-			return;
+			return true;
 		}else{
 			head=head->next;
 			tail->next=free_;
@@ -67,7 +67,7 @@ void free_wp(int NUM){
 				tail->next->NO=tail->NO+1;
 				tail=tail->next;
 			}
-			return;
+			return true;
 		}
 	}
 	while(ptr&&ptr->NO!=NUM){
@@ -76,13 +76,13 @@ void free_wp(int NUM){
 	}
 	if(ptr==NULL){					//序号超出
 		printf("无此监视点\n");
-		return;
+		return false;
 	}
 	if(free_==NULL){				//free_链表为空
 		free_=ptr;
 		ptr->next=NULL;
 		tail->next=NULL;
-		return;
+		return true;
 	}
 	tail->next=ptr->next;			
 	ptr->next=free_;
@@ -91,6 +91,7 @@ void free_wp(int NUM){
 		tail->next->NO=tail->NO+1;
 		tail=tail->next;
 	}
+	return true;
 }
 
 WP* getHead(){

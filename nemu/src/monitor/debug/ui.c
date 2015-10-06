@@ -182,7 +182,7 @@ static int cmd_w(char *args){
 	result=expr(args,&f);
 	if(f==false) return 0;
 	r=new_wp(args,result);
-	printf("成功创建序号为%d的监视点\n",r->NO);
+	if(r) printf("成功创建序号为%d的监视点\n",r->NO);
 	return 0;
 }
 
@@ -190,8 +190,8 @@ static int cmd_d(char *args){
 	if(args==NULL) return 0;
 	int n=atoi(args);
 	if(n<1||n>32) return 0;
-	free_wp(n);
-	printf("成功删除序号为%d的监视点\n",n);
+	if(free_wp(n))
+		printf("成功删除序号为%d的监视点\n",n);
 	return 0;
 	
 }

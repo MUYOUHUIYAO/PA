@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ,DEC_NUM,HEX_NUM,BIN_NUM,REG
+	NOTYPE = 256, EQ,CITE,DEC_NUM,HEX_NUM,REG
 
 	/* TODO: Add more token types */
 
@@ -37,6 +37,7 @@ static struct rule {
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
 
+#define op_num 9
 static regex_t re[NR_REGEX];
 
 /* Rules are used for many times.
@@ -59,11 +60,48 @@ void init_regex() {
 typedef struct token {
 	int type;
 	char str[32];
-	int stage;
 } Token;
 
 Token tokens[32];
 int nr_token;
+
+	/*upper数组按NOTYPE,  ‘+’, '-', '/', '*', EQ, '(', ')', '*'(引用)  顺序存放其优先级
+	 * -1表示对应位置元素优先级低，0表示相同，1表示优先级高
+	 */
+int stage_table[][op_num]={
+			{0,-1,-1,-1,-1,-1,-1,-1,-1},		//NOTYPE
+			{1,1,1,-1,-1,1,-1,1,-1},				//'+'
+			{1,1,1,-1,-1,1,-1,1,-1},				//'-'
+			{1,1,1,1,1,1,-1,1,-1},					//'/'
+			{1,1,1,1,1,1,-1,1,-1},					//'*'(乘)
+			{1,-1,-1,-1,-1,1,-1,1,-1},				//EQ
+			{1,-1,-1,-1,-1,-1,-1,0,-1},				//'('
+			{1,1,1,1,1,1,65535,1,1},				//')'
+			{1,1,1,1,1,1,-1,1,-1}					//'*'(引用)
+	};
+	
+int getIndex(int e,int i){
+	int k=0;
+	switch(e){
+		case NOTYPE:k=0;break;
+		case '+':k=1;break;
+		case '-':k=2;break;
+		case '/':k=3;break;
+		case '*':
+			k=4;
+			if(i==0||!(tokens[i-1].type==HEX_NUM||tokens[i-1].type==DEC_NUM||tokens[i-1].type==REG||tokens[i-1].type==')')) {
+				k=8;
+				tokens[i].type=CITE;
+			}
+			break;
+		case EQ:k=5;break;
+		case '(':k=6;break;
+		case ')':k=7;break;
+		case CITE:k=8;break;
+		default: break;
+	}
+	return k;
+}
 
 static bool make_token(char *e) {
 	int position = 0;
@@ -89,21 +127,8 @@ static bool make_token(char *e) {
 				if(rules[i].token_type!=NOTYPE){
 					tokens[nr_token].type=rules[i].token_type;
 					strncpy(tokens[nr_token].str,substr_start,substr_len);
+					nr_token++;
 				}
-				switch(rules[i].token_type) {
-					//case NOTYPE: break;
-					case '+': 
-					case  '-' :tokens[nr_token].stage=5;break;
-					case  '/' :
-					case  '*':tokens[nr_token].stage=4;break;
-					case  EQ:tokens[nr_token].stage=7;break;
-					case  '(': tokens[nr_token].stage=1;break;
-					case  ')':tokens[nr_token].stage=10;break;
-					case  DEC_NUM:case  HEX_NUM:case REG:
-							tokens[nr_token].stage=0;break;
-					default: panic("please implement me");
-				}
-				if(rules[i].token_type!=NOTYPE) nr_token++;
 				break;
 			}
 		}
@@ -129,7 +154,7 @@ uint32_t expr(char *e, bool *success) {
 
 	uint32_t num_stack[16];
 	Token  sign_stack[16];
-	Token space={NOTYPE," ",100};
+	Token space={NOTYPE," "};
 	char regstr[8][4]={"a","c","d","b","sp","bp","si","di"};
 	int i,s1,s2;
 
@@ -137,72 +162,58 @@ uint32_t expr(char *e, bool *success) {
 	s1=0;s2=1;i=0;
 
 	while(s2){
-			int type=(i==nr_token?space.type:tokens[i].type);
-			int stage=(i==nr_token?space.stage:tokens[i].stage);
-			int stype;
+			int type=(i==nr_token?space.type:tokens[i].type);		//待入栈元素类型
+			int top_type=sign_stack[s2].type;									//符号栈顶元素类型
 			int op1,op2;
 			char *s;
+			int upper,index,t_index;
 			if(!(type==HEX_NUM||type==DEC_NUM||type==REG)){
-                    if(type=='*'){
-                            if(i==0) tokens[i].stage=2;
-                            else if(!(tokens[i-1].type==HEX_NUM||tokens[i-1].type==DEC_NUM||tokens[i-1].type==REG||tokens[i-1].type==')'))
-                            tokens[i].stage=2;
-                    }
-                    stype=sign_stack[s2-1].stage-stage;
-                    if(stype>0){
-                            sign_stack[s2++]=(i==nr_token?space:tokens[i]);
-                            if(i<nr_token)  i++;
-                    }
-                    while(stype<=0){
-                            switch(sign_stack[s2-1].type){
-                                    case '+':
-                                        op1=num_stack[--s1];
-                                        op2=num_stack[--s1];
-                                        num_stack[s1++]=op1+op2;
-                                        break;
-                                    case '-':
-                                        op1=num_stack[--s1];
-                                        op2=num_stack[--s1];
-                                        num_stack[s1++]=op2-op1;
-                                        break;
-                                    case '*':
-                                        /*if(sign_stack[s2-1].stage==2){
-                                                swaddr_read(num_stack[--s1],4);
-                                        }*/
-                                        if(sign_stack[s2-1].stage==4){
-                                                op1=num_stack[--s1];
-                                                op2=num_stack[--s1];
-                                                num_stack[s1++]=op2*op1;
-                                                break;
-                                        }
-                                    case '/':
-                                        op1=num_stack[--s1];
-                                        op2=num_stack[--s1];
-                                        num_stack[s1++]=op2/op1;
-                                        break;
-                                    case EQ:
-                                        op1=num_stack[--s1];
-                                        op2=num_stack[--s1];
-                                        num_stack[s1++]=(op2==op1);
-                                        break;
-                                    case '(':
-                                        if(type!=')') ++s2;
-                                        break;
-                                    default:break;
-                            }
-                            --s2;           //栈顶元素出栈
-                            if(s2==0) break;
-                            if(sign_stack[s2-1].type=='('&&type!=')') {
-                                    sign_stack[s2++]=(i==nr_token?space:tokens[i]);
-                                    if(i<nr_token)  i++;
-                                    break;
-                            }
-                            if(sign_stack[s2].type=='('&&type==')'){
-                                    if(i<nr_token)  i++;
-                                    break;
-                            }
-                            stype=sign_stack[s2-1].stage-stage;
-                    }
+				index=getIndex(type,i);
+				t_index=getIndex(top_type,i);
+				upper=stage_table[t_index][index];
+				switch(upper){
+					case -1:		//栈顶元素优先级低
+						sign_stack[s2++]=(i==nr_token?space:tokens[i]);
+						if(i<nr_token) i++;
+						break;
+					case 0: 		//优先级相同
+						s2--;
+						if(i<nr_token) i++;
+						break;
+					case 1: 		//栈顶元素优先级高
+						switch(sign_stack[s2-1].type){
+							case '+':
+								op1=num_stack[--s1];
+								op2=num_stack[--s1];
+								num_stack[s1++]=op1+op2;
+								break;
+							case '-':
+								op1=num_stack[--s1];
+								op2=num_stack[--s1];
+								num_stack[s1++]=op2-op1;
+								break;
+							case '*':
+								op1=num_stack[--s1];
+								op2=num_stack[--s1];
+								num_stack[s1++]=op2*op1;
+								break;
+							case '/':
+								op1=num_stack[--s1];
+								op2=num_stack[--s1];
+								num_stack[s1++]=op2/op1;
+								break;
+							case EQ:
+								op1=num_stack[--s1];
+								op2=num_stack[--s1];
+								num_stack[s1++]=(op2==op1);
+								break;
+							case CITE:
+								op1=num_stack[--s1];
+								num_stack[s1++]=swaddr_read(op1,4);
+								break;
+							default:break;
+					}
+				}
 			}else{
 					switch(type){
 						case DEC_NUM:
