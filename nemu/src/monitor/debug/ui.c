@@ -74,10 +74,6 @@ static int cmd_help(char *args) {
 	/* extract the first argument */
 	char *arg = strtok(NULL, " ");
 	int i;
-	
-	char e[100]="10*0x132-120/(12-2)+*$edx";
-	bool b;
-	expr(e,&b);
 
 	if(arg == NULL) {
 		/* no argument given */
