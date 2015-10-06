@@ -169,7 +169,7 @@ uint32_t expr(char *e, bool *success) {
 			int upper,index,t_index;
 			if(!(type==HEX_NUM||type==DEC_NUM||type==REG)){
 				index=getIndex(type,i);
-				t_index=getIndex(top_type,i);
+				t_index=getIndex(top_type,0);
 				upper=stage_table[t_index][index];
 				switch(upper){
 					case -1:		//栈顶元素优先级低
