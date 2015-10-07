@@ -171,6 +171,7 @@ uint32_t expr(char *e, bool *success) {
 				index=getIndex(type,i);
 				t_index=getIndex(top_type,0);
 				upper=stage_table[t_index][index];
+				printf("index=%d,t_index=%d,upper=%d\n",index,t_index,upper);
 				switch(upper){
 					case -1:		//栈顶元素优先级低
 						sign_stack[s2++]=(i==nr_token?space:tokens[i]);
