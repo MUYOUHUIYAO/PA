@@ -172,6 +172,15 @@ uint32_t expr(char *e, bool *success) {
 				t_index=getIndex(top_type,0);
 				upper=stage_table[t_index][index];
 				printf("index=%d,t_index=%d,upper=%d\n",index,t_index,upper);
+				int r;
+					for(r=0;r<s1;r++){
+						printf("%d\t",num_stack[r]);
+					}
+					putchar('\n');
+					for(r=0;r<s1;r++){
+						printf("%d\t%s\n",sign_stack[r].type,sign_stack[r].str);
+					}
+						printf("-----------------------------------\n");
 				switch(upper){
 					case -1:		//栈顶元素优先级低
 						sign_stack[s2++]=(i==nr_token?space:tokens[i]);
@@ -215,15 +224,15 @@ uint32_t expr(char *e, bool *success) {
 							default:break;
 					}
 					--s2;
-					int r;
-					for(r=0;r<s1;r++){
-						printf("%d\t",num_stack[r]);
-					}
-					putchar('\n');
-					for(r=0;r<s1;r++){
-						printf("%d\t%s\n",sign_stack[r].type,sign_stack[r].str);
-					}
-						printf("-----------------------------------\n");
+					//int r;
+					//for(r=0;r<s1;r++){
+						//printf("%d\t",num_stack[r]);
+					//}
+					//putchar('\n');
+					//for(r=0;r<s1;r++){
+						//printf("%d\t%s\n",sign_stack[r].type,sign_stack[r].str);
+					//}
+						//printf("-----------------------------------\n");
 				}
 			}else{
 					switch(type){
