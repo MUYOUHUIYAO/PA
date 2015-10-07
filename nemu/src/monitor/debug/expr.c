@@ -163,7 +163,7 @@ uint32_t expr(char *e, bool *success) {
 
 	while(s2){
 			int type=(i==nr_token?space.type:tokens[i].type);		//待入栈元素类型
-			int top_type=sign_stack[s2].type;									//符号栈顶元素类型
+			int top_type=sign_stack[s2-1].type;									//符号栈顶元素类型
 			uint32_t op1,op2;
 			char *s;
 			int upper,index,t_index;
