@@ -142,6 +142,7 @@ static bool make_token(char *e) {
 	for(k=0;k<nr_token;k++){
 		printf("%d\t%s\n",tokens[k].type,tokens[k].str);
 	}
+	printf("-----------------------------------\n");
 	return true; 
 }
 
@@ -221,7 +222,7 @@ uint32_t expr(char *e, bool *success) {
 					for(r=0;r<s1;r++){
 						printf("%d\t%s\n",sign_stack[r].type,sign_stack[r].str);
 					}
-					putchar('\n');
+						printf("-----------------------------------\n");
 				}
 			}else{
 					switch(type){
