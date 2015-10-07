@@ -106,6 +106,10 @@ int getIndex(int e,int i){
 		case '(':k=6;break;
 		case ')':k=7;break;
 		case CITE:k=8;break;
+		case NEQ:k=9;break;
+		case AND:k=10;break;
+		case OR:k=11;break;
+		case NO:k=12;break;
 		default: break;
 	}
 	return k;
@@ -317,8 +321,13 @@ uint32_t expr(char *e, bool *success) {
 			}
 	}
 
-	*success=true;
-	return num_stack[--s1];
+	if(s1==1) {
+		*success=true;
+		return num_stack[--s1];
+	}else{
+		*success=false;
+		return 0;
+	}
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//return 0;
