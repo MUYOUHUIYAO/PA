@@ -137,10 +137,10 @@ static bool make_token(char *e) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
-		/*int k;
+		int k;
 		for(k=0;k<nr_token;k++){
 			printf("%d\t%s\n",tokens[k].type,tokens[k].str);
-		}*/
+		}
 	}
 
 	return true; 
