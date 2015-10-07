@@ -137,10 +137,10 @@ static bool make_token(char *e) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
-		/*int k;
+		int k;
 		for(k=0;k<nr_token;k++){
 			printf("%d\t%s\n",tokens[k].type,tokens[k].str);
-		}*/
+		}
 	}
 
 	return true; 
@@ -164,7 +164,7 @@ uint32_t expr(char *e, bool *success) {
 	while(s2){
 			int type=(i==nr_token?space.type:tokens[i].type);		//待入栈元素类型
 			int top_type=sign_stack[s2].type;									//符号栈顶元素类型
-			int op1,op2;
+			uint32_t op1,op2;
 			char *s;
 			int upper,index,t_index;
 			if(!(type==HEX_NUM||type==DEC_NUM||type==REG)){
