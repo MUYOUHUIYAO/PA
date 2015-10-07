@@ -298,19 +298,19 @@ uint32_t expr(char *e, bool *success) {
 							}
 							if(index<4){
 								if(strcasestr(s,"e")){
-									op1=reg_l(index);
-								}else if(strcasestr(s,"x")) op1=reg_w(index);
-								else if(strcasestr(s,"l")) op1=reg_b(index);
-								else if(strcasestr(s,"h")) op1=reg_b((index+4));
+									op1=reg_l(index)&0xffffffff;
+								}else if(strcasestr(s,"x")) op1=reg_w(index)&0xffff;
+								else if(strcasestr(s,"l")) op1=reg_b(index)&0xff;
+								else if(strcasestr(s,"h")) op1=reg_b((index+4))&0xff;
 								else{
 									*success=false;
 									return 0;
 								}
 							}else{
 								if(strcasestr(s,"e")){
-									op1=reg_l(index);
+									op1=reg_l(index)&0xffffffff;
 								}else{
-									op1=reg_w(index);
+									op1=reg_w(index)&0xffff;
 								}
 							}
 							num_stack[s1++]=op1;

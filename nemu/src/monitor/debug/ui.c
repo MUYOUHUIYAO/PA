@@ -166,7 +166,7 @@ static int cmd_p(char *args){
 		bool f;
 		result=expr(args,&f);
 		if(f==false) return 0;
-		printf("%d\t0x%x\n",result,result);
+		printf("0x%x\n",result);
 		return 0;
 }
 
