@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ,CITE,DEC_NUM,HEX_NUM,REG
+	NOTYPE = 256, EQ,NEQ,AND,OR,NO,CITE,DEC_NUM,HEX_NUM,REG
 
 	/* TODO: Add more token types */
 
@@ -28,6 +28,10 @@ static struct rule {
 	{"/",'/'},						//divide
 	{"\\*",'*'},			
 	{"==",EQ},				//equal
+	{"!=",NEQ},			//non-equal
+	{"\\&{2}",AND},
+	{"\\|{2}",OR},
+	{"!",NO},
 	{"\\(",'('},
 	{")",')'},
 	{"0x[0-9a-fA-F]+",HEX_NUM},			//十六进制整数
@@ -37,7 +41,7 @@ static struct rule {
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
 
-#define op_num 9
+#define op_num (NR_REGEX-2)
 static regex_t re[NR_REGEX];
 
 /* Rules are used for many times.
@@ -69,15 +73,19 @@ int nr_token;
 	 * -1表示对应位置元素优先级低，0表示相同，1表示优先级高
 	 */
 int stage_table[][op_num]={
-			{0,-1,-1,-1,-1,-1,-1,-1,-1},		//NOTYPE
-			{1,1,1,-1,-1,1,-1,1,-1},				//'+'
-			{1,1,1,-1,-1,1,-1,1,-1},				//'-'
-			{1,1,1,1,1,1,-1,1,-1},					//'/'
-			{1,1,1,1,1,1,-1,1,-1},					//'*'(乘)
-			{1,-1,-1,-1,-1,1,-1,1,-1},				//EQ
-			{1,-1,-1,-1,-1,-1,-1,0,-1},				//'('
-			{1,1,1,1,1,1,65535,1,1},				//')'
-			{1,1,1,1,1,1,-1,1,-1}					//'*'(引用)
+			{0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},		//NOTYPE
+			{1, 1, 1,-1,-1,1,-1,1,-1,1,1,1,-1},				//'+'
+			{1,1,1,-1,-1,1,-1,1,-1,1,1,1,-1},				//'-'
+			{1,1,1,1,1,1,-1,1,-1,1,1,1,-1},					//'/'
+			{1,1,1,1,1,1,-1,1,-1,1,1,1,-1},					//'*'(乘)
+			{1,-1,-1,-1,-1,1,-1,1,-1,1,1,1,-1},				//EQ
+			{1,-1,-1,-1,-1,-1,-1,0,-1, -1,-1,-1,-1},				//'('
+			{1,1,1,1,1,1,65535,1,1,1,1,1,1},				//')'
+			{1,1,1,1,1,1,-1,1,-1,1,1,1,-1},					//'*'(引用)
+			{1,-1,-1,-1,-1,1,-1,1,-1,1,1,1,-1},					//NEQ
+			{1,-1,-1,-1,-1,-1,-1,1,-1,-1,1,1,-1},			//AND
+			{1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,1,-1},				 //OR
+			{1,1,1,1,1,1,-1,1,-1,1,1,1,-1}						//NO
 	};
 	
 int getIndex(int e,int i){
@@ -138,11 +146,11 @@ static bool make_token(char *e) {
 			return false;
 		}
 	}
-	int k;
-	for(k=0;k<nr_token;k++){
-		printf("%d\t%s\n",tokens[k].type,tokens[k].str);
-	}
-	printf("-----------------------------------\n");
+	//~ int k;
+	//~ for(k=0;k<nr_token;k++){
+		//~ printf("%d\t%s\n",tokens[k].type,tokens[k].str);
+	//~ }
+	//~ printf("-----------------------------------\n");
 	return true; 
 }
 
@@ -210,6 +218,25 @@ uint32_t expr(char *e, bool *success) {
 							case CITE:
 								op1=num_stack[--s1];
 								num_stack[s1++]=swaddr_read(op1,4);
+								break;
+							case NEQ:
+								op1=num_stack[--s1];
+								op2=num_stack[--s1];
+								num_stack[s1++]=(op2!=op1);
+								break;
+							case AND:
+								op1=num_stack[--s1];
+								op2=num_stack[--s1];
+								num_stack[s1++]=(op2&&op1);
+								break;
+							case OR:
+								op1=num_stack[--s1];
+								op2=num_stack[--s1];
+								num_stack[s1++]=(op2||op1);
+								break;
+							case NO:
+								op1=num_stack[--s1];
+								num_stack[s1++]=!op1;
 								break;
 							default:break;
 					}
