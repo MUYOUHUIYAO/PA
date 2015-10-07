@@ -117,7 +117,7 @@ static bool make_token(char *e) {
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
-				Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
+				//Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
 				/* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -213,6 +213,15 @@ uint32_t expr(char *e, bool *success) {
 							default:break;
 					}
 					--s2;
+					int r;
+					for(r=0;r<s1;r++){
+						printf("%d\t",num_stack[r]);
+					}
+					putchar('\n');
+					for(r=0;r<s1;r++){
+						printf("%d\t%s\n",sign_stack[r].type,sign_stack[r].str);
+					}
+					putchar('\n');
 				}
 			}else{
 					switch(type){
