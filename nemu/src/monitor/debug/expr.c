@@ -297,6 +297,7 @@ uint32_t expr(char *e, bool *success) {
 		*success=true;
 		return num_stack[--s1];
 	}else{
+		printf("表达式格式错误");
 		*success=false;
 		return 0;
 	}
