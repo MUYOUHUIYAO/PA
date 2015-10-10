@@ -335,7 +335,7 @@ uint32_t expr(char *e, bool *success) {
 						case REG:
 							s=(i==nr_token?space.str:tokens[i].str);
 							int index;
-							if(strcasestr("eip",s)) {
+							if(strcasestr(s,"eip")) {
 								op1=cpu.eip&0xffffffff;
 								num_stack[s1++]=op1;
 								break;
