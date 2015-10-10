@@ -105,13 +105,7 @@ int getIndex(int e,int i){
 		case '+':k=1;break;
 		case '-':k=2;break;
 		case '/':k=3;break;
-		case '*':
-			k=4;
-			if(i==0||!(tokens[i-1].type==HEX_NUM||tokens[i-1].type==DEC_NUM||tokens[i-1].type==REG||tokens[i-1].type==')')) {
-				k=8;
-				tokens[i].type=CITE;
-			}
-			break;
+		case '*':k=4;break;
 		case EQ:k=5;break;
 		case '(':k=6;break;
 		case ')':k=7;break;
