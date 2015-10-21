@@ -37,8 +37,6 @@ typedef struct {
 
 extern CPU_state cpu;
 
-//cpu.EFLAGS = 0x00000002;
-
 #define CF (cpu.EFLAGS & 0x00000001)
 #define PF (cpu.EFLAGS & 0x00000004)
 #define ZF (cpu.EFLAGS & 0x00000040)
