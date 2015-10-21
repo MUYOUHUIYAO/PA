@@ -120,6 +120,7 @@ static int cmd_info(char *args){
 		printf("esi\t\t0x%X\t\t%u\n",cpu.esi,cpu.esi);
 		printf("edi\t\t0x%X\t\t%u\n",cpu.edi,cpu.edi);
 		printf("eip\t\t0x%X\t\t0x%X\n",cpu.eip,cpu.eip);
+		printf("EFLAGS\t\t0x%x",cpu.EFLAGS);
 	}else if(!strcmp("w",args)){
 		WP *tail=getHead();
 		if(tail==NULL){
