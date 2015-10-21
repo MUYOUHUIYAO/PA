@@ -31,9 +31,21 @@ typedef struct {
 
 	swaddr_t eip;
 
+	uint32_t EFLAGS;	//32位标志寄存器
+
 } CPU_state;
 
 extern CPU_state cpu;
+
+//cpu.EFLAGS = 0x00000002;
+
+#define CF (cpu.EFLAGS & 0x00000001)
+#define PF (cpu.EFLAGS & 0x00000004)
+#define ZF (cpu.EFLAGS & 0x00000040)
+#define SF (cpu.EFLAGS & 0x00000080)
+#define IF  (cpu.EFLAGS & 0x00000200)
+#define DF (cpu.EFLAGS & 0x00000400)
+#define OF (cpu.EFLAGS & 0x00000800)
 
 static inline int check_reg_index(int index) {
 	assert(index >= 0 && index < 8);
