@@ -17,6 +17,8 @@ static void do_execute(){
 		^ (! (lowByte & 0x20) )^(! (lowByte & 0x40) )^ (! (lowByte & 0x80) )){
 		set_EFLAGS(E_PF);
 	}else unset_EFLAGS(E_PF);
+	
+	print_asm_template2();
 }
 
 make_instr_helper(i2rm)
