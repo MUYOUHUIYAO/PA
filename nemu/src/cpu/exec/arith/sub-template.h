@@ -1,4 +1,4 @@
-#include "template-start.h"
+#include "cpu/exec/template-start.h"
 
 #define instr sub
 
@@ -13,12 +13,12 @@ static void do_execute(){
 	else unset_EFLAGS(E_CF);
 
 	uint8_t lowByte = result & 0xff;
-	if((! lowByte & 0x01) ^ (! lowByte & 0x02) ^ (! lowByte & 0x04) ^ (! lowByte & 0x10) 
-		^ (!lowByte & 0x20) ^(!lowByte & 0x40) ^ (! lowByte & 0x80)){
+	if((! (lowByte & 0x01)) ^ (! (lowByte & 0x02) )^ (! (lowByte & 0x04)) ^ (! (lowByte & 0x10)) 
+		^ (! (lowByte & 0x20) )^(! (lowByte & 0x40) )^ (! (lowByte & 0x80) )){
 		set_EFLAGS(E_PF);
 	}else unset_EFLAGS(E_PF);
 }
 
-make_instr_help(i2rm)
+make_instr_helper(i2rm)
 
-#include "template-end.h"
+#include "cpu/exec/template-end.h"
