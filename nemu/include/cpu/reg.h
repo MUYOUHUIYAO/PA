@@ -37,7 +37,7 @@ typedef struct {
 
 extern CPU_state cpu;
 
-enum   {E_CF, E_PF, E_ZF, E_SF, E_IF, E_DF, E_OF };
+enum   {E_CF, E_PF, E_ZF, E_SF, E_IF, E_DF, E_OF, E_AF };
 extern const uint32_t set_EFLAGS_num[];
 extern const uint32_t unset_EFLAGS_num[];
 
@@ -48,9 +48,10 @@ extern const uint32_t unset_EFLAGS_num[];
 #define IF  ((cpu.EFLAGS & 0x00000200)>>9)
 #define DF ((cpu.EFLAGS & 0x00000400)>>10)
 #define OF ((cpu.EFLAGS & 0x00000800)>>11)
+#define AF ((cpu.EFLAGS & 0x00000010)>>4)
 
 static inline int check_EFLAGS_index(int index){
-	assert(index >=0 && index < 7);
+	assert(index >=0 && index < 8);
 	return index;
 }
 
