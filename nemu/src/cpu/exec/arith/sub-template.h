@@ -31,6 +31,7 @@ static void do_execute(){
 	if(result + op_src->val != op_dest->val) set_EFLAGS(E_OF);
 	else unset_EFLAGS(E_OF);
 	
+	panic("please implement me");
 	print_asm_template2();
 }
 
