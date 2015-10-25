@@ -7,7 +7,7 @@ static void do_execute(){
 	OPERAND_W(op_dest,result);
 	
 	/* update EFLAGS  */
-	panic("please implement me");
+	//panic("please implement me");
 	if(result == 0) set_EFLAGS(E_ZF);
 	else unset_EFLAGS(E_ZF);
 
