@@ -32,7 +32,6 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	 *
 	op_src->simm = ???
 	 */
-	printf("%d\n", DATA_BYTE );
 	panic("please implement me");
 
 	op_src->val = op_src->simm;
