@@ -20,9 +20,9 @@ static void do_execute(){
 		set_EFLAGS(E_PF);
 	}else unset_EFLAGS(E_PF);
 
-	///if(DATA_BYTE == 1) {
+	if(DATA_BYTE == 1) {
 		if( (op_dest->val & 0x0f) < (op_src -> val & 0x0f)) set_EFLAGS(E_AF);
-	//}else unset_EFLAGS(E_AF);
+	}else unset_EFLAGS(E_AF);
 
 	if(DATA_BYTE == 1 && (result & 0x80) ) set_EFLAGS(E_SF);
 	else if(DATA_BYTE == 2 && (result & 0x8000)) set_EFLAGS(E_SF);
