@@ -4,12 +4,12 @@
 
 static void do_execute (){
 	if(2 == DATA_BYTE){
-		cpu.esp -= 2;
+		cpu.esp =cpu.esp - 2;
 		//MEM_W(cpu.esp, (uint16_t)(cpu.eip& 0x0000ffff));
 
 		cpu.eip = (cpu.eip + op_src->val)&0x0000ffff;
 	}
-	if(4 == DATA_BYTE){
+	else if(4 == DATA_BYTE){
 		cpu.esp = cpu.esp-4;
 
 		//MEM_W(cpu.esp,  cpu.eip);
