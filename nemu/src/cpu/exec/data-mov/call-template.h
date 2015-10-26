@@ -1,7 +1,6 @@
 #include "cpu/exec/template-start.h"
 #define instr call
 
-//#include "push-template.h"
 
 static void do_execute (){
 	if(4 == DATA_BYTE){
