@@ -11,7 +11,7 @@ static void do_execute (){
 		cpu.esp = cpu.esp-4;
 		//实现段寄存器
 	}
-	print_asm_template2();
+	print_asm_template1();
 }
 
 make_instr_helper(i)

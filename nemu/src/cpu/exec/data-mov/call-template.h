@@ -9,7 +9,7 @@ static void do_execute (){
 		cpu.ebp = cpu.eip;
 		cpu.eip = cpu.eip+ op_src->val;
 	}
-	print_asm_template2();
+	print_asm_template1();
 }
 
 make_instr_helper(i)
