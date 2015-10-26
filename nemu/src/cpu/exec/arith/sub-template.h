@@ -8,7 +8,7 @@ static void do_execute(){
 	
 	/* update EFLAGS  */
 	//panic("please implement me");
-	/*if(result == 0) set_EFLAGS(E_ZF);
+	if(result == 0) set_EFLAGS(E_ZF);
 	else unset_EFLAGS(E_ZF);
 
 	if((DATA_TYPE)(op_dest->val) < (DATA_TYPE)(op_src -> val)) set_EFLAGS(E_CF);
@@ -30,7 +30,7 @@ static void do_execute(){
 	else unset_EFLAGS(E_SF);
 
 	if(result + op_src->val != op_dest->val) set_EFLAGS(E_OF);
-	else unset_EFLAGS(E_OF);*/
+	else unset_EFLAGS(E_OF);
 
 	print_asm_template2();
 }
