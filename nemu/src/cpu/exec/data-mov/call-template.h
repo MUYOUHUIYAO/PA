@@ -5,7 +5,8 @@
 static void do_execute (){
 	if(4 == DATA_BYTE){
 		cpu.esp = cpu.esp-4;
-		//MEM_W(cpu.esp,  cpu.eip);
+		printf("%x\n",cpu.esp );
+		MEM_W(cpu.esp,  cpu.eip);
 		cpu.eip = cpu.eip+ op_src->val;
 	}
 
