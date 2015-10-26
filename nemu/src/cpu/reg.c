@@ -43,6 +43,5 @@ void reg_test() {
 	assert(sample[R_EDI] == cpu.edi);
 
 	assert(eip_sample == cpu.eip);
-	cpu.EFLAGS = 0x00000002;		//为EFLAGS赋初值
 }
 
