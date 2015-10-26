@@ -15,7 +15,7 @@ static void do_execute(){
 	else unset_EFLAGS(E_CF);
 
 	uint8_t lowByte = result & 0xff;
-	if((! (lowByte & 0x01)) ^ (! (lowByte & 0x02) )^ (! (lowByte & 0x04)) ^ (! (lowByte & 0x10)) 
+	if((! (lowByte & 0x01)) ^ (! (lowByte & 0x02) )^ (! (lowByte & 0x04)) ^ (! (lowByte & 0x08) ) ^ (! (lowByte & 0x10)) 
 		^ (! (lowByte & 0x20) )^(! (lowByte & 0x40) )^ (! (lowByte & 0x80) )){
 		set_EFLAGS(E_PF);
 	}else unset_EFLAGS(E_PF);
