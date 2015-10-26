@@ -4,6 +4,7 @@
 
 static void do_execute(){
 	DATA_TYPE result = op_dest->val - op_src->val;
+	printf("%s\t%d",op_src->str, op_src->size);
 	OPERAND_W(op_dest,result);
 	
 	/* update EFLAGS  */
