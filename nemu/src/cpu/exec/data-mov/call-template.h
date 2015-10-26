@@ -4,8 +4,8 @@
 
 static void do_execute (){
 	if(2 == DATA_BYTE){
-		reg_w(R_SP) -= 2;
-		MEM_W(reg_w(R_SP), (uint16_t)(cpu.eip& 0x0000ffff));
+		cpu.esp -= 2;
+		MEM_W(cpu.esp, (uint16_t)(cpu.eip& 0x0000ffff));
 
 		cpu.eip = (cpu.eip + op_src->val)&0x0000ffff;
 	}
