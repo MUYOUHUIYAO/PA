@@ -4,7 +4,6 @@
 
 static void do_execute(){
 	DATA_TYPE  result = op_dest -> val & op_src -> val;
-	OPERAND_W(op_dest, result);
 
 	unset_EFLAGS(E_CF);
 	unset_EFLAGS(E_OF);
@@ -15,7 +14,7 @@ static void do_execute(){
 
 	if(DATA_BYTE == 1 && (result & 0x80) ) set_EFLAGS(E_SF);
 	else if(DATA_BYTE == 2 && (result & 0x8000)) set_EFLAGS(E_SF);
-	else if(DATA_BYTE == 4 && (result & 0x800000)) set_EFLAGS(E_SF);
+	else if(DATA_BYTE == 4 && (result & 0x80000000)) set_EFLAGS(E_SF);
 	else unset_EFLAGS(E_SF);
 
 	uint8_t lowByte = result & 0xff;
