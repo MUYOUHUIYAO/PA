@@ -10,6 +10,7 @@
 #include <elf.h>
 
 extern Elf32_Sym *symtab;
+extern int nr_symtab_entry;
 
 void cpu_exec(uint32_t);
 
@@ -113,6 +114,7 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
+	if(args == NULL) return 0;
 	if(!strcmp("r",args)){
 		printf("eax\t\t0x%X\t\t%u\n",cpu.eax,cpu.eax);
 		printf("ebx\t\t0x%X\t\t%u\n",cpu.ebx,cpu.ebx);
@@ -134,7 +136,10 @@ static int cmd_info(char *args){
 			tail=tail->next;
 		}
 	}else{
-		printf("%u\t%u\n",symtab->st_name,symtab->st_value);
+		int i=0;
+		for(;i<nr_symtab_entry;i++){
+			printf("%u\t%u\n",symtab->st_name,symtab->st_value);
+		}
 		return 0;
 	}
 	return 0;
