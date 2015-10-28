@@ -7,6 +7,10 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include <elf.h>
+
+extern Elf32_Sym *symtab;
+
 void cpu_exec(uint32_t);
 
 /* We use the ``readline'' library to provide more flexibility to read from stdin. */
@@ -103,7 +107,6 @@ static int cmd_si(char *args){
 			return 0;
 		}
 	}
-	
 	if(args_len) n=atoi(args);
 	cpu_exec(n);
 	return 0;
@@ -131,7 +134,8 @@ static int cmd_info(char *args){
 			tail=tail->next;
 		}
 	}else{
-			return 0;
+		printf("%u\t%u\n",symtab->st_name,symtab->st_value);
+		return 0;
 	}
 	return 0;
 }
