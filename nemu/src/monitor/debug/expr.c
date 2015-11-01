@@ -163,7 +163,7 @@ static bool make_token(char *e) {
 				                        break;
 				                case '+':
 				                       if(nr_token==0||!(tokens[nr_token-1].type==HEX_NUM||tokens[nr_token-1].type==DEC_NUM||
-				                            tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) break;
+				                          	 tokens[nr_token-1].type == IDENTIFIER|| tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) break;
 				                        /***不是正号***/
 				                        tokens[nr_token].type=rules[i].token_type;
 				                        strncpy(tokens[nr_token].str,substr_start,substr_len);
@@ -172,7 +172,7 @@ static bool make_token(char *e) {
 				                        break;
 				                case '-':
 				                        if(nr_token==0||!(tokens[nr_token-1].type==HEX_NUM||tokens[nr_token-1].type==DEC_NUM||
-				                            tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) {
+				                            tokens[nr_token-1].type == IDENTIFIER||tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) {
 				                                tokens[nr_token].type=NEGATIVE;
 				                                strncpy(tokens[nr_token].str,substr_start,substr_len);
 				                                tokens[nr_token].str[substr_len]='\0';
@@ -187,7 +187,7 @@ static bool make_token(char *e) {
 				                        break;
 				                case '*':
 				                        if(nr_token==0||!(tokens[nr_token-1].type==HEX_NUM||tokens[nr_token-1].type==DEC_NUM||
-				                            tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) {
+				                           tokens[nr_token-1].type == IDENTIFIER|| tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) {
 				                                tokens[nr_token].type=CITE;
 				                                strncpy(tokens[nr_token].str,substr_start,substr_len);
 				                                tokens[nr_token].str[substr_len]='\0';
