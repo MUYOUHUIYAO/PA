@@ -47,7 +47,7 @@ static struct rule {
 	{"0x[0-9a-fA-F]+",HEX_NUM},			//十六进制整数
 	{"[0-9]+",DEC_NUM},		//十进制整数
 	{"\\$[a-zA-Z]{2,3}",REG},
-	{"[a-zA-Z_][a-zA-Z0-9_]",IDENTIFIER}	//标识符
+	{"[a-zA-Z_][a-zA-Z0-9_]+",IDENTIFIER}	//标识符
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
