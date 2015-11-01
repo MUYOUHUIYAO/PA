@@ -140,7 +140,7 @@ static int cmd_info(char *args){
 		int i=0;
 		for(;i<nr_symtab_entry;i++){
 			printf("%u\t%u\t",symtab[i].st_name,symtab[i].st_value);
-			printf("%d\n",strtab[symtab[i].st_name] );
+			printf("%s\n",&strtab[symtab[i].st_name] );
 		}
 		return 0;
 	}
