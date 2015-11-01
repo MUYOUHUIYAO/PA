@@ -211,10 +211,6 @@ static bool make_token(char *e) {
 			return false;
 		}
 	}
-	int k;
-	for(k=0; k<nr_token; k++){
-		printf("%d\t%s\n", tokens[k].type, tokens[k].str );
-	}printf("----------------------------------------\n");
 	return true; 
 }
 
@@ -239,16 +235,6 @@ uint32_t expr(char *e, bool *success) {
 			uint32_t op1,op2;
 			char *s;
 			int upper,index,t_index;
-			int k;
-			printf("----------------------------------------\n");
-			for(k=0;k<s1;k++){
-				printf("%x\t",num_stack[k] );
-			}
-			printf("\n");
-			for(k=1;k<s2;k++){
-				printf("%d\t", sign_stack[k].type);
-			}printf("\n");
-			printf("----------------------------------------\n");
 			if(!(type==HEX_NUM||type==DEC_NUM||type==REG || type == IDENTIFIER)){
 				index=getIndex(type,i);
 				t_index=getIndex(top_type,0);
