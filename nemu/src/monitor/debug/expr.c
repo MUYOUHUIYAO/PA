@@ -235,6 +235,16 @@ uint32_t expr(char *e, bool *success) {
 			uint32_t op1,op2;
 			char *s;
 			int upper,index,t_index;
+			int k;
+			printf("----------------------------------------\n");
+			for(k=0;k<s1;k++){
+				printf("%u\t",num_stack[s1] );
+			}
+			printf("\n");
+			for(k=0;k<s2;k++){
+				printf("%d\t", sign_stack[s2].type);
+			}
+			printf("----------------------------------------\n");
 			if(!(type==HEX_NUM||type==DEC_NUM||type==REG || type == IDENTIFIER)){
 				index=getIndex(type,i);
 				t_index=getIndex(top_type,0);
