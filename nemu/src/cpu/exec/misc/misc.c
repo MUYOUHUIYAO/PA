@@ -43,5 +43,5 @@ make_helper(ret){
 	cpu.esp += 4;
 	print_asm("ret");
 	int len= decode_i_l(cpu.eip);
-	return len;
+	return len+1;
 }
