@@ -13,6 +13,15 @@ extern char *strtab;
 extern Elf32_Sym *symtab;
 extern int nr_symtab_entry;
 
+typedef struct
+{
+	swaddr_t prev_ebp;	//上一个%ebp地址
+	swaddr_t ret_addr;	//函数返回地址	
+	uint32_t args[4];		//函数参数
+}PartOfStackFrame;
+
+#define StackFrame_size (sizeof(PartOfStackFrame))
+
 void cpu_exec(uint32_t);
 
 /* We use the ``readline'' library to provide more flexibility to read from stdin. */
@@ -56,6 +65,8 @@ static int cmd_w(char *args);
 
 static int cmd_d(char *args);
 
+static int cmd_bt(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -69,7 +80,8 @@ static struct {
 	{"x","x N EXPR求出表达式EXPR的值，将结果作为起始内存地址，求十六进制输出的连续N个4字节",cmd_x},
 	{"p","求表达式EXPR的值",cmd_p},
 	{"w","w EXPR 当表达式值发生变化时终止程序运行",cmd_w},
-	{"d","d N 删除序号为N的监视点",cmd_d}
+	{"d","d N 删除序号为N的监视点",cmd_d},
+	{"bt","打印栈帧链",cmd_bt}
 	/* TODO: Add more commands */
 
 };
@@ -202,6 +214,20 @@ static int cmd_d(char *args){
 		printf("成功删除序号为%d的监视点\n",n);
 	return 0;
 	
+}
+
+static int cmd_bt(char *args){
+	if(args !=NULL) {
+		printf("输入格式错误\n");
+		return 0;
+	}
+	PartOfStackFrame *head;
+	head= (PartOfStackFrame*) malloc (StackFrame_size);
+	head->prev_ebp = swaddr_read(cpu.ebp, 4);
+	head->ret_addr = swaddr_read(cpu.ebp + 4, 4);
+	//uint32_t args_addr = cpu.ebp + 8;
+	printf("%x\t%x\n",head->prev_ebp,head->ret_addr );
+	return 0;
 }
 
 void ui_mainloop() {
