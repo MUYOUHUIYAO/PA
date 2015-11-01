@@ -387,6 +387,7 @@ uint32_t expr(char *e, bool *success) {
 								*success = false;
 								return 0;
 							}
+							break;
 						default:break;
 					}
                     if(i<nr_token)  i++;
@@ -398,6 +399,7 @@ uint32_t expr(char *e, bool *success) {
 		return num_stack[--s1];
 	}else{
 		printf("表达式格式错误%d,%d\n",s1,s2);
+		printf("%u\t%u\n",num_stack[s1-1],num_stack[s1-2] );
 		*success=false;
 		return 0;
 	}
