@@ -32,10 +32,10 @@ static void do_execute(){
 	/*if(result + op_src->val != op_dest->val) set_EFLAGS(E_OF);
 	else unset_EFLAGS(E_OF);*/
 
-	if( (1==DATA_BYTE && (result & 0xff) + (op_src->val & 0xff) != (op_dest->val & 0xff))) set_EFLAGS(E_OF);
-	else if( (2==DATA_BYTE && (result & 0xffff) + (op_src->val & 0xffff) != (op_dest->val & 0xffff)) )set_EFLAGS(E_OF);
-	else if( (4==DATA_BYTE && (result & 0xffffffff) + (op_src->val & 0xffffffff) != (op_dest->val & 0xffffffff)) )set_EFLAGS(E_OF);
+	if(MSB(op_dest->val) ==0 && MSB(op_src->val) == 1 && MSB(result) == 1) set_EFLAGS(E_OF);
+	else if(MSB(op_dest->val) == 1 && MSB(op_src->val) == 0 && MSB(result) == 0 ) set_EFLAGS(E_OF);
 	else unset_EFLAGS(E_OF);
+
 	print_asm_template2();
 }
 
