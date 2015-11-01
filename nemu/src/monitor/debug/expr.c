@@ -5,10 +5,15 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+ #include <elf.h>
+
+extern char *strtab;
+extern Elf32_Sym *symtab;
+extern int nr_symtab_entry;
 
 enum {
 	NOTYPE = 256, EQ,NEQ,AND,OR,NO,CITE, NEGATIVE,  LT, HT,  LE, HE,
-	DEC_NUM,HEX_NUM,REG
+	DEC_NUM,HEX_NUM,REG ,IDENTIFIER
 
 	/* TODO: Add more token types */
 
@@ -41,7 +46,8 @@ static struct rule {
 	{">",HT},
 	{"0x[0-9a-fA-F]+",HEX_NUM},			//十六进制整数
 	{"[0-9]+",DEC_NUM},		//十进制整数
-	{"\\$[a-zA-Z]{2,3}",REG}
+	{"\\$[a-zA-Z]{2,3}",REG},
+	{"[a-zA-Z_][a-zA-Z0-9]",IDENTIFIER}	//标识符
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -146,54 +152,54 @@ static bool make_token(char *e) {
 				 * types of tokens, some extra actions should be performed.
 				 */
 				switch(rules[i].token_type) {
-                    case NOTYPE:break;
-                    case '/': case EQ: case NEQ: case AND: case OR: case NO: case '(': case ')':
-                    case LT: case HT: case LE: case HE:
-                    case HEX_NUM: case DEC_NUM: case REG:
-                            tokens[nr_token].type=rules[i].token_type;
-                            strncpy(tokens[nr_token].str,substr_start,substr_len);
-                            tokens[nr_token].str[substr_len]='\0';
-                            nr_token++;
-                            break;
-                    case '+':
-                           if(nr_token==0||!(tokens[nr_token-1].type==HEX_NUM||tokens[nr_token-1].type==DEC_NUM||
-                                tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) break;
-                            /***不是正号***/
-                            tokens[nr_token].type=rules[i].token_type;
-                            strncpy(tokens[nr_token].str,substr_start,substr_len);
-                            tokens[nr_token].str[substr_len]='\0';
-                            nr_token++;
-                            break;
-                    case '-':
-                            if(nr_token==0||!(tokens[nr_token-1].type==HEX_NUM||tokens[nr_token-1].type==DEC_NUM||
-                                tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) {
-                                    tokens[nr_token].type=NEGATIVE;
-                                    strncpy(tokens[nr_token].str,substr_start,substr_len);
-                                    tokens[nr_token].str[substr_len]='\0';
-                                    nr_token++;
-                                    break;
-                                }
-                            /***不是负号***/
-                            tokens[nr_token].type=rules[i].token_type;
-                            strncpy(tokens[nr_token].str,substr_start,substr_len);
-                            tokens[nr_token].str[substr_len]='\0';
-                            nr_token++;
-                            break;
-                    case '*':
-                            if(nr_token==0||!(tokens[nr_token-1].type==HEX_NUM||tokens[nr_token-1].type==DEC_NUM||
-                                tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) {
-                                    tokens[nr_token].type=CITE;
-                                    strncpy(tokens[nr_token].str,substr_start,substr_len);
-                                    tokens[nr_token].str[substr_len]='\0';
-                                    nr_token++;
-                                    break;
-                                }
-                            /***乘号***/
-                            tokens[nr_token].type=rules[i].token_type;
-                            strncpy(tokens[nr_token].str,substr_start,substr_len);
-                            tokens[nr_token].str[substr_len]='\0';
-                            nr_token++;
-                            break;
+				                case NOTYPE:break;
+				                case '/': case EQ: case NEQ: case AND: case OR: case NO: case '(': case ')':
+				                case LT: case HT: case LE: case HE:
+				                case HEX_NUM: case DEC_NUM: case REG: case IDENTIFIER:
+				                        tokens[nr_token].type=rules[i].token_type;
+				                        strncpy(tokens[nr_token].str,substr_start,substr_len);
+				                        tokens[nr_token].str[substr_len]='\0';
+				                        nr_token++;
+				                        break;
+				                case '+':
+				                       if(nr_token==0||!(tokens[nr_token-1].type==HEX_NUM||tokens[nr_token-1].type==DEC_NUM||
+				                            tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) break;
+				                        /***不是正号***/
+				                        tokens[nr_token].type=rules[i].token_type;
+				                        strncpy(tokens[nr_token].str,substr_start,substr_len);
+				                        tokens[nr_token].str[substr_len]='\0';
+				                        nr_token++;
+				                        break;
+				                case '-':
+				                        if(nr_token==0||!(tokens[nr_token-1].type==HEX_NUM||tokens[nr_token-1].type==DEC_NUM||
+				                            tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) {
+				                                tokens[nr_token].type=NEGATIVE;
+				                                strncpy(tokens[nr_token].str,substr_start,substr_len);
+				                                tokens[nr_token].str[substr_len]='\0';
+				                                nr_token++;
+				                                break;
+				                            }
+				                        /***不是负号***/
+				                        tokens[nr_token].type=rules[i].token_type;
+				                        strncpy(tokens[nr_token].str,substr_start,substr_len);
+				                        tokens[nr_token].str[substr_len]='\0';
+				                        nr_token++;
+				                        break;
+				                case '*':
+				                        if(nr_token==0||!(tokens[nr_token-1].type==HEX_NUM||tokens[nr_token-1].type==DEC_NUM||
+				                            tokens[nr_token-1].type==REG||tokens[nr_token-1].type==')')) {
+				                                tokens[nr_token].type=CITE;
+				                                strncpy(tokens[nr_token].str,substr_start,substr_len);
+				                                tokens[nr_token].str[substr_len]='\0';
+				                                nr_token++;
+				                                break;
+				                            }
+				                        /***乘号***/
+				                        tokens[nr_token].type=rules[i].token_type;
+				                        strncpy(tokens[nr_token].str,substr_start,substr_len);
+				                        tokens[nr_token].str[substr_len]='\0';
+				                        nr_token++;
+				                        break;
 					default: break;
 				}
 				break;
@@ -229,7 +235,7 @@ uint32_t expr(char *e, bool *success) {
 			uint32_t op1,op2;
 			char *s;
 			int upper,index,t_index;
-			if(!(type==HEX_NUM||type==DEC_NUM||type==REG)){
+			if(!(type==HEX_NUM||type==DEC_NUM||type==REG || type == IDENTIFIER)){
 				index=getIndex(type,i);
 				t_index=getIndex(top_type,0);
 				upper=stage_table[t_index][index];
@@ -366,6 +372,20 @@ uint32_t expr(char *e, bool *success) {
 							}
 							num_stack[s1++]=op1;
 							break;
+						case IDENTIFIER:
+							s=(i==nr_token?space.str:tokens[i].str);
+							int r;
+							for(r=0;r<nr_symtab_entry;r++){
+								if(!strcmp(strtab+symtab[r].st_name, s)){
+									op1 = symtab[r].st_value;
+									break;
+								}
+							}
+							if(r == nr_symtab_entry) {
+								printf("不标准的标识符\n");
+								*success = false;
+								return 0;
+							}
 						default:break;
 					}
                     if(i<nr_token)  i++;
