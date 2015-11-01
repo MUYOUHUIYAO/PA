@@ -9,6 +9,7 @@
 
 #include <elf.h>
 
+extern char *strtab;
 extern Elf32_Sym *symtab;
 extern int nr_symtab_entry;
 
@@ -140,6 +141,7 @@ static int cmd_info(char *args){
 		for(;i<nr_symtab_entry;i++){
 			printf("%u\t%u\n",symtab[i].st_name,symtab[i].st_value);
 		}
+		printf("%s\n",strtab );
 		return 0;
 	}
 	return 0;
