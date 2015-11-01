@@ -238,11 +238,11 @@ uint32_t expr(char *e, bool *success) {
 			int k;
 			printf("----------------------------------------\n");
 			for(k=0;k<s1;k++){
-				printf("%x\t",num_stack[s1] );
+				printf("%x\t",num_stack[k] );
 			}
 			printf("\n");
 			for(k=1;k<s2;k++){
-				printf("%d\t", sign_stack[s2].type);
+				printf("%d\t", sign_stack[k].type);
 			}printf("\n");
 			printf("----------------------------------------\n");
 			if(!(type==HEX_NUM||type==DEC_NUM||type==REG || type == IDENTIFIER)){
