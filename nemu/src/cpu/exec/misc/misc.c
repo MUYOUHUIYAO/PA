@@ -23,3 +23,16 @@ make_helper(lea) {
 	print_asm("leal %s,%%%s", op_src->str, regsl[m.reg]);
 	return 1 + len;
 }
+
+make_helper(leave){
+	cpu.esp = cpu.ebp; //stackaddrsize == 32
+
+	//if(DATA_BYTE == 2){
+	//	reg_w(R_BP) = swaddr_read(cpu.esp,2);
+	//	cpu.esp += 2;
+	//}else if(DATA_BYTE == 4){
+		reg_l(R_EBP) = swaddr_read(cpu.esp, 4);
+		cpu.esp += 4;
+	//}
+	return 1;
+}
