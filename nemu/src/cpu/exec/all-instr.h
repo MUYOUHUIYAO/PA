@@ -7,6 +7,7 @@
 #include "data-mov/je.h"
 #include "data-mov/cmp.h"
 #include "data-mov/jmp.h"
+#include "data-mov/jbe.h"
 
 #include "arith/dec.h"
 #include "arith/inc.h"
