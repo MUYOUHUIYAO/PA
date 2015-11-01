@@ -238,7 +238,7 @@ uint32_t expr(char *e, bool *success) {
 			int k;
 			printf("----------------------------------------\n");
 			for(k=0;k<s1;k++){
-				printf("%u\t",num_stack[s1] );
+				printf("%x\t",num_stack[s1] );
 			}
 			printf("\n");
 			for(k=0;k<s2;k++){
