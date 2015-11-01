@@ -243,7 +243,7 @@ uint32_t expr(char *e, bool *success) {
 			printf("\n");
 			for(k=0;k<s2;k++){
 				printf("%d\t", sign_stack[s2].type);
-			}
+			}printf("\n");
 			printf("----------------------------------------\n");
 			if(!(type==HEX_NUM||type==DEC_NUM||type==REG || type == IDENTIFIER)){
 				index=getIndex(type,i);
