@@ -241,7 +241,7 @@ uint32_t expr(char *e, bool *success) {
 				printf("%x\t",num_stack[s1] );
 			}
 			printf("\n");
-			for(k=0;k<s2;k++){
+			for(k=1;k<s2;k++){
 				printf("%d\t", sign_stack[s2].type);
 			}printf("\n");
 			printf("----------------------------------------\n");
