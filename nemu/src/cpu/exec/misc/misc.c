@@ -37,3 +37,9 @@ make_helper(leave){
 	print_asm("leave");
 	return 1;
 }
+
+make_helper(ret){
+	cpu.eip = swaddr_read(cpu.esp, 4);
+	cpu.esp += 4;
+	return 1;
+}
