@@ -136,6 +136,10 @@ static int cmd_info(char *args){
 			tail=tail->next;
 		}
 	}else{
+		int i=0;
+		for(;i<nr_symtab_entry;i++){
+			printf("%u\t%u\n",symtab[i].st_name,symtab[i].st_value);
+		}
 		return 0;
 	}
 	return 0;
