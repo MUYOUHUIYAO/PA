@@ -376,7 +376,7 @@ uint32_t expr(char *e, bool *success) {
 							s=(i==nr_token?space.str:tokens[i].str);
 							int r;
 							for(r=0;r<nr_symtab_entry;r++){
-								if( !strcmp(strtab+symtab[r].st_name, s)){
+								if( symtab[r].st_info == 17 && !strcmp(strtab+symtab[r].st_name, s)){
 									op1 = symtab[r].st_value;
 									num_stack[s1++]=op1;
 									break;
