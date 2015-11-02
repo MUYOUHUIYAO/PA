@@ -221,12 +221,12 @@ static int cmd_bt(char *args){
 		printf("输入格式错误\n");
 		return 0;
 	}
-	PartOfStackFrame *head;
-	head= (PartOfStackFrame*) malloc (StackFrame_size);
-	head->prev_ebp = swaddr_read(cpu.ebp, 4);
-	head->ret_addr = swaddr_read(cpu.ebp - 4, 4);
-	//uint32_t args_addr = cpu.ebp + 8;
-	printf("%x\t%x\n",head->prev_ebp,head->ret_addr );
+	//PartOfStackFrame *head,*tail;
+	//swaddr_read ebp = cpu.ebp, prev_ebp;
+	//while((prev_ebp = swaddr_read(ebp , 4) != 0){
+		
+	//}
+	
 	return 0;
 }
 
