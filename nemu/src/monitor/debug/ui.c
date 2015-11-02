@@ -256,7 +256,7 @@ static int cmd_bt(char *args){
 			}
 		}
 		if(k == 0)
-			printf("#%d \tin %s \n",k, strtab+symtab[i].st_name);
+			printf("#%d \tin %x \n",k, s.ret_addr);
 		else
 			printf("#%d \t0x%x in %s\n", k, s.ret_addr, strtab+symtab[i].st_name );
 	}
