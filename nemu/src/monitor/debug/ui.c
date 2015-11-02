@@ -241,7 +241,7 @@ static int cmd_bt(char *args){
 	for(k=0; k<len;k++){
 		func_stack[k].prev_ebp = swaddr_read(ebp, 4);
 		func_stack[k].ret_addr= swaddr_read(ebp -= 4, 4);
-		printf("%x\t%x\n", func_stack[k].prev_ebp, func_stack[k].ret_addr );
+		printf("---%x\t%x\n", func_stack[k].prev_ebp, func_stack[k].ret_addr );
 		for(i = 0; i<4 &&ebp; i++){
 			func_stack[k].args[i] = swaddr_read(ebp -= 4, 4);
 		}
