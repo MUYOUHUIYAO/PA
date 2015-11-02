@@ -233,7 +233,7 @@ static int cmd_bt(char *args){
 		len++;
 	}
 
-	PartOfStackFrame *func_stack;
+	PartOfStackFrame *func_stack;	//栈帧链首地址
 	ebp = cpu.ebp, prev_ebp;
 	int i=0, k=0;
 
