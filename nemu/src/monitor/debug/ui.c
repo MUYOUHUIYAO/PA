@@ -253,7 +253,7 @@ static int cmd_bt(char *args){
 		if(k == 0){
 			for(i=0; i< nr_symtab_entry; i ++){
 				if(symtab[i].st_info == 18 && symtab[i].st_value <=cpu.eip && cpu.eip <= symtab[i].st_value + symtab[i]. st_size){
-					printf("STT_FUNC = %d, %d\n",STT_FUNC,  i);
+					//printf("STT_FUNC = %d, %d\n",STT_FUNC,  i);
 				break;
 			}
 		}
