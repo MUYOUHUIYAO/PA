@@ -248,18 +248,18 @@ static int cmd_bt(char *args){
 	}
 
 	for(k=0; k<len; k++){
-		PartOfStackFrame s = func_stack[k];
+		//PartOfStackFrame s = func_stack[k];
 		if(k == 0){
 			for(i=0; i< nr_symtab_entry; i ++){
-			if(symtab[i].st_info == STT_FUNC && symtab[i].st_value <=cpu.eip && cpu.eip <= symtab[i].st_value + symtab[i]. st_size){
+			if(symtab[i].st_info == STT_FUNC ){
 				printf("STT_FUNC = %d, %d\n",STT_FUNC,  i);
-				break;
+				//break;
 			}
 		}
-			printf("#%d \tin %s \n",k, strtab+symtab[i].st_name);
+			//printf("#%d \tin %s \n",k, strtab+symtab[i].st_name);
 		}
-		else
-			printf("#%d \t0x%x in %s\n", k, s.ret_addr, strtab+symtab[i].st_name );
+		//else
+			//printf("#%d \t0x%x in %s\n", k, s.ret_addr, strtab+symtab[i].st_name );
 	}
 
 	return 0;
