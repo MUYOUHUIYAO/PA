@@ -251,15 +251,22 @@ static int cmd_bt(char *args){
 		PartOfStackFrame s = func_stack[k];
 		if(k == 0){
 			for(i=0; i< nr_symtab_entry; i ++){
-			if(symtab[i].st_info == 18 && symtab[i].st_value <=cpu.eip && cpu.eip <= symtab[i].st_value + symtab[i]. st_size){
-				printf("STT_FUNC = %d, %d\n",STT_FUNC,  i);
+				if(symtab[i].st_info == 18 && symtab[i].st_value <=cpu.eip && cpu.eip <= symtab[i].st_value + symtab[i]. st_size){
+					printf("STT_FUNC = %d, %d\n",STT_FUNC,  i);
 				break;
 			}
 		}
 			printf("#%d \tin %s \n",k, strtab+symtab[i].st_name);
 		}
-		else
+		else{
+			for(i=0; i< nr_symtab_entry; i ++){
+				if(symtab[i].st_info == 18 && symtab[i].st_value <=s.ret_addr && s.ret_addr <= symtab[i].st_value + symtab[i]. st_size){
+					printf("STT_FUNC = %d, %d\n",STT_FUNC,  i);
+				break;
+			}
+		}
 			printf("#%d \t0x%x in %s\n", k, s.ret_addr, strtab+symtab[i].st_name );
+		}
 	}
 
 	return 0;
