@@ -241,6 +241,7 @@ static int cmd_bt(char *args){
 	for(k=0; k<len;k++){
 		func_stack[k].prev_ebp = swaddr_read(ebp, 4);
 		func_stack[k].ret_addr= swaddr_read(ebp -= 4, 4);
+		printf("%x\t%x\n", func_stack[k].prev_ebp, func_stack[k].ret_addr );
 		for(i = 0; i<4 &&ebp; i++){
 			func_stack[k].args[i] = swaddr_read(ebp -= 4, 4);
 		}
@@ -263,8 +264,8 @@ static int cmd_bt(char *args){
 				if(symtab[i].st_info == 18 && symtab[i].st_value <=s.ret_addr && s.ret_addr <= symtab[i].st_value + symtab[i]. st_size){
 					printf("STT_FUNC = %d, %d\n",STT_FUNC,  i);
 				break;
+				}
 			}
-		}
 			printf("#%d \t0x%x in %s\n", k, s.ret_addr, strtab+symtab[i].st_name );
 		}
 	}
