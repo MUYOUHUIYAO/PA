@@ -1,16 +1,16 @@
 #include "cpu/exec/template-start.h"
 
-#define instr sub
+#define instr sbb
 
 static void do_execute(){
-	DATA_TYPE result = op_dest->val - op_src->val;
+	DATA_TYPE result = op_dest->val - (op_src->val + CF);
 	
 	/* update EFLAGS  */
 	//panic("please implement me");
 	if(result == 0) set_EFLAGS(E_ZF);
 	else unset_EFLAGS(E_ZF);
 
-	if((uint32_t)(op_dest->val) < (uint32_t)(op_src -> val)) set_EFLAGS(E_CF);
+	if((uint32_t)(op_dest->val) < (uint32_t)(op_src -> val) + CF) set_EFLAGS(E_CF);
 	else unset_EFLAGS(E_CF);
 
 	uint8_t lowByte = result & 0xff;
@@ -20,7 +20,7 @@ static void do_execute(){
 	}else set_EFLAGS(E_PF);
 
 	if(DATA_BYTE == 1) {
-		if( (op_dest->val & 0x0f) < (op_src -> val & 0x0f)) set_EFLAGS(E_AF);
+		if( (op_dest->val & 0x0f) < (op_src -> val & 0x0f)+ CF) set_EFLAGS(E_AF);
 	}else unset_EFLAGS(E_AF);
 
 	if(DATA_BYTE == 1 && (result & 0x80) ) set_EFLAGS(E_SF);
@@ -30,8 +30,8 @@ static void do_execute(){
 
 	/*if(result + op_src->val != op_dest->val) set_EFLAGS(E_OF);
 	else unset_EFLAGS(E_OF);*/
-
-	if(MSB(op_dest->val) ==0 && MSB(op_src->val) == 1 && MSB(result) == 1) set_EFLAGS(E_OF);
+	if(MSB(op_src->val) == 0 && MSB(op_src->val + CF) == 1) set_EFLAGS(E_OF);
+	else if(MSB(op_dest->val) ==0 && MSB(op_src->val) == 1 && MSB(result) == 1) set_EFLAGS(E_OF);
 	else if(MSB(op_dest->val) == 1 && MSB(op_src->val) == 0 && MSB(result) == 0 ) set_EFLAGS(E_OF);
 	else unset_EFLAGS(E_OF);
 

@@ -32,7 +32,7 @@ static void do_execute(){
 	/*if(result + op_src->val != op_dest->val) set_EFLAGS(E_OF);
 	else unset_EFLAGS(E_OF);*/
 
-	if(MSB(op_src -> val) != MSB(op_src ->val + CF) ) set_EFLAGS(E_OF);
+	if(MSB(op_src -> val) ==  0 && MSB(op_src ->val + CF) ==1) set_EFLAGS(E_OF);
 	else if(MSB(op_dest->val) == MSB(op_src->val + CF) && MSB(result) != MSB(op_dest->val)) set_EFLAGS(E_OF);
 	else unset_EFLAGS(E_OF);
 
