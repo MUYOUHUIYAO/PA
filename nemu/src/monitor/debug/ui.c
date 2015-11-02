@@ -232,7 +232,7 @@ static int cmd_bt(char *args){
 		ebp= prev_ebp;
 		len++;
 	}
-	len ++;
+	//len ++;
 
 	PartOfStackFrame *func_stack;
 	ebp = cpu.ebp, prev_ebp;
