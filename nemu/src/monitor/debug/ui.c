@@ -251,6 +251,7 @@ static int cmd_bt(char *args){
 		PartOfStackFrame s = func_stack[k];
 		for(i=0; i< nr_symtab_entry; i ++){
 			if(symtab[i].st_info == STT_FUNC && symtab[i].st_value == s.ret_addr){
+				printf("STT_FUNC = %d, %d\n",STT_FUNC,  i);
 				break;
 			}
 		}
