@@ -6,6 +6,7 @@
 #define decode_rm_internal concat3(decode_rm_, SUFFIX, _internal)
 #define decode_i concat(decode_i_, SUFFIX)
 #define decode_a concat(decode_a_, SUFFIX)
+#define decode_m concat(decode_m_, SUFFIX)
 #define decode_r2rm concat(decode_r2rm_, SUFFIX)
 
 /* Ib, Iv */
@@ -43,6 +44,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	return DATA_BYTE;
 }
 #endif
+
 
 /* eAX */
 static int concat(decode_a_, SUFFIX) (swaddr_t eip, Operand *op) {
@@ -93,6 +95,9 @@ make_helper(concat(decode_rm2r_, SUFFIX)) {
 	return decode_rm_internal(eip, op_src, op_dest);
 }
 
+make_helper(concat(decode_m_, SUFFIX)){
+	return decode_rm_internal(eip ,op_src, op_src2);
+}
 
 /* AL <- Ib
  * eAX <- Iv
