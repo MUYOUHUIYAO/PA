@@ -227,7 +227,7 @@ static int cmd_bt(char *args){
 	}
 	int len = 0 ;
 	swaddr_t ebp = cpu.ebp, prev_ebp;
-	while(ebp) {
+	while(ebp) {			//获取长度
 		prev_ebp=swaddr_read(ebp, 4);
 		ebp= prev_ebp;
 		len++;
