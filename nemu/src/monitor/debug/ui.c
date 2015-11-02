@@ -151,7 +151,7 @@ static int cmd_info(char *args){
 	}else{
 		int i=0;
 		for(;i<nr_symtab_entry;i++){
-			printf("%u\t%u\t%d\t",symtab[i].st_name,symtab[i].st_value, symtab[i].st_info);
+			printf("%u\t%x\t%d\t",symtab[i].st_name,symtab[i].st_value, symtab[i].st_info);
 			printf("%s\n",&strtab[symtab[i].st_name] );
 		}
 		return 0;
