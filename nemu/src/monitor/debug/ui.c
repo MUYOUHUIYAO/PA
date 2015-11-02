@@ -223,6 +223,7 @@ static int cmd_bt(char *args){
 	}
 	if(cpu.eip == 0x00100000){
 		printf("Not start\n");
+		return 0;
 	}
 	if(cpu.ebp == 0) {
 		printf("No stack\n");
