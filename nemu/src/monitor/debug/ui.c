@@ -221,7 +221,9 @@ static int cmd_bt(char *args){
 		printf("输入格式错误\n");
 		return 0;
 	}
-	if(cpu.eip == 0x00100000)
+	if(cpu.eip == 0x00100000){
+		printf("Not start\n");
+	}
 	if(cpu.ebp == 0) {
 		printf("No stack\n");
 		return 0;
