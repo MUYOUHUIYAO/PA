@@ -224,7 +224,7 @@ static int cmd_bt(char *args){
 	PartOfStackFrame *head;
 	head= (PartOfStackFrame*) malloc (StackFrame_size);
 	head->prev_ebp = swaddr_read(cpu.ebp, 4);
-	head->ret_addr = swaddr_read(cpu.ebp + 4, 4);
+	head->ret_addr = swaddr_read(cpu.ebp - 4, 4);
 	//uint32_t args_addr = cpu.ebp + 8;
 	printf("%x\t%x\n",head->prev_ebp,head->ret_addr );
 	return 0;
