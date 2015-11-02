@@ -221,12 +221,45 @@ static int cmd_bt(char *args){
 		printf("输入格式错误\n");
 		return 0;
 	}
-	//PartOfStackFrame *head,*tail;
-	//swaddr_read ebp = cpu.ebp, prev_ebp;
-	//while((prev_ebp = swaddr_read(ebp , 4) != 0){
-		
-	//}
-	
+	if(cpu.ebp == 0) {
+		printf("No stack\n");
+		return 0;
+	}
+	int len = 0 ;
+	swaddr_t ebp = cpu.ebp, prev_ebp;
+	while(ebp) {
+		prev_ebp=swaddr_read(ebp, 4);
+		ebp= prev_ebp;
+		len++;
+	}
+
+	PartOfStackFrame *func_stack;
+	ebp = cpu.ebp, prev_ebp;
+	int i=0, k=0;
+
+	func_stack = (PartOfStackFrame *)malloc(len*StackFrame_size);
+	for(k=0; k<len;k++){
+		func_stack[k].prev_ebp = swaddr_read(ebp, 4);
+		func_stack[k].ret_addr= swaddr_read(ebp -= 4, 4);
+		for(i = 0; i<4 &&ebp; i++){
+			func_stack[k].args[i] = swaddr_read(ebp -= 4, 4);
+		}
+		ebp = func_stack[k].prev_ebp;
+	}
+
+	for(k=0; k<len; k++){
+		PartOfStackFrame s = func_stack[k];
+		for(i=0; i< nr_symtab_entry; i ++){
+			if(symtab[i].st_info == STT_FUNC && symtab[i].st_value == s.ret_addr){
+				break;
+			}
+		}
+		if(k == 0)
+			printf("#%d \tin %s \n",k, strtab+symtab[i].st_name);
+		else
+			printf("#%d \t0x%x in %s\n", k, s.ret_addr, strtab+symtab[i].st_name );
+	}
+
 	return 0;
 }
 
