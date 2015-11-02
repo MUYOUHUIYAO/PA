@@ -229,10 +229,10 @@ static int cmd_bt(char *args){
 	swaddr_t ebp = cpu.ebp, prev_ebp;
 	while(ebp) {
 		prev_ebp=swaddr_read(ebp, 4);
-		printf("%x\n", ebp );
 		ebp= prev_ebp;
 		len++;
 	}
+	len ++;
 
 	PartOfStackFrame *func_stack;
 	ebp = cpu.ebp, prev_ebp;
