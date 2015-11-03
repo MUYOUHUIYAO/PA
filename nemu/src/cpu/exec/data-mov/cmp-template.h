@@ -4,7 +4,8 @@
 
 static void do_execute(){
 	DATA_TYPE result = op_dest->val - op_src->val;
-
+	printf("%u\t%u\n", op_dest->val, op_src->val );
+	printf("%s\t%s\n", op_dest->str, op_src->str );
 	if(result == 0) set_EFLAGS(E_ZF);
 	else unset_EFLAGS(E_ZF);
 
