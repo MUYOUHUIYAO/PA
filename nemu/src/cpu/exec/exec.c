@@ -230,7 +230,8 @@ helper_fun _2byte_opcode_table [256] = {
 make_helper(exec) {
 	ops_decoded.opcode = instr_fetch(eip, 1);
 	//printf("the code of the exec is :%x\n",ops_decoded.opcode);
-	return opcode_table[ ops_decoded.opcode ](eip);
+	int len = opcode_table[ ops_decoded.opcode ](eip);
+	return len;
 }
 
 static make_helper(_2byte_esc) {
