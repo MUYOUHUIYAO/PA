@@ -194,7 +194,7 @@ helper_fun _2byte_opcode_table [256] = {
 /* 0x78 */	inv, inv, inv, inv, 
 /* 0x7c */	inv, inv, inv, inv, 
 /* 0x80 */	inv, inv, inv, inv,
-/* 0x84 */	inv, inv, inv, inv,
+/* 0x84 */	inv, inv, jbe_i_v, inv,
 /* 0x88 */	inv, inv, inv, inv, 
 /* 0x8c */	inv, inv, inv, inv, 
 /* 0x90 */	setcc_rm_b, setcc_rm_b, setcc_rm_b, setcc_rm_b,
@@ -229,10 +229,7 @@ helper_fun _2byte_opcode_table [256] = {
 
 make_helper(exec) {
 	ops_decoded.opcode = instr_fetch(eip, 1);
-	//printf("the code of the exec is :%x\n",ops_decoded.opcode);
-	int len = opcode_table[ ops_decoded.opcode ](eip);
-	printf("%d\n",len );
-	return len;
+	return opcode_table[ ops_decoded.opcode ](eip);
 }
 
 static make_helper(_2byte_esc) {
