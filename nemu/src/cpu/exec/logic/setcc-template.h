@@ -4,7 +4,6 @@
 
 static void do_execute () {
 	int condition = 0;
-	printf("%x\n",ops_decoded.opcode );
 	switch(ops_decoded.opcode & 0x0ff){
 		case 0x97: condition = (CF ==0 && ZF == 0);break;
 		case 0x93: condition = (CF == 0);break;
