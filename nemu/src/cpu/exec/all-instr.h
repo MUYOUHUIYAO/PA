@@ -6,11 +6,7 @@
 #include "data-mov/xchg.h"
 #include "data-mov/push.h"
 #include "data-mov/pop.h"
-#include "data-mov/call.h"
-#include "data-mov/je.h"
 #include "data-mov/cmp.h"
-#include "data-mov/jmp.h"
-#include "data-mov/jbe.h"
 
 #include "arith/dec.h"
 #include "arith/inc.h"
@@ -34,6 +30,11 @@
 #include "logic/shrd.h"
 #include "logic/test.h"
 #include "logic/setcc.h"
+
+#include "control/call.h"
+#include "control/je.h"
+#include "control/jmp.h"
+#include "control/jbe.h"
 
 #include "string/rep.h"
 
