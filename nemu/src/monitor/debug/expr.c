@@ -354,7 +354,14 @@ uint32_t expr(char *e, bool *success) {
 								return 0;
 							}
 							if(index<4){
-								if(strcasestr(s,"e")){
+								if(index== 3&&strcasestr(s, "bp")) {
+									if(strcasestr(s,"e")){
+										op1=reg_l(5)&0xffffffff;
+									}else{
+										op1=reg_w(5)&0xffff;
+									}
+								}
+								else if(strcasestr(s,"e")){
 									op1=reg_l(index)&0xffffffff;
 								}else if(strcasestr(s,"x")) op1=reg_w(index)&0xffff;
 								else if(strcasestr(s,"l")) op1=reg_b(index)&0xff;
