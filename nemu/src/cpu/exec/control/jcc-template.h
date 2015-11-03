@@ -5,7 +5,7 @@
 static void do_execute(){
 	uint8_t condition=0;
 	uint8_t tbyte = 0;
-
+	printf("%x\n", ops_decoded.opcode );
 	switch(ops_decoded.opcode){
 		case 0x77: condition = (CF ==0 && ZF ==0);break;				//JA, JNBE
 		case 0x73: condition = (CF ==0);break; 					//JAE, JNB, JNC
