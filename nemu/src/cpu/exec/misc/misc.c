@@ -40,6 +40,7 @@ make_helper(leave){
 
 make_helper(ret){
 	cpu.eip = swaddr_read(cpu.esp, 4);
+	printf("%x\n",cpu.eip );
 	cpu.esp += 4;
 	print_asm("ret");
 	int len= decode_i_l(cpu.eip);
