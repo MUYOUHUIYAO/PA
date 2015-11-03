@@ -36,7 +36,7 @@ static void do_execute(){
 		case 0x8f: condition = (ZF == 0 && SF == OF); break;			//JG, JNLE
 		case 0x8d: condition = (SF == OF); break;					//JGE, JNL
 		case 0x8c: condition = (SF !=OF); break;					//JL, JNGE
-		case 0x8e: condition = (ZF == 1 && SF != OF); break;			//JLE, JNG
+		case 0x8e: condition = (ZF == 1 || SF != OF); break;			//JLE, JNG
 		case 0x85: condition = (ZF == 0); break;					//JNE, JNZ
 		case 0x81: condition = (OF == 0); break;					//JNO
 		case 0x8b: condition = (PF == 0); break;					//JNP, JPO
