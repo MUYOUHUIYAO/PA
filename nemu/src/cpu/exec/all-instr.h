@@ -32,9 +32,8 @@
 #include "logic/setcc.h"
 
 #include "control/call.h"
-#include "control/je.h"
+#include "control/jcc.h"
 #include "control/jmp.h"
-#include "control/jbe.h"
 
 #include "string/rep.h"
 
