@@ -35,7 +35,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	 */
 	//panic("please implement me");
 	op_src->simm = (int32_t)(int8_t)instr_fetch(eip, 1);
-	printf("%u\n",DATA_BYTE );
+	//printf("%u\n",DATA_BYTE );
 	op_src->val = op_src->simm;
 
 #ifdef DEBUG
