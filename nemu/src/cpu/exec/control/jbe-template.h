@@ -4,6 +4,7 @@
 
 static void do_execute (){
 	if(CF == 1 || ZF == 1){
+		printf("%d\n",DATA_BYTE );
 		if(DATA_BYTE == 1)
 			cpu.eip += (int32_t)((int8_t)op_src->val);
 		else if(DATA_BYTE == 2){
