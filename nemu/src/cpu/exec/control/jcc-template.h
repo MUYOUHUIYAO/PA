@@ -5,7 +5,6 @@
 static void do_execute(){
 	uint8_t condition=0;
 	uint8_t tbyte = 0;
-	printf("%x\n", ops_decoded.opcode );
 	switch(ops_decoded.opcode){
 		case 0x77: condition = (CF ==0 && ZF ==0);break;				//JA, JNBE
 		case 0x73: condition = (CF ==0);break; 					//JAE, JNB, JNC
@@ -16,7 +15,8 @@ static void do_execute(){
 		case 0x7f: condition = (ZF == 0 && SF == OF); break;			//JG, JNLE
 		case 0x7d: condition = (SF == OF); break;					//JGE, JNL
 		case 0x7c: condition =(SF != OF); break;					//JL , JNGE
-		case 0x7e: condition = (ZF == 1 && SF != OF); break;			//JLE, JNG
+		case 0x7e: condition = (ZF == 1 && SF != OF); 	printf("%x\n", ops_decoded.opcode );
+break;			//JLE, JNG
 		case 0x75: condition = (ZF == 0);break;					//JNE,JNZ
 		case 0x71: condition = (OF == 0); break;					//JNO
 		case 0x7b: condition = (PF == 0);break;					//JNP, JPO
