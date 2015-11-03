@@ -8,7 +8,7 @@ static void do_execute (){
 	}
 	else if(DATA_BYTE == 4){
 		OPERAND_W(op_dest, MEM_R(cpu.esp));
-		printf("%x\n",cpu.esp );
+		printf("%s\t%x\n",op_dest->str, cpu.esp );
 		cpu.esp = cpu.esp+4;
 	}
 	print_asm_template1();
