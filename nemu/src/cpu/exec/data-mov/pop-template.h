@@ -3,12 +3,11 @@
 
 static void do_execute (){
 	if(DATA_BYTE == 2){
-		OPERAND_W(op_dest, MEM_R(cpu.esp)); 
+		OPERAND_W(op_src, MEM_R(cpu.esp)); 
 		cpu.esp = cpu.esp+2;
 	}
 	else if(DATA_BYTE == 4){
 		OPERAND_W(op_src, MEM_R(cpu.esp));
-		printf("%s\t%s\t%x\n",op_src->str, op_dest->str,cpu.esp );
 		cpu.esp = cpu.esp+4;
 	}
 	print_asm_template1();
