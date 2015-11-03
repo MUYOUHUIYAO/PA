@@ -231,6 +231,7 @@ make_helper(exec) {
 	ops_decoded.opcode = instr_fetch(eip, 1);
 	//printf("the code of the exec is :%x\n",ops_decoded.opcode);
 	int len = opcode_table[ ops_decoded.opcode ](eip);
+	printf("%d\n",len );
 	return len;
 }
 
