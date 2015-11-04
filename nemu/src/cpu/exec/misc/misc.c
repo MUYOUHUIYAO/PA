@@ -56,3 +56,8 @@ make_helper(ctd_v){
 	}
 	return 1;
 }
+
+make_helper(cld){
+	unset_EFLAGS(E_DF);
+	return 1;
+}
