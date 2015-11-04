@@ -3,8 +3,8 @@
 
 static void do_execute (){
 	printf("%d\t%d\t%d\n",DATA_BYTE,op_src->size,op_dest->size );
-	if(DATA_BYTE == 1){
-		if(op_dest->size == 2){
+	/*if(DATA_BYTE == 1){
+		if(ops_decoded.opcode == 0xbe | 0x100){
 			int16_t signExtend = (int16_t)((int8_t) op_src->val);
 			OPERAND_W(op_dest , signExtend);
 		}else {
@@ -14,8 +14,8 @@ static void do_execute (){
 	}else if(DATA_BYTE == 2){
 		int32_t signExtend = (int32_t)((int16_t) op_src->val);
 		OPERAND_W(op_dest , signExtend);
-	}
-	/*printf("%d\t%d\t%d\n",DATA_BYTE,op_src->size,op_dest->size );
+	}*/
+	printf("%d\t%d\t%d\n",DATA_BYTE,op_src->size,op_dest->size );
 	if(DATA_BYTE ==2){
 		int16_t signExtend = (int16_t)((int8_t) op_src->val);
 		OPERAND_W(op_dest , signExtend);
@@ -27,7 +27,7 @@ static void do_execute (){
 			int32_t signExtend = (int32_t)((int8_t) op_src->val);
 			OPERAND_W(op_dest , signExtend);
 		}
-	}*/
+	}
 	
 	print_asm_template2();
 }
