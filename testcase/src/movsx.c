@@ -3,7 +3,10 @@
 int A[10];
 int b;
 char C[10];
+short d;
 int main() {
+	C[0] = 0x80;
+	d = (short)C[0];
 	A[0] = 0;
 	A[1] = 1;
 	A[2] = 2;
