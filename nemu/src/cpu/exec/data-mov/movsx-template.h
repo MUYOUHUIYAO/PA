@@ -2,8 +2,7 @@
 #define instr movsx
 
 static void do_execute (){
-	printf("%d\n",DATA_BYTE );
-	if(DATA_BYTE == 1)
+	if(DATA_BYTE == 1){	printf("%d\n",op_dest->size );
 		if(op_dest->size == 2){
 			int16_t signExtend = (int16_t)((int8_t) op_src->val);
 			OPERAND_W(op_dest , signExtend);
@@ -11,7 +10,7 @@ static void do_execute (){
 			int32_t signExtend = (int32_t)((int8_t) op_src->val);
 			OPERAND_W(op_dest , signExtend);
 		}
-	else if(DATA_BYTE == 2){
+	}else if(DATA_BYTE == 2){
 		int32_t signExtend = (int32_t)((int16_t) op_src->val);
 		OPERAND_W(op_dest , signExtend);
 	}
