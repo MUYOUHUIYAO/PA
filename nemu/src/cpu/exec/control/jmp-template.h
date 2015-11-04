@@ -4,7 +4,6 @@
 
 static void do_execute (){
 	uint32_t op = ops_decoded.opcode;
-	printf("%x\n", op);
 	if(op == 0xeb || op == 0xe9 ){
 		cpu.eip += op_src->val;
 		if(DATA_BYTE == 2){
