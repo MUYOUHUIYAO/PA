@@ -10,7 +10,7 @@ static void do_execute (){
 			cpu.eip = cpu.eip && 0x0000ffff ;
 		}
 	}else if(op == 0xff){
-
+		printf("%x\n",DATA_BYTE );
 		if(2 == DATA_BYTE){
 			cpu.eip = ( op_src->val)&0x0000ffff;
 		}
