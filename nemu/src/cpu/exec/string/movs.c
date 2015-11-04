@@ -21,3 +21,11 @@ make_helper(movs) {
 	
 	return 1;
 }
+
+make_helper(movs_b){
+	return movs(eip);
+}
+
+make_helper(movs_v){
+	return movs(eip);
+}
