@@ -4,13 +4,14 @@
 
 static void do_execute (){
 	uint32_t op = ops_decoded.opcode;
+	printf("%x\n", op);
 	if(op == 0xe8 || op == 0xe9 ){
 		cpu.eip += op_src->val;
 		if(DATA_BYTE == 2){
 			cpu.eip = cpu.eip && 0x0000ffff ;
 		}
 	}else if(op == 0xff){
-		printf("active\n");
+
 		if(2 == DATA_BYTE){
 			cpu.eip = ( op_src->val)&0x0000ffff;
 		}
