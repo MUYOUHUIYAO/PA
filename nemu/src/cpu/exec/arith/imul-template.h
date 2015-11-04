@@ -50,6 +50,17 @@ make_helper(concat(imul_rm2a_, SUFFIX)) {
 	/* There is no need to update EFLAGS, since no other instructions 
 	 * in PA will test the flags updated by this instruction.
 	 */
+	 if(DATA_BYTE == 1 && (int16_t)result == (int16_t)REG(R_AL)){
+	 	 unset_EFLAGS(E_OF);
+	 	 unset_EFLAGS(E_CF);
+	 }else  if(DATA_BYTE == 2 && (int32_t)result == (int32_t)REG(R_AX)){
+	 	unset_EFLAGS(E_OF);
+	 	 unset_EFLAGS(E_CF);
+	 }else if(DATA_BYTE == 1 && (int16_t)result == (int16_t)REG(R_AL)){
+	 	unset_EFLAGS(E_OF);
+	 	unset_EFLAGS(E_CF);
+	 }
+
 
 	print_asm_template1();
 	return len + 1;
