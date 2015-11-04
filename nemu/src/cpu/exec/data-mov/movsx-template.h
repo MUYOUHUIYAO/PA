@@ -2,6 +2,7 @@
 #define instr movsx
 
 static void do_execute (){
+	printf("%d\n",DATA_BYTE );
 	if(DATA_BYTE == 1)
 		if(op_dest->size == 2){
 			int16_t signExtend = (int16_t)((int8_t) op_src->val);
