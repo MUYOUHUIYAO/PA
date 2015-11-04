@@ -45,3 +45,14 @@ make_helper(ret){
 	int len= decode_i_l(cpu.eip);
 	return len+1;
 }
+
+make_helper(ctd_v){
+	if(ops_decoded.is_data_size_16){
+		if( (reg_w(R_AX) & 0x8000 ) == 0) reg_w(R_DX) = 0x0;
+		else reg_w(R_DX) = 0xffff;
+	}else{
+		if( (reg_l(R_EAX) & 0x80000000 ) == 0) reg_l(R_EDX) = 0x0;
+		else reg_l(R_EDX) = 0xffffffff;
+	}
+	return 1;
+}
