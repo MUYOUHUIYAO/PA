@@ -22,7 +22,7 @@ make_helper(concat(jmp_rm_, SUFFIX)){
 	else if(4 == DATA_BYTE){
 		cpu.eip =  op_src->val;
 	}
-	return concat(decode_rm_, SUFFIX)(eip+1) + 1;
+	return 0;
 	
 }
 #endif
