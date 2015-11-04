@@ -189,6 +189,7 @@ void concat(write_operand_, SUFFIX) (Operand *op, DATA_TYPE src) {
 	if(op->type == OP_TYPE_REG) { REG(op->reg) = src; }
 	else if(op->type == OP_TYPE_MEM) { swaddr_write(op->addr, op->size, src); }
 	else { assert(0); }
+	printf("%x\n",REG(op->reg) );
 }
 
 #include "cpu/exec/template-end.h"
