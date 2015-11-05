@@ -7,8 +7,8 @@ make_helper(cmps) {
 	uint32_t result = 0;
 	uint32_t dest, src;
 
-	if(ops_decoded.opcode == 0xa4) DATA_BYTE = 1;
-	else if(ops_decoded.opcode == 0xa5 && ops_decoded.is_data_size_16 == 0){
+	if(ops_decoded.opcode == 0xa6) DATA_BYTE = 1;
+	else if(ops_decoded.opcode == 0xa7 && ops_decoded.is_data_size_16 == 0){
 		DATA_BYTE = 4;
 	}else DATA_BYTE = 2;
 
