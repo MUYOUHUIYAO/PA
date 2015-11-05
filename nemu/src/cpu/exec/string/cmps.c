@@ -5,8 +5,7 @@
 make_helper(cmps) {
 	int DATA_BYTE = 0, IncDec=0;
 	uint32_t result = 0;
-	uint32_t src = swaddr_read(reg_l(R_ESI), DATA_BYTE);
-	uint32_t dest = swaddr_read(reg_l(R_EDI), DATA_BYTE);
+	uint32_t dest, src;
 
 	if(ops_decoded.opcode == 0xa4) DATA_BYTE = 1;
 	else if(ops_decoded.opcode == 0xa5 && ops_decoded.is_data_size_16 == 0){
@@ -14,6 +13,9 @@ make_helper(cmps) {
 	}else DATA_BYTE = 2;
 
 	IncDec = (DF == 0) ? DATA_BYTE : -DATA_BYTE;
+
+	 src = swaddr_read(reg_l(R_ESI), DATA_BYTE);
+	 dest = swaddr_read(reg_l(R_EDI), DATA_BYTE);
 
 	result =  src - dest;
 
