@@ -1,13 +1,16 @@
 #include "FLOAT.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	nemu_assert(0);
-	return 0;
+	int overflow = 0;
+	int64_t result = a * b / (1<<16);
+	if(result & 0xffffffff00000000) overflow = 1;
+	nemu_assert(!overflow);
+	return (int)result;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-	nemu_assert(0);
-	return 0;
+	int result = a * (1<<16) /b;
+	return result;
 }
 
 FLOAT f2F(float a) {
@@ -16,8 +19,8 @@ FLOAT f2F(float a) {
 }
 
 FLOAT Fabs(FLOAT a) {
-	nemu_assert(0);
-	return 0;
+	int result = a & 0x80000000;
+	return result;
 }
 
 FLOAT sqrt(FLOAT x) {

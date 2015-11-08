@@ -5,5 +5,8 @@ FLOAT_OBJ := $(FLOAT:.a=.o)
 $(FLOAT): $(FLOAT_OBJ)
 	ar r $(FLOAT) $(FLOAT_OBJ)
 
+$(lib-common_BIN): $(lib-common_OBJS)
+	$(call make_command, $(CC), $(lib-common_ASFLAGS), -fno-builtin $@, $^)
+
 # TODO: write a rule for generating $(FLOAT_OBJ)
 
