@@ -1,12 +1,15 @@
 # This file will be included by the Makefile under the project directory.
 
+lib-common_CFLAGS_EXTRA := -m32 -fno-builtin
+$(eval $(call make_common_rules,lib-common,$(lib-common_CFLAGS_EXTRA)))
+
 FLOAT_OBJ := $(FLOAT:.a=.o)
 
 $(FLOAT): $(FLOAT_OBJ)
 	ar r $(FLOAT) $(FLOAT_OBJ)
 
-$(lib-common_BIN): $(lib-common_OBJS)
-	$(call make_command, $(CC), $(lib-common_ASFLAGS), -fno-builtin $@, $^)
+#$(lib-common_BIN): $(lib-common_OBJS)
+#	$(call make_command, $(CC), $(lib-common_ASFLAGS), -fno-builtin $@, $^)
 
 # TODO: write a rule for generating $(FLOAT_OBJ)
 
