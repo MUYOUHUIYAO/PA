@@ -11,5 +11,7 @@ src_dir := lib-common
 FLOAT_ASFLAGS = -m32 -fno-builtin -c
 
 $(lib-common_obj_dir)%.o : $(src_dir)%.c
-	$(call make_command, $(CC), $(FLOAT_ASFLAGS),  $<, $<)
+	#$(call make_command, $(CC), $(FLOAT_ASFLAGS),  $<, $<)
+	@mkdir -p $(@D)
+	@$(CC) $(FLOAT_ASFLAGS) $<
 	
