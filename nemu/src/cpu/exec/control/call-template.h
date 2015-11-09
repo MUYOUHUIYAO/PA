@@ -3,7 +3,7 @@
 
 
 static void do_execute (){
-	int len=concat(decode_i_, SUFFIX)(cpu.eip + 1);
+	int len=concat(decode_i_, SUFFIX)(cpu.eip + 1) + 1;
 	if(2 == DATA_BYTE){
 		cpu.esp =cpu.esp - 2;
 		MEM_W(cpu.esp, (uint16_t)((cpu.eip + len) & 0x0000ffff));
@@ -23,7 +23,7 @@ static void do_execute (){
 make_instr_helper(i)
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(call_rm_, SUFFIX)){
-	int len=concat(decode_rm_, SUFFIX)(eip + 1);
+	int len=concat(decode_rm_, SUFFIX)(eip + 1) + 1;
 	if(2 == DATA_BYTE){
 		cpu.esp =cpu.esp - 2;
 		MEM_W(cpu.esp, (uint16_t)((cpu.eip+len)& 0x0000ffff));
