@@ -19,7 +19,7 @@ FLOAT f2F(float a) {
 }
 
 FLOAT Fabs(FLOAT a) {
-	int result = a & 0x80000000;
+	int result = a & 0x7fffffff;
 	return result;
 }
 
