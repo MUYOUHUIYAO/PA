@@ -16,8 +16,8 @@ FLOAT f2F(float a) {
 	int sign = args & 0x80000000;
 	int e = ((args & 0x7f800000)>>23) - 127;
 	int m= (args & 0x007fffff) + 0x00800000;
-	if(e > 7)  return sign & (m << (e -7));
-	else return sign & (m >> (7 -e));
+	if(e > 7)  return sign | (m << (e -7));
+	else return sign | (m >> (7 -e));
 }
 
 FLOAT Fabs(FLOAT a) {
