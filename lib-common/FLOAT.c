@@ -6,7 +6,8 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-	int result = a * (1<<16) /b;
+	nemu_assert(b);
+	int result = a /b * (1<<16);
 	return result;
 }
 
