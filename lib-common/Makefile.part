@@ -11,7 +11,8 @@ $(FLOAT): $(FLOAT_OBJ)
 # TODO: write a rule for generating $(FLOAT_OBJ)
 
 lib-common_obj_dir := obj/lib-common
+src_dir := lib-common
 FLOAT_ASFLAGS = -m32 -fno-builtin -c
 
-.c.o:
+$(lib-common_obj_dir)%.o : $(src_dir)%.c
 	$(call make_command, $(CC), $(FLOAT_ASFLAGS), -fno-builtin $@, $^)
