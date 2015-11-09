@@ -15,8 +15,6 @@ static void do_execute (){
 		MEM_W(cpu.esp,  cpu.eip + len);
 		cpu.eip = cpu.eip+ op_src->val;
 	}
-
-
 	print_asm_template1();
 }
 
