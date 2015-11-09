@@ -42,8 +42,7 @@ make_helper(ret){
 	cpu.eip = swaddr_read(cpu.esp, 4);
 	cpu.esp += 4;
 	print_asm("ret");
-	int len= decode_i_l(cpu.eip);
-	return len+1;
+	return 1;
 }
 
 make_helper(ctd_v){
