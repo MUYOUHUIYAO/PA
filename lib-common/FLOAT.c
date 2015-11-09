@@ -15,8 +15,8 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT f2F(float a) {
-	//nemu_assert(0);
-	return (int)(a);
+	nemu_assert(0);
+	return 0;
 }
 
 FLOAT Fabs(FLOAT a) {
