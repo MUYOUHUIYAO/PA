@@ -4,7 +4,6 @@ FLOAT_OBJ := $(FLOAT:.a=.o)
 
 $(FLOAT): $(FLOAT_OBJ)
 	ar r $(FLOAT) $(FLOAT_OBJ)
-	@echo  "hello \n\n\n"
 # TODO: write a rule for generating $(FLOAT_OBJ)
 
 lib-common_obj_dir := obj/lib-common
