@@ -16,3 +16,4 @@ FLOAT_ASFLAGS = -m32 -fno-builtin -c
 
 $(lib-common_obj_dir)%.o : $(src_dir)%.c
 	$(call make_command, $(CC), $(FLOAT_ASFLAGS), -fno-builtin $@, $^)
+	@echo  "hello \n\n\n"
