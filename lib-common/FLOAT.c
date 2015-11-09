@@ -1,5 +1,4 @@
 #include "FLOAT.h"
-#include "inttypes.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	int result = a * b / (1<<16);
