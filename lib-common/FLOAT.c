@@ -2,11 +2,8 @@
 #include "inttypes.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	int overflow = 0;
-	int64_t result = a * b / (1<<16);
-	if(result & 0xffffffff00000000) overflow = 1;
-	nemu_assert(!overflow);
-	return (int)result;
+	int result = a * b / (1<<16);
+	return result;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
