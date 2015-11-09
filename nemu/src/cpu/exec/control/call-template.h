@@ -35,7 +35,8 @@ make_helper(concat(call_rm_, SUFFIX)){
 		MEM_W(cpu.esp,  cpu.eip + len);
 		cpu.eip =  op_src->val;
 	}
-	return len;	
+	print_asm_template1();
+	return 0;	
 }
 #endif
 
