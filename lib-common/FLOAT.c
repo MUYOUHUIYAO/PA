@@ -17,7 +17,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 FLOAT f2F(float a) {
 	int args = *(int *)(&a);
 	int sign = args & 0x80000000;
-	int e = (args & 0x7f800000)>>23 - 127;
+	int e = ((args & 0x7f800000)>>23) - 127;
 	int m= (args & 0x007fffff) + 0x00800000;
 	return sign & (m << (e +16));
 }
