@@ -50,8 +50,7 @@ FLOAT f2F(float a) {
 }
 
 FLOAT Fabs(FLOAT a) {
-	int result = a & 0x7fffffff;
-	return result;
+	return a < 0? -a :a;
 }
 
 FLOAT sqrt(FLOAT x) {
