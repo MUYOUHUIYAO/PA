@@ -29,9 +29,10 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	        c += 1 << (16 - i);
 	        _a -= _b;
 	    }else{
-	        _b >> 1;
+	        _b =_b >> 1;
 	        i --;
 	    }
+	    if(_a == 0x0 || _b ==0x0) break;
 	}
 	return (sign? -c : c);
 }
