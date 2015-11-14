@@ -1,13 +1,15 @@
 #include "FLOAT.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
+	int sign_a = (a & 0x80000000)>>31, sign_b = (b & 0x80000000) >> 31;
+	int sign = sign_a ^ sign_b;	
 	int q = (1<<16);
 	int qa = a / q;
 	int qb = b /q;
 	int ya = a %q;
 	int yb = b % q;
 	int result = qa*qb *q + qa * yb +qb*ya + (ya * yb) >>16;
-	return result;
+	return (sign? -result: result);
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
