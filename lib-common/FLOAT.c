@@ -26,7 +26,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 
 	while(i >0){
 	    if(_a >= _b){
-	        c += 1 << (16 - i);
+	        c += 1 << i;
 	        _a -= _b;
 	    }else{
 	        _b =_b >> 1;
