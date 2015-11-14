@@ -6,7 +6,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	int qb = b /q;
 	int ya = a %q;
 	int yb = b % q;
-	int result = qa*qb *q + qa * yb +qb*ya + ya * yb/q;
+	int result = qa*qb *q + qa * yb +qb*ya + (ya * yb) >>16;
 	return result;
 }
 
