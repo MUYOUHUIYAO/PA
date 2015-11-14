@@ -11,7 +11,7 @@ static void do_execute () {
 	while(temp !=0){
 		if(dest & 0x01) set_EFLAGS(E_CF);
 		else unset_EFLAGS(E_CF);
-		dest /= 2;
+		dest =dest >> 1;
 		temp -=1;
 	}
 
