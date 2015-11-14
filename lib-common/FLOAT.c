@@ -15,20 +15,20 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 
 	int i = 16;
 	int sign_a = (a & 0x80000000)>>31, sign_b = (b & 0x80000000) >> 31;
-    int sign = sign_a ^ sign_b;
-    FLOAT _a = (sign_a ? -a : a);
-    FLOAT _b = (sign_b ? -b : b);
-    FLOAT c = 0;
+	int sign = sign_a ^ sign_b;
+	FLOAT _a = (sign_a ? -a : a);
+	FLOAT _b = (sign_b ? -b : b);
+	FLOAT c = 0;
 
-    while(i >0){
-        if(_a >= _b){
-            c += 1 << (16 - i);
-            _a -= _b;
-        }else{
-            _b >> 1;
-            i --;
-        }
-    }
+	while(i >0){
+	    if(_a >= _b){
+	        c += 1 << (16 - i);
+	        _a -= _b;
+	    }else{
+	        _b >> 1;
+	        i --;
+	    }
+	}
 	return (sign? -c : c);
 }
 
