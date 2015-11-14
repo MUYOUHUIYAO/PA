@@ -15,7 +15,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-	nemu_assert(b);
+	//nemu_assert(b);
 
 	int i = 16;
 	int sign_a = (a & 0x80000000)>>31, sign_b = (b & 0x80000000) >> 31;
@@ -29,10 +29,10 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	        c += 1 << i;
 	        _a -= _b;
 	    }else{
-	        _b =_b >> 1;
+	        _b = _b>> 1;
 	        i --;
 	    }
-	    if(_a == 0x0 || _b ==0x0) break;
+	    if(_b == 0x0 ||_a == 0x0) break;
 	}
 	return (sign? -c : c);
 }
