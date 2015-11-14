@@ -10,7 +10,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	int qb = _b /q;
 	int ya = _a %q;
 	int yb = _b % q;
-	int result = qa*qb *q + qa * yb +qb*ya + (ya * yb) >>16;
+	int result = qa*qb *q + qa * yb +qb*ya + ((ya * yb) >>16);
 	return (sign? -result: result);
 }
 
