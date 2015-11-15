@@ -2,7 +2,6 @@
 #include "memory.h"
 #include <string.h>
 #include <elf.h>
-#include <stdio.h>
 
 #define ELF_OFFSET_IN_DISK 0
 
@@ -43,9 +42,9 @@ uint32_t loader() {
 	uint16_t phnum = elf -> e_phnum;
 	Elf32_Off phoff = elf -> e_phoff;
 
-	printf("程序头%p\n", (void*)phoff);
-	printf("phsize\t%d\n", phsize);
-	printf("phnum\t %d\n", phnum );
+	nemu_assert(phnum == 3);
+	nemu_assert(phsize == 32);
+	nemu_assert(phoff = 520);
 
 	ph = (void *)(buf + phoff);
 	ramdisk_read((uint8_t *)ph, phoff, phnum * phsize);
