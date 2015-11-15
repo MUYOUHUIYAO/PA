@@ -50,7 +50,7 @@ uint32_t loader() {
 
 	ph = (void *)(buf + phoff);
 	ramdisk_read((uint8_t *)ph, phoff, phnum * phsize);
-	int i;
+	uint16_t i;
 	for(i = 0; i<phnum; i++, ph = ph+i ) {
 
 		/* Scan the program header table, load each segment into memory */
