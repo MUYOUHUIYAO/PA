@@ -75,7 +75,7 @@ uint32_t loader() {
 			if(brk < new_brk) { brk = new_brk; }
 #endif
 		}
-				nemu_assert(i==0);
+				nemu_assert(i==3);
 	}
 
 	volatile uint32_t entry = elf->e_entry;
