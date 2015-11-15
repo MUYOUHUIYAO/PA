@@ -42,6 +42,10 @@ uint32_t loader() {
 	uint16_t phnum = elf -> e_phnum;
 	Elf32_Off phoff = elf -> e_phoff;
 
+	printf("程序头%p\n", phoff);
+	printf("phsize\t%d\n", phsize);
+	printf("phnum\t %d\n", phnum );
+
 	ph = (void *)(buf + phoff);
 	ramdisk_read((uint8_t *)ph, phoff, phnum * phsize);
 	int i;
