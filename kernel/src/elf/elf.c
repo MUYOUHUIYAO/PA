@@ -59,12 +59,12 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
 
-			 memcpy(pa_to_va(ph -> p_vaddr) , (void*)buf + ph -> p_vaddr, ph -> p_filesz);
+			 memcpy((void*)ph -> p_vaddr , (void*)buf + ph -> p_vaddr, ph -> p_filesz);
 			 
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-			 memset(pa_to_va(ph -> p_vaddr+ ph -> p_filesz), 0, ph -> p_memsz);
+			 memset((void*)(ph -> p_vaddr+ ph -> p_filesz), 0, ph -> p_memsz);
 
 
 #ifdef IA32_PAGE
