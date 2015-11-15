@@ -80,7 +80,7 @@ void init_cond() {
 
 	/* Load the program. */
 	uint32_t eip = loader();
-		nemu_assert(0);
+	
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Read data in the video memory to check whether 
 	 * the test data is written sucessfully.
@@ -93,7 +93,7 @@ void init_cond() {
 
 #ifdef IA32_PAGE
 	/* Set the %esp for user program, which is one of the
-	 * convention of the "advanced" runtime environment. */
+	 * convention of the "advanced" runtime environment. */	nemu_assert(0);
 	asm volatile("movl %0, %%esp" : : "i"(KOFFSET));
 #endif
 
