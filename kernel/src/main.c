@@ -93,10 +93,10 @@ void init_cond() {
 
 #ifdef IA32_PAGE
 	/* Set the %esp for user program, which is one of the
-	 * convention of the "advanced" runtime environment. */	nemu_assert(0);
+	 * convention of the "advanced" runtime environment. */
 	asm volatile("movl %0, %%esp" : : "i"(KOFFSET));
 #endif
-
+	nemu_assert(0);
 	/* Keep the `bt' command happy. */
 	asm volatile("movl $0, %ebp");
 	asm volatile("subl $16, %esp");
