@@ -43,7 +43,6 @@ uint32_t loader() {
 	uint16_t phnum = elf -> e_phnum;
 	Elf32_Off phoff = elf -> e_phoff;
 
-	nemu_assert(0);
 	nemu_assert(phnum == 3);
 	nemu_assert(phsize == 32);
 	nemu_assert(phoff = 520);
