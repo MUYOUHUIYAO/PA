@@ -45,6 +45,7 @@ uint32_t loader() {
 	nemu_assert(phnum == 3);
 	nemu_assert(phsize == 32);
 	nemu_assert(phoff = 520);
+	nemu_assert(0);
 
 	ph = (void *)(buf + phoff);
 	ramdisk_read((uint8_t *)ph, phoff, phnum * phsize);
