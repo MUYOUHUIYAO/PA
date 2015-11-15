@@ -77,7 +77,7 @@ uint32_t loader() {
 		}
 	}
 	volatile uint32_t entry = elf->e_entry;
-	nemu_assert(entry == 0x8000a6);
+
 #ifdef IA32_PAGE
 	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
 
