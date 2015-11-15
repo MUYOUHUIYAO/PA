@@ -52,7 +52,7 @@ uint32_t loader() {
 	ramdisk_read((uint8_t *)ph, phoff, phnum * phsize);
 	int i;
 	for(i = 0; i<phnum; i++, ph = ph+i ) {
-		nemu_assert(i<phnum);
+
 		/* Scan the program header table, load each segment into memory */
 		if(ph->p_type == PT_LOAD) {
 
@@ -75,6 +75,7 @@ uint32_t loader() {
 			if(brk < new_brk) { brk = new_brk; }
 #endif
 		}
+				nemu_assert(i<phnum);
 	}
 
 	volatile uint32_t entry = elf->e_entry;
