@@ -34,6 +34,7 @@ uint32_t loader() {
 	//const uint32_t elf_magic = 0xBadC0de;
 	const uint32_t elf_magic = 0x7f454c46;
 	uint32_t *p_magic = (void *)buf;
+	nemu_assert(0);
 	nemu_assert(*p_magic == elf_magic);
 
 	/* Load each program segment */
@@ -42,7 +43,7 @@ uint32_t loader() {
 	uint16_t phnum = elf -> e_phnum;
 	Elf32_Off phoff = elf -> e_phoff;
 
-	nemu_assert(1);
+	nemu_assert(0);
 	nemu_assert(phnum == 3);
 	nemu_assert(phsize == 32);
 	nemu_assert(phoff = 520);
