@@ -80,12 +80,11 @@ void init_cond() {
 
 	/* Load the program. */
 	uint32_t eip = loader();
-	
+		nemu_assert(0);
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Read data in the video memory to check whether 
 	 * the test data is written sucessfully.
 	 */
-	 	nemu_assert(0);
 	video_mapping_read_test();
 
 	/* Clear the test data we just written in the video memory. */
