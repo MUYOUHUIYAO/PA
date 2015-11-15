@@ -51,7 +51,7 @@ uint32_t loader() {
 	ph = (void *)(buf + phoff);
 	ramdisk_read((uint8_t *)ph, phoff, phnum * phsize);
 	int i;
-	nemu_assert(0);
+	//nemu_assert(0);
 	for(i = 0; i<phnum; i++, ph = ph+i ) {
 		/* Scan the program header table, load each segment into memory */
 		if(ph->p_type == PT_LOAD) {
