@@ -58,5 +58,6 @@ make_helper(ctd_v){
 
 make_helper(cld){
 	unset_EFLAGS(E_DF);
+	print_asm("cld");
 	return 1;
 }
