@@ -77,7 +77,6 @@ uint32_t loader() {
 #endif
 		}
 	}
-	nemu_assert(i == 3);
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
