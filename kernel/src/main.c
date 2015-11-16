@@ -80,7 +80,7 @@ void init_cond() {
 
 	/* Load the program. */
 	uint32_t eip = loader();
-nemu_assert(eip == 0x8000a7);
+//nemu_assert(eip == 0x8000a7);
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Read data in the video memory to check whether 
 	 * the test data is written sucessfully.
