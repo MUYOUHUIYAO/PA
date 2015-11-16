@@ -66,7 +66,7 @@ uint32_t loader() {
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
 			// ramdisk_read((uint8_t*)(ph -> p_vaddr + p -> p_filesz), (p -> p_memsz - p -> p_filesz), )
-			 memset((void*)(void *)(ph -> p_vaddr+ ph -> p_filesz), 0, ph -> p_memsz - ph -> p_filesz);
+			 memset((void*)(ph -> p_vaddr+ ph -> p_filesz), 0, ph -> p_memsz - ph -> p_filesz);
 
 
 #ifdef IA32_PAGE
@@ -77,6 +77,7 @@ uint32_t loader() {
 #endif
 		}
 	}
+	nemu_assert(i == 3);
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
