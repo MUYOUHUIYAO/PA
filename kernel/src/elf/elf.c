@@ -59,14 +59,14 @@ uint32_t loader() {
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-			 ramdisk_read((uint8_t*)(ph -> p_vaddr), ph -> p_offset, ph -> p_filesz);
+			 ramdisk_read((uint8_t*)(void *)(ph -> p_vaddr), ph -> p_offset, ph -> p_filesz);
 			 //memcpy((void*)(ph -> p_vaddr) , (void*)buf + ph -> p_vaddr, ph -> p_filesz);
 			 
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
 			// ramdisk_read((uint8_t*)(ph -> p_vaddr + p -> p_filesz), (p -> p_memsz - p -> p_filesz), )
-			 memset((void*)(ph -> p_vaddr+ ph -> p_filesz), 0, ph -> p_memsz - ph -> p_filesz);
+			 memset((void*)(void *)(ph -> p_vaddr+ ph -> p_filesz), 0, ph -> p_memsz - ph -> p_filesz);
 
 
 #ifdef IA32_PAGE
