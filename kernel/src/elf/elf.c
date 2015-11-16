@@ -43,15 +43,12 @@ uint32_t loader() {
 	uint16_t phnum = elf -> e_phnum;
 	Elf32_Off phoff = elf -> e_phoff;
 
-	nemu_assert(phnum == 3);
-	nemu_assert(phsize == 32);
-	nemu_assert(phoff = 520);
 
 
 	ph = (void *)(buf + phoff);
 	ramdisk_read((uint8_t *)ph, phoff, phnum * phsize);
 	uint16_t i;
-	for(i = 0; i<phnum; i++, ph = ph+i ) {
+	for(i = 0; i<phnum; i++, ph = ph+1 ) {
 
 		/* Scan the program header table, load each segment into memory */
 		if(ph->p_type == PT_LOAD) {
@@ -59,7 +56,7 @@ uint32_t loader() {
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-			 ramdisk_read((uint8_t*)(void *)(ph -> p_vaddr), ph -> p_offset, ph -> p_filesz);
+			 ramdisk_read((uint8_t*)(ph -> p_vaddr), ph -> p_offset, ph -> p_filesz);
 			 //memcpy((void*)(ph -> p_vaddr) , (void*)buf + ph -> p_vaddr, ph -> p_filesz);
 			 
 			/* TODO: zero the memory region 
