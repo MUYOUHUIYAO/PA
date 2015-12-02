@@ -238,7 +238,7 @@ static int cmd_bt(char *args){
 	}
 
 	PartOfStackFrame *func_stack;	//栈帧链首地址
-	ebp = cpu.ebp, prev_ebp;
+	ebp = cpu.ebp;
 	int i=0, k=0;
 
 	func_stack = (PartOfStackFrame *)malloc(len*StackFrame_size);
