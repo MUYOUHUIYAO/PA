@@ -4,6 +4,7 @@
 
 static void do_execute (){
 	printf("eip = 0x%08x\t", cpu.eip);
+	printf("rel = 0x%08x\t", op_src -> val );
 	cpu.eip += op_src->val;
 	if(DATA_BYTE == 2){
 		cpu.eip = cpu.eip & 0x0000ffff ;
