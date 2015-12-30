@@ -3,11 +3,12 @@
 
 
 static void do_execute (){
+	printf("eip = 0x%08x\t", cpu.eip);
 	cpu.eip += op_src->val;
 	if(DATA_BYTE == 2){
 		cpu.eip = cpu.eip & 0x0000ffff ;
 	}
-
+	printf("dest_eip = 0x%08x\n", cpu.eip );
 	print_asm_template1();
 }
 
