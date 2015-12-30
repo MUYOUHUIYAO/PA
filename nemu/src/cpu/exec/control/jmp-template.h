@@ -5,7 +5,12 @@
 static void do_execute (){
 	printf("eip = 0x%08x\t", cpu.eip);
 	printf("rel = 0x%08x\t", op_src -> val );
-	cpu.eip += (uint32_t)(int32_t)(int8_t)(op_src->val);
+	if(DATA_BYTE == 1)
+		cpu.eip += (uint32_t)(int32_t)(int8_t)op_src->val;
+	else if(DATA_BYTE == 2)
+		cpu.eip += (uint32_t)(int32_t)(int16_t)op_src->val;
+	else
+		cpu.eip += op_src->val;
 	printf("ceip = 0x%08x\t", cpu.eip );
 	if(DATA_BYTE == 2){
 		cpu.eip = cpu.eip & 0x0000ffff ;
