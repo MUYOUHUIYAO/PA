@@ -3,8 +3,6 @@
 
 
 static void do_execute (){
-	printf("eip = 0x%08x\t", cpu.eip);
-	printf("rel = 0x%08x\t", op_src -> val );
 	if(DATA_BYTE == 1)
 		cpu.eip += (uint32_t)(int32_t)(int8_t)op_src->val;
 	else if(DATA_BYTE == 2)
