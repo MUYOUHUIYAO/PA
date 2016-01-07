@@ -9,11 +9,9 @@ static void do_execute (){
 		cpu.eip += (uint32_t)(int32_t)(int16_t)op_src->val;
 	else
 		cpu.eip += op_src->val;
-	printf("ceip = 0x%08x\t", cpu.eip );
 	if(DATA_BYTE == 2){
 		cpu.eip = cpu.eip & 0x0000ffff ;
 	}
-	printf("dest_eip = 0x%08x\n", cpu.eip );
 	print_asm_template1();
 }
 
