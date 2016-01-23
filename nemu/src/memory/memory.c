@@ -1,4 +1,5 @@
 #include "common.h"
+#include "cache.h"
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
@@ -6,7 +7,22 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	uint32_t data1, data2, _len;
+	CacheBlock *cb = NULL;
+	if(shot(addr, cb) == true){
+		_len = CacheRead(addr, cb, len, &data1);
+		if(!_len){
+			if(shot(addr + (len - _len), cb) == true){
+				CacheRead(addr+ (len - _len), cb, _len, &data2);
+			}else{
+				data2 = dram_read(addr+ (len - _len), _len) & (~0u >> ((4 - _len) << 3));
+			}
+			return data2& data1;
+		}else{
+			return data1;
+		}
+	}else
+		return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
