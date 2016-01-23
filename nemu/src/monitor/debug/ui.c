@@ -2,6 +2,7 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
+#include "memory/cache.h"
 
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -67,6 +68,8 @@ static int cmd_d(char *args);
 	
 static int cmd_bt(char *args);
 
+static int cmd_cache(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -81,7 +84,8 @@ static struct {
 	{"p","求表达式EXPR的值",cmd_p},
 	{"w","w EXPR 当表达式值发生变化时终止程序运行",cmd_w},
 	{"d","d N 删除序号为N的监视点",cmd_d},
-	{"bt","打印栈帧链",cmd_bt}
+	{"bt","打印栈帧链",cmd_bt},
+	{"cache", "cache addr 打印cache", cmd_cache}
 	/* TODO: Add more commands */
 
 };
@@ -160,28 +164,28 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-		size_t n=1;
-		char *addr,*num_str;
-		swaddr_t _addr;
-		int i=0;
-		bool f;
-		
-		num_str=strtok(args," ");
-		if(num_str==NULL) return 0;
-		addr=strtok(NULL," ");
-		if(addr==NULL) return 0;
-		
-		n=atoi(num_str);
-		_addr=expr(addr,&f);
-		if(f==false) return 0;
-		//sscanf(addr,"0x%X",&_addr);
-		printf("0x%x:\t",_addr);
-		for(i=0;i<n;i++){
-			printf("0x%.8x\t",swaddr_read(_addr,4));
-			_addr+=4;
-		}
-		printf("\n");
-		return 0;
+	size_t n=1;
+	char *addr,*num_str;
+	swaddr_t _addr;
+	int i=0;
+	bool f;
+	
+	num_str=strtok(args," ");
+	if(num_str==NULL) return 0;
+	addr=strtok(NULL," ");
+	if(addr==NULL) return 0;
+	
+	n=atoi(num_str);
+	_addr=expr(addr,&f);
+	if(f==false) return 0;
+	//sscanf(addr,"0x%X",&_addr);
+	printf("0x%x:\t",_addr);
+	for(i=0;i<n;i++){
+		printf("0x%.8x\t",swaddr_read(_addr,4));
+		_addr+=4;
+	}
+	printf("\n");
+	return 0;
 }
 
 static int cmd_p(char *args){
@@ -270,6 +274,31 @@ static int cmd_bt(char *args){
 		}
 	}
 
+	return 0;
+}
+
+static int cmd_cache(char *args){
+	char *addr,*num_str;
+	swaddr_t _addr;
+	CacheBlock *cb = NULL;
+	bool f;
+	
+	num_str=strtok(args," ");
+	if(num_str==NULL) return 0;
+	addr=strtok(NULL," ");
+	if(addr==NULL) return 0;
+
+	_addr = expr(addr, &f);
+	if(f == false) return 0;
+
+	printf("0x%x:\t", _addr);
+	if(shot(_addr, cb) == true){
+		uint8_t data;
+		CacheReadByte(_addr, cb, &data);
+		printf("shot cache : 0x%x\n", data);
+	}else{
+		printf("not shot cache!!!\n");
+	}
 	return 0;
 }
 

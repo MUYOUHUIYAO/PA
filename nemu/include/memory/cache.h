@@ -2,8 +2,6 @@
 #define __CACHE_H__
 
 #include "common.h"
-#include "burst.h"
-#include "misc.h"
 
 typedef struct CacheBlock{
 	bool valid;

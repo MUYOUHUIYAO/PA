@@ -1,4 +1,7 @@
-#include "cache.h"
+#include "memory/cache.h"
+
+#include "burst.h"
+#include "misc.h"
 
 void init_cache(){
 	int i = 0;
