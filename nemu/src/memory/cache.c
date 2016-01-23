@@ -24,6 +24,13 @@ CacheBlock cache[CacheRow];
 
 #define GPADDR(addr) (cache + ROWNUM * INDEX(addr)) 
 
+void init_cache(){
+	int i = 0;
+	for(i = 0; i < CacheRow; i ++){
+		cache[i].valid = false;
+	}
+}
+
 bool shot(hwaddr_t addr, CacheBlock *cb){
 	uint32_t tag = TAG(addr);
 	uint32_t i;
@@ -41,16 +48,27 @@ void CacheWriteByte(hwaddr_t addr, CacheBlock *cb, uint8_t data){
 	cb -> data[offset] = data;
 }
 
-void CacheWrite(hwaddr_t addr, CacheBlock *cb, size_t len, uint32_t data){
-	//uint32_t offset = ADDR(addr);
-	//uint32_t 
-	if(addr + len < CacheBlockSize){
-		while(len){
-			//CacheWriteByte(addr, cb, )
-		}
-	}else{
-
+size_t CacheWrite(hwaddr_t addr, CacheBlock *cb, size_t len, uint32_t data){
+	uint32_t offset = ADDR(addr);
+	while(len && (offset + len < CacheBlockSize)){
+		CacheWriteByte(addr ++, cb, (data >> ((4 - (len--)) * 8)));
 	}
+	return len;
+}
+
+void CacheReadByte(hwaddr_t addr, CacheBlock *cb, uint8_t *data){
+	uint32_t offset = ADDR(addr);
+	*data = cb -> data[offset];
+}
+
+size_t CacheRead(hwaddr_t addr, CacheBlock *cb, size_t len, uint32_t *data){
+	uint32_t offset = ADDR(addr);
+	uint8_t temp;
+	while(len && (offset + len < CacheBlockSize)){
+		CacheReadByte(addr ++, cb, &temp);
+		*data = (*data) & (temp << ((4 - len) * 8));
+	}
+	return len;
 }
 
 
