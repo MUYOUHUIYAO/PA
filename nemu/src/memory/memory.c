@@ -7,6 +7,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
+	printf("hread_error!!!\n");
 	uint32_t result= 0x0, data;
 	int i = 0;
 	//size_t l = len;
@@ -22,6 +23,8 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
+	printf("hwrite_error!!!\n");
+
 	int i = 0;
 	printf("hwrite addr = 0x%x len = %d data=0x%x\n",addr, len, data );
 	while(len){
