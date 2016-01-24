@@ -21,9 +21,8 @@ bool shot(hwaddr_t addr, CacheBlock *cb){
 	uint32_t tag = TAG(addr);
 	uint32_t i;
 	cb = GPADDR(addr);
+	printf("%d\n",cb == cache );
 	for(i = 0; i < ROWNUM; i ++, cb += 1){
-		printf("hello ");
-		printf("%d\n", cb -> tag);
 		if(cb -> tag == tag) return true;
 	}
 	cb = NULL;
