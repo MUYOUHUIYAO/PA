@@ -20,10 +20,10 @@ void init_cache(){
 bool shot(hwaddr_t addr, CacheBlock *cb){
 	uint32_t tag = TAG(addr);
 	uint32_t i;
-	cb = GPADDR(addr);printf("0x%x\n", (uint32_t)cb);
 	for(i = 0; i < ROWNUM; i ++, cb += 1){
 		if(cb -> tag == tag) return true;
-	}
+	}	printf("attach here\n");
+
 	cb = NULL;
 	return false;
 }
