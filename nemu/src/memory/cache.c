@@ -51,7 +51,7 @@ CacheBlock * CopyToCache(hwaddr_t addr){
 }
 
 void CacheWriteByte(hwaddr_t addr, uint8_t data){
-	printf("wrong in write\n");
+	//printf("wrong in write\n");
 	CacheBlock* cb = NULL;
 	uint32_t offset = ADDR(addr);
 	if(shot(addr, cb) == true){
