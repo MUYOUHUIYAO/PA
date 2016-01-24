@@ -7,39 +7,27 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-	uint32_t data1, data2, _len;
-	CacheBlock *cb = NULL;
-	if(shot(addr, cb) == true){
-		_len = CacheRead(addr, cb, len, &data1);
-		if(_len){
-			if(shot(addr + (len - _len), cb) == true){
-				CacheRead(addr+ (len - _len), cb, _len, &data2);
-			}else{
-				data2 = dram_read(addr+ (len - _len), _len) & (~0u >> ((4 - _len) << 3));
-			}
-			return data2 & data1 & (~0u >> ((4 - len) << 3));;
-		}else{
-			return data1 & (~0u >> ((4 - _len) << 3));;
-		}
-	}else
-		return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	uint32_t result= 0x0, data;
+	int i = 0;
+	while(len){
+		CacheReadByte(addr + i, (uint8_t *)(&data));
+		result |= (data << i) & (0xff << i);
+		++i;
+		--len;
+	}
+	return result;
+	//return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
-	uint32_t  _len;
-	CacheBlock *cb = NULL;
-	if(shot(addr,cb) == true){
-		_len = CacheWrite(addr,cb,len, data);
-		if(_len){
-			if(shot(addr + len - _len, cb) == true){
-				CacheWrite(addr + len - _len, cb, _len, data);
-			}else{
-				dram_write(addr + len - _len, _len, data);
-			}
-		}
-	}else{
-		dram_write(addr, len, data);
+	int i = 0;
+	while(len){
+		CacheWriteByte(addr + i, (uint8_t)(data>>i));
+		++i;
+		--len;
 	}
+
+	//dram_write(addr, len, data);
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {

@@ -29,11 +29,11 @@ void init_cache();
 
 bool shot(hwaddr_t , CacheBlock* );
 
-void CacheWriteByte(hwaddr_t , CacheBlock *, uint8_t );
-void CacheReadByte(hwaddr_t, CacheBlock *, uint8_t *);
+void CacheWriteByte(hwaddr_t , uint8_t );
+void CacheReadByte(hwaddr_t, uint8_t *);
 
-size_t CacheWrite(hwaddr_t, CacheBlock *, size_t , uint32_t );
-size_t CacheRead(hwaddr_t, CacheBlock *, size_t , uint32_t* );
+//size_t CacheWrite(hwaddr_t, CacheBlock *, size_t , uint32_t );
+//size_t CacheRead(hwaddr_t, CacheBlock *, size_t , uint32_t* );
 
 #endif
 

@@ -2,44 +2,83 @@
 
 #include "burst.h"
 #include "misc.h"
+#include <stdlib.h>
+#include <time.h>
+
+uint32_t dram_read(hwaddr_t, size_t);
+void dram_write(hwaddr_t, size_t, uint32_t);
 
 void init_cache(){
 	int i = 0;
 	for(i = 0; i < CacheRow; i ++){
 		cache[i].valid = false;
 	}
+
+	srand((unsigned)time(NULL));
 }
 
 bool shot(hwaddr_t addr, CacheBlock *cb){
 	uint32_t tag = TAG(addr);
 	uint32_t i;
 	cb = GPADDR(addr);
-	for(i = 0; i < ROWNUM; i ++){
-		cb = cb + i;
+	for(i = 0; i < ROWNUM; i ++, cb += 1){
 		if(cb -> tag == tag) return true;
 	}
 	cb = NULL;
 	return false;
 }
 
-void CacheWriteByte(hwaddr_t addr, CacheBlock *cb, uint8_t data){
-	uint32_t offset = ADDR(addr);
-	cb -> data[offset] = data;
+uint32_t RDNUM(){
+	return  (uint32_t)(rand() % 8);
 }
 
+CacheBlock * CopyToCache(hwaddr_t addr){
+	CacheBlock *cb = GPADDR(addr);
+	int i = 0, index;
+	// 如果cache未满
+	for(i = 0; i < ROWNUM; i ++){
+		if((cb + i) -> valid == false){
+			index = i;
+		}
+	}
+	if(i == ROWNUM) index = RDNUM();	//如果cache满，随机替换
+
+	for(i = 0; i < CacheBlockSize; i++){
+		(cb + index) -> data[i] = dram_read(addr,1);
+	}
+	return cb + index;
+}
+
+void CacheWriteByte(hwaddr_t addr, uint8_t data){
+	CacheBlock* cb = NULL;
+	uint32_t offset = ADDR(addr);
+	if(shot(addr, cb) == true){
+		cb -> data[offset] = data;
+	}else{
+		dram_write(addr, 1, (uint32_t)data);
+	}
+}
+/*
 size_t CacheWrite(hwaddr_t addr, CacheBlock *cb, size_t len, uint32_t data){
 	uint32_t offset = ADDR(addr);
 	while(len && (offset + (4 - len) < CacheBlockSize)){
 		CacheWriteByte(addr ++, cb, (data >> ((4 - (len--)) * 8)));
 	}
 	return len;
-}
+}*/
 
-void CacheReadByte(hwaddr_t addr, CacheBlock *cb, uint8_t *data){
+void CacheReadByte(hwaddr_t addr, uint8_t *data){
+	CacheBlock *cb = NULL;
 	uint32_t offset = ADDR(addr);
-	*data = cb -> data[offset];
+	if(shot(addr, cb) == true){
+		*data = cb -> data[offset];
+	}else{
+		cb = CopyToCache(addr);
+		*data = cb -> data[offset];
+	}
 }
 
+/*
 size_t CacheRead(hwaddr_t addr, CacheBlock *cb, size_t len, uint32_t *data){
 	uint32_t offset = ADDR(addr);
 	uint8_t temp;
@@ -49,5 +88,5 @@ size_t CacheRead(hwaddr_t addr, CacheBlock *cb, size_t len, uint32_t *data){
 	}
 	return len;
 }
-
+*/
 
