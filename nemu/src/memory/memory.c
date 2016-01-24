@@ -25,7 +25,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	int i = 0;
 	printf("hwrite addr = 0x%x len = %d data=0x%x\n",addr, len, data );
 	while(len){
-		CacheWriteByte(addr + i, (uint8_t)(data>>i));
+		CacheWriteByte(addr + i, (uint8_t)(data>>(8 * i)));
 		++i;
 		--len;
 	}
