@@ -9,6 +9,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	uint32_t result= 0x0, data;
 	int i = 0;
+	printf("wrong in hread addr = 0x%x\n", addr);
 	while(len){
 		CacheReadByte(addr + i, (uint8_t *)(&data));
 		result |= (data << i) & (0xff << i);
