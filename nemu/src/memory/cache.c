@@ -44,7 +44,7 @@ CacheBlock * CopyToCache(hwaddr_t addr){
 	if(i == ROWNUM) index = RDNUM();	//如果cache满，随机替换
 
 	for(i = 0; i < CacheBlockSize; i++){
-		(cb + index) -> data[i] = dram_read(addr,1);
+		(cb + index) -> data[i] = dram_read(addr + i,1);
 	}
 	return cb + index;
 }
