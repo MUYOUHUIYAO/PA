@@ -23,7 +23,7 @@ CacheBlock cache[CacheRow];
 #define INDEX(addr) ((addr >> 6) & 0x7f)
 #define ADDR(addr) (addr & 0x3f)
 
-#define GPADDR(addr) (cache + ROWNUM * INDEX(addr)) 
+#define GPADDR(addr) ((CacheBlock *)(cache + ROWNUM * INDEX(addr))) 
 
 void init_cache();
 
