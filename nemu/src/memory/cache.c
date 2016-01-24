@@ -20,7 +20,8 @@ void init_cache(){
 bool shot(hwaddr_t addr, CacheBlock *cb){
 	uint32_t tag = TAG(addr);
 	uint32_t i;
-	cb = GPADDR(addr);
+	cb = GPADDR(addr);	printf("attach here\n");
+
 	for(i = 0; i < ROWNUM; i ++, cb += 1){
 		if(cb -> tag == tag) return true;
 	}
@@ -72,8 +73,7 @@ size_t CacheWrite(hwaddr_t addr, CacheBlock *cb, size_t len, uint32_t data){
 void CacheReadByte(hwaddr_t addr, uint8_t *data){
 	CacheBlock *cb = NULL;
 	uint32_t offset = ADDR(addr);
-	if(shot(addr, cb) == true){	printf("attach here\n");
-
+	if(shot(addr, cb) == true){
 		*data = cb -> data[offset];
 	}else{
 		cb = CopyToCache(addr);
