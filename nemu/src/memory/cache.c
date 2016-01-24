@@ -72,6 +72,7 @@ size_t CacheWrite(hwaddr_t addr, CacheBlock *cb, size_t len, uint32_t data){
 void CacheReadByte(hwaddr_t addr, uint8_t *data){
 	CacheBlock *cb = NULL;
 	uint32_t offset = ADDR(addr);
+	printf("attach here\n");
 	if(shot(addr, cb) == true){
 		*data = cb -> data[offset];
 	}else{
