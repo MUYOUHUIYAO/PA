@@ -35,6 +35,7 @@ uint32_t RDNUM(){
 CacheBlock * CopyToCache(hwaddr_t addr){
 	CacheBlock *cb = GPADDR(addr);
 	int i = 0, index;
+	hwaddr_t baddr = addr & 0xffffffc0;
 	// 如果cache未满
 	for(i = 0; i < ROWNUM; i ++){
 		if((cb + i) -> valid == false){
@@ -44,7 +45,7 @@ CacheBlock * CopyToCache(hwaddr_t addr){
 	if(i == ROWNUM) index = RDNUM();	//如果cache满，随机替换
 
 	for(i = 0; i < CacheBlockSize; i++){
-		(cb + index) -> data[i] = dram_read(addr + i,1);
+		(cb + index) -> data[i] = dram_read(baddr + i,1);
 	}
 	return cb + index;
 }
