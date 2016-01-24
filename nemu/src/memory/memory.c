@@ -12,7 +12,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	size_t l = len;
 	while(len){
 		CacheReadByte(addr + i, (uint8_t *)(&data));
-		result |= (data << i) & (0xff << i);
+		result |= (data << (i * 8)) & (0xff << (8*i));
 		++i;
 		--len;
 	}
