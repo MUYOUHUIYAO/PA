@@ -77,7 +77,7 @@ void CacheReadByte(hwaddr_t addr, uint8_t *data){
 		cb = CopyToCache(addr);
 		*data = cb -> data[offset];
 	}
-	printf("------wrong in read addr = 0x%x\tdata = 0x%x\n", addr, *data);
+	printf("------wrong in read addr = 0x%x data = 0x%x\n", addr, *data);
 
 }
 
