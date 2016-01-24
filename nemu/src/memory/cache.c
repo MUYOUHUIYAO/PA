@@ -22,9 +22,9 @@ bool shot(hwaddr_t addr, CacheBlock *cb){
 	uint32_t i;
 	cb = GPADDR(addr);
 	for(i = 0; i < ROWNUM; i ++, cb += 1){
+		printf("%d\n", i);
 		if(cb -> tag == tag) return true;
-	}	printf("attach here\n");
-
+	}
 	cb = NULL;
 	return false;
 }
