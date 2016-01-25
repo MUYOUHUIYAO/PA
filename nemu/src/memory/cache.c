@@ -23,6 +23,7 @@ bool shot(hwaddr_t addr, CacheBlock *cb){
 	cb = (CacheBlock *)GPADDR(addr);
 	printf("%d\n",cb == cache );
 	for(i = 0; i < ROWNUM; i ++, cb += 1){
+		printf("----------------i = %d\n", i);
 		if(cb -> tag == tag) return true;
 	}
 	cb = NULL;
