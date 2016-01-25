@@ -22,7 +22,7 @@ bool shot(hwaddr_t addr, CacheBlock *cb){
 	uint32_t i;
 	cb = (CacheBlock *)GPADDR(addr);
 	printf("%d\n",cb == cache );
-	printf("Blocksize = %d\n", sizeof(CacheBlock));
+	printf("Blocksize = %d addr = 0x%x\n", sizeof(CacheBlock), addr);
 	for(i = 0; i < ROWNUM; i ++, cb += 1){
 		printf("----------------i = %d cb =0x%x \n", i, (uint32_t)cb);
 		if(cb -> valid == true && cb -> tag == tag) return true;
