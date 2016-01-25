@@ -13,19 +13,18 @@ void init_cache(){
 	for(i = 0; i < CacheRow; i ++){
 		cache[i].valid = false;
 	}
-
 	srand((unsigned)time(NULL));
 }
 
-bool shot(hwaddr_t addr, CacheBlock *cb){
+bool shot(hwaddr_t addr, CacheBlock **cb){
 	uint32_t tag = TAG(addr);
 	uint32_t i;
-	cb = (CacheBlock *)GPADDR(addr);
-	printf("%d\n",cb == cache );
+	*cb = (CacheBlock *)GPADDR(addr);
+	printf("%d\n",*cb == cache );
 	printf("Blocksize = %d addr = 0x%x\n", sizeof(CacheBlock), addr);
-	for(i = 0; i < ROWNUM; i ++, cb += 1){
-		printf("----------------i = %d cb =0x%x \n", i, (uint32_t)cb);
-		if(cb -> valid == true && cb -> tag == tag) return true;
+	for(i = 0; i < ROWNUM; i ++, (*cb) += 1){
+		printf("----------------i = %d cb =0x%x \n", i, (uint32_t)(*cb));
+		if((*cb) -> valid == true && (*cb) -> tag == tag) return true;
 	}
 	cb = NULL;
 	return false;
@@ -59,7 +58,7 @@ void CacheWriteByte(hwaddr_t addr, uint8_t data){
 	printf("write addr = 0x%x, data = 0x%x\n",addr,data);
 	CacheBlock* cb = NULL;
 	uint32_t offset = ADDR(addr);
-	if(shot(addr, cb) == true){
+	if(shot(addr, &cb) == true){
 		cb -> data[offset] = data;
 	}else{
 		dram_write(addr, 1, (uint32_t)data);
@@ -77,7 +76,7 @@ size_t CacheWrite(hwaddr_t addr, CacheBlock *cb, size_t len, uint32_t data){
 void CacheReadByte(hwaddr_t addr, uint8_t *data){
 	CacheBlock *cb = NULL;
 	uint32_t offset = ADDR(addr);
-	if(shot(addr, cb) == true){
+	if(shot(addr, &cb) == true){
 		*data = cb -> data[offset];
 	}else{
 		cb = CopyToCache(addr);

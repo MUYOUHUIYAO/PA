@@ -27,7 +27,7 @@ CacheBlock cache[CacheRow];
 
 void init_cache();
 
-bool shot(hwaddr_t , CacheBlock* );
+bool shot(hwaddr_t , CacheBlock** );
 
 void CacheWriteByte(hwaddr_t , uint8_t );
 void CacheReadByte(hwaddr_t, uint8_t *);

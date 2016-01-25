@@ -292,7 +292,7 @@ static int cmd_cache(char *args){
 	if(f == false) return 0;
 
 	printf("0x%x:\t", _addr);
-	if(shot(_addr, cb) == true){
+	if(shot(_addr, &cb) == true){
 		uint8_t data;
 		CacheReadByte(_addr, &data);
 		printf("shot cache : 0x%x\n", data);
