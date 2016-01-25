@@ -17,6 +17,7 @@ typedef struct CacheBlock{
 CacheBlock cache[CacheRow];
 
 #define ROWNUM 8
+
 #define GROUPNUM (CacheRow/ROWNUM)
 
 #define TAG(addr) ((addr >> 13) & 0x7ffff)
@@ -33,9 +34,6 @@ bool shot(hwaddr_t , CacheBlock** );
 
 void CacheWriteByte(hwaddr_t , uint8_t );
 void CacheReadByte(hwaddr_t, uint8_t *);
-
-//size_t CacheWrite(hwaddr_t, CacheBlock *, size_t , uint32_t );
-//size_t CacheRead(hwaddr_t, CacheBlock *, size_t , uint32_t* );
 
 #endif
 
