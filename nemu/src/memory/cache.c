@@ -20,10 +20,7 @@ bool shot(hwaddr_t addr, CacheBlock **cb){
 	uint32_t tag = TAG(addr);
 	uint32_t i;
 	*cb = (CacheBlock *)GPADDR(addr);
-	printf("%d\n",*cb == cache );
-	printf("Blocksize = %d addr = 0x%x\n", sizeof(CacheBlock), addr);
 	for(i = 0; i < ROWNUM; i ++, (*cb) += 1){
-		printf("----------------i = %d cb =0x%x \n", i, (uint32_t)(*cb));
 		if((*cb) -> valid == true && (*cb) -> tag == tag) return true;
 	}
 	cb = NULL;
@@ -55,7 +52,7 @@ CacheBlock * CopyToCache(hwaddr_t addr){
 }
 
 void CacheWriteByte(hwaddr_t addr, uint8_t data){
-	printf("write addr = 0x%x, data = 0x%x\n",addr,data);
+//	printf("write addr = 0x%x, data = 0x%x\n",addr,data);
 	CacheBlock* cb = NULL;
 	uint32_t offset = ADDR(addr);
 	if(shot(addr, &cb) == true){
@@ -82,7 +79,7 @@ void CacheReadByte(hwaddr_t addr, uint8_t *data){
 		cb = CopyToCache(addr);
 		*data = cb -> data[offset];
 	}
-	printf("------wrong in read addr = 0x%x data = 0x%x\n", addr, *data);
+//	printf("------wrong in read addr = 0x%x data = 0x%x\n", addr, *data);
 
 }
 
