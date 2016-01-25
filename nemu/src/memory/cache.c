@@ -9,7 +9,7 @@ uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 
 void init_cache(){
-	int i = 0;
+	int i = 0;px=0;
 	for(i = 0; i < CacheRow; i ++){
 		cache[i].valid = false;
 	}
@@ -74,8 +74,10 @@ void CacheReadByte(hwaddr_t addr, uint8_t *data){
 	CacheBlock *cb = NULL;
 	uint32_t offset = ADDR(addr);
 	if(shot(addr, &cb) == true){
+		px+=2;
 		*data = cb -> data[offset];
 	}else{
+		px+=200;
 		cb = CopyToCache(addr);
 		*data = cb -> data[offset];
 	}

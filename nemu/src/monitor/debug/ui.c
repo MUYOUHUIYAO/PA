@@ -286,7 +286,10 @@ static int cmd_cache(char *args){
 	num_str=strtok(args," ");
 	if(num_str==NULL) return 0;
 	addr=strtok(NULL," ");
-	if(addr==NULL) return 0;
+	if(addr==NULL) {
+		printf("0x%x%x\n", (uint32_t)(px >> 32), (uint32_t)(px));
+		return 0;
+	}
 
 	_addr = expr(addr, &f);
 	if(f == false) return 0;

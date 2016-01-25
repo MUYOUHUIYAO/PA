@@ -25,6 +25,8 @@ CacheBlock cache[CacheRow];
 
 #define GPADDR(addr) ((CacheBlock *)(&cache[0] + ROWNUM * INDEX(addr))) 
 
+uint64_t px;
+
 void init_cache();
 
 bool shot(hwaddr_t , CacheBlock** );
