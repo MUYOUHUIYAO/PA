@@ -290,6 +290,7 @@ static int cmd_cache(char *args){
 		printf("px = 0x%x%x\n", (uint32_t)(px >> 32), (uint32_t)(px));
 		return 0;
 	}
+	printf("%s %s\n", num_str, addr);
 
 	_addr = expr(addr, &f);
 	if(f == false) return 0;
