@@ -48,6 +48,8 @@ CacheBlock * CopyToCache(hwaddr_t addr){
 	for(i = 0; i < CacheBlockSize; i++){
 		(cb + index) -> data[i] = dram_read(baddr + i,1);
 	}
+	(cb + index) -> tag = TAG(addr);
+	(cb + index) -> valid = true;
 	return cb + index;
 }
 
