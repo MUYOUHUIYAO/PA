@@ -287,7 +287,7 @@ static int cmd_cache(char *args){
 	if(num_str==NULL) return 0;
 	addr=strtok(NULL," ");
 	if(addr==NULL) {
-		printf("0x%x%x\n", (uint32_t)(px >> 32), (uint32_t)(px));
+		printf("px = 0x%x%x\n", (uint32_t)(px >> 32), (uint32_t)(px));
 		return 0;
 	}
 
