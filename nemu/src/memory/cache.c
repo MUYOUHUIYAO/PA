@@ -1,4 +1,5 @@
 #include "memory/cache.h"
+#include "memory/cache2.h"
 
 #include "burst.h"
 #include "misc.h"
@@ -35,6 +36,7 @@ CacheBlock * CopyToCache(hwaddr_t addr){
 	CacheBlock *cb = GPADDR(addr);
 	int i = 0, index;
 	hwaddr_t baddr = addr & 0xffffffc0;
+	uint8_t data;
 	// 如果cache未满
 	for(i = 0; i < ROWNUM; i ++){
 		if((cb + i) -> valid == false){
@@ -44,7 +46,9 @@ CacheBlock * CopyToCache(hwaddr_t addr){
 	if(i == ROWNUM) index = RDNUM();	//如果cache满，随机替换
 
 	for(i = 0; i < CacheBlockSize; i++){
-		(cb + index) -> data[i] = dram_read(baddr + i,1);
+		//(cb + index) -> data[i] = dram_read(baddr + i,1);
+		L2CacheReadByte(baddr + i,&data);
+		(cb + index) -> data[i] = data;
 	}
 	(cb + index) -> tag = TAG(addr);
 	(cb + index) -> valid = true;
@@ -59,7 +63,8 @@ void CacheWriteByte(hwaddr_t addr, uint8_t data){
 		cb -> data[offset] = data;
 		dram_write(addr, 1, (uint32_t)data);
 	}else{
-		dram_write(addr, 1, (uint32_t)data);
+		//dram_write(addr, 1, (uint32_t)data);
+		L2CacheWriteByte(addr, data);
 	}
 }
 /*
