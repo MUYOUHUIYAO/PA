@@ -29,7 +29,7 @@ L2CacheBlock L2cache[L2CacheRow];
 #define L2TAG(addr) (((L2TAG1(addr) << 4) | (L2TAG2(addr))) & (0x3fff) )
 
 #define L2GPADDR(addr) ((L2CacheBlock *)(&L2cache[0] + L2ROWNUM * L2INDEX(addr))) 
-#define L2TAG2ADDR(tag, addr) (((tag & 0x3ff0) << 18) & ((tag & 0xf) << 6) & (addr & 0x3ffc00) & 0xffffffc0)
+#define L2TAG2ADDR(tag, addr) ((((tag & 0x3ff0) << 18) | ((tag & 0xf) << 6) | (addr & 0x3ffc00)) & 0xffffffc0)
 
 uint64_t L2px;
 
