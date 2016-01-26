@@ -20,9 +20,9 @@ CacheBlock cache[CacheRow];
 
 #define GROUPNUM (CacheRow/ROWNUM)
 
-#define TAG(addr) ((addr >> 13) & 0x7ffff)
-#define INDEX(addr) ((addr >> 6) & 0x7f)
-#define ADDR(addr) (addr & 0x3f)
+#define TAG(addr) ((addr >> 13) & 0x7ffff)	//标记位
+#define INDEX(addr) ((addr >> 6) & 0x7f)	//索引位 7位
+#define ADDR(addr) (addr & 0x3f)		//块内偏移 6位
 
 #define GPADDR(addr) ((CacheBlock *)(&cache[0] + ROWNUM * INDEX(addr))) 
 
