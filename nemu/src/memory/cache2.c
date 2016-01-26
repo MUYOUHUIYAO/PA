@@ -22,6 +22,7 @@ bool L2shot(hwaddr_t addr, L2CacheBlock **cb){
 	uint32_t tag = L2TAG(addr);
 	uint32_t i;
 	*cb = (L2CacheBlock *)L2GPADDR(addr);
+	printf("L2shot index = %u,  addr = 0x%x\n, cbindex = %d", L2INDEX(addr), addr, (*cb - L2cache)/16);
 	for(i = 0; i < L2ROWNUM; i ++, (*cb) += 1){
 		if((*cb) -> valid == true && (*cb) -> tag == tag) return true;
 	}
