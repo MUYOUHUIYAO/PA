@@ -47,7 +47,7 @@ L2CacheBlock * L2CopyToCache(hwaddr_t addr){
 		 index = L2RDNUM();	//如果cache满，随机替换
 		 if((cb + index) -> dirty == true){
 		 	baddr = L2TAG2ADDR(((cb + index) -> tag), addr);
-		 	printf("tag = 0x%x, addr = 0x%x baddr = 0x%x\n",((cb + index) -> tag), addr, baddr );
+		 	//printf("tag = 0x%x, addr = 0x%x baddr = 0x%x\n",((cb + index) -> tag), addr, baddr );
 		 	for(i = 0; i < L2CacheBlockSize; i++){
 		 		dram_write(baddr + i, 1, (uint32_t)((cb + index) -> data[i]));
 		 	}
