@@ -56,7 +56,7 @@ CacheBlock * CopyToCache(hwaddr_t addr){
 }
 
 void CacheWriteByte(hwaddr_t addr, uint8_t data){
-	printf("---------write addr = 0x%x, data = 0x%x\n",addr,data);
+	//printf("---------write addr = 0x%x, data = 0x%x\n",addr,data);
 	CacheBlock* cb = NULL;
 	uint32_t offset = ADDR(addr);
 	if(shot(addr, &cb) == true){
@@ -88,7 +88,7 @@ void CacheReadByte(hwaddr_t addr, uint8_t *data){
 		cb = CopyToCache(addr);
 		*data = cb -> data[offset];
 	}
-	printf("---------read addr = 0x%x data = 0x%x\n", addr, *data);
+	//printf("---------read addr = 0x%x data = 0x%x\n", addr, *data);
 
 }
 
