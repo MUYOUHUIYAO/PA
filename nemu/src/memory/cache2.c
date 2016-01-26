@@ -64,7 +64,7 @@ L2CacheBlock * L2CopyToCache(hwaddr_t addr){
 }
 
 void L2CacheWriteByte(hwaddr_t addr, uint8_t data){
-//	printf("write addr = 0x%x, data = 0x%x\n",addr,data);
+	printf("-----------------------write addr = 0x%x, data = 0x%x\n",addr,data);
 	L2CacheBlock* cb = NULL;
 	uint32_t offset = L2ADDR(addr);
 	if(L2shot(addr, &cb) == true){
@@ -95,7 +95,7 @@ void L2CacheReadByte(hwaddr_t addr, uint8_t *data){
 		cb = L2CopyToCache(addr);
 		*data = cb -> data[offset];
 	}
-//	printf("------wrong in read addr = 0x%x data = 0x%x\n", addr, *data);
+	printf("-----------------------read addr = 0x%x data = 0x%x\n", addr, *data);
 
 }
 

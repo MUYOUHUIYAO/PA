@@ -17,7 +17,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 		++i;
 		--len;
 	}
-	printf("wrong in hread addr = 0x%x\tlen = %d\tdata=0x%x\n", addr, l,result);
+	printf("hread addr = 0x%x\tlen = %d\tdata=0x%x\n", addr, l,result);
 	return result & (~0u >> ((4 - l) << 3));
 	//return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 }
