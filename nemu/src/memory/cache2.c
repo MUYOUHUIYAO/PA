@@ -64,13 +64,15 @@ L2CacheBlock * L2CopyToCache(hwaddr_t addr){
 }
 
 void L2CacheWriteByte(hwaddr_t addr, uint8_t data){
-	printf("-----------------------write addr = 0x%x, data = 0x%x\n",addr,data);
 	L2CacheBlock* cb = NULL;
 	uint32_t offset = L2ADDR(addr);
 	if(L2shot(addr, &cb) == true){
+		printf("-----------------------write in L2Cache addr = 0x%x, data = 0x%x\n",addr,data);
 		cb -> data[offset] = data;
 		cb -> dirty = true;
 	}else{
+		printf("-----------------------write in dram addr = 0x%x, data = 0x%x\n",addr,data);
+
 		dram_write(addr, 1, (uint32_t)data);
 		L2CopyToCache(addr);
 	}
