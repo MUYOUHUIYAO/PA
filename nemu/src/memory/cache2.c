@@ -22,7 +22,7 @@ bool L2shot(hwaddr_t addr, L2CacheBlock **cb){
 	uint32_t tag = L2TAG(addr);
 	uint32_t i;
 	*cb = (L2CacheBlock *)L2GPADDR(addr);
-	printf("L2shot index = %u,  addr = 0x%x\n, cbindex = %d\n", L2INDEX(addr), addr, (*cb - L2cache)/16);
+	//printf("L2shot index = %u,  addr = 0x%x\n, cbindex = %d\n", L2INDEX(addr), addr, (*cb - L2cache)/16);
 	for(i = 0; i < L2ROWNUM; i ++, (*cb) += 1){
 		if((*cb) -> valid == true && (*cb) -> tag == tag) return true;
 	}
@@ -93,9 +93,11 @@ void L2CacheReadByte(hwaddr_t addr, uint8_t *data){
 	L2CacheBlock *cb = NULL;
 	uint32_t offset = L2ADDR(addr);
 	if(L2shot(addr, &cb) == true){
+		printf("shot in read\n");
 		L2px+=2;
 		*data = cb -> data[offset];
 	}else{
+		printf("not shot in read\n");
 		L2px+=200;
 		cb = L2CopyToCache(addr);
 		*data = cb -> data[offset];
