@@ -61,7 +61,8 @@ void CacheWriteByte(hwaddr_t addr, uint8_t data){
 	uint32_t offset = ADDR(addr);
 	if(shot(addr, &cb) == true){
 		cb -> data[offset] = data;
-		dram_write(addr, 1, (uint32_t)data);
+		//dram_write(addr, 1, (uint32_t)data);
+		L2CacheWriteByte(addr, data);
 	}else{
 		//dram_write(addr, 1, (uint32_t)data);
 		L2CacheWriteByte(addr, data);

@@ -72,6 +72,7 @@ void L2CacheWriteByte(hwaddr_t addr, uint8_t data){
 		cb -> dirty = true;
 	}else{
 		dram_write(addr, 1, (uint32_t)data);
+		L2CopyToCache(addr);
 	}
 }
 /*
