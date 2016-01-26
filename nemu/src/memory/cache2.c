@@ -22,7 +22,6 @@ bool L2shot(hwaddr_t addr, L2CacheBlock **cb){
 	uint32_t tag = L2TAG(addr);
 	uint32_t i;
 	*cb = (L2CacheBlock *)L2GPADDR(addr);
-	//printf("L2shot index = %u,  addr = 0x%x\n, cbindex = %d\n", L2INDEX(addr), addr, (*cb - L2cache)/16);
 	for(i = 0; i < L2ROWNUM; i ++, (*cb) += 1){
 		if((*cb) -> valid == true && (*cb) -> tag == tag) return true;
 	}
@@ -56,7 +55,6 @@ L2CacheBlock * L2CopyToCache(hwaddr_t addr){
 	}
 
 	baddr = addr & 0xffffffc0;
-	printf("copy to cache2 baddr = 0x%x, addr = 0x%x\n",baddr,addr );
 	for(i = 0; i < L2CacheBlockSize; i++){
 		(cb + index) -> data[i] = dram_read(baddr + i,1);
 	}
@@ -70,11 +68,9 @@ void L2CacheWriteByte(hwaddr_t addr, uint8_t data){
 	L2CacheBlock* cb = NULL;
 	uint32_t offset = L2ADDR(addr);
 	if(L2shot(addr, &cb) == true){
-		printf("-----------------------write in L2Cache addr = 0x%x, data = 0x%x\n",addr,data);
 		cb -> data[offset] = data;
 		cb -> dirty = true;
 	}else{
-		printf("-----------------------write in dram addr = 0x%x, data = 0x%x\n",addr,data);
 
 		dram_write(addr, 1, (uint32_t)data);
 		L2CopyToCache(addr);
@@ -93,11 +89,9 @@ void L2CacheReadByte(hwaddr_t addr, uint8_t *data){
 	L2CacheBlock *cb = NULL;
 	uint32_t offset = L2ADDR(addr);
 	if(L2shot(addr, &cb) == true){
-		printf("shot in read\n");
 		L2px+=2;
 		*data = cb -> data[offset];
 	}else{
-		printf("not shot in read\n");
 		L2px+=200;
 		cb = L2CopyToCache(addr);
 		*data = cb -> data[offset];
