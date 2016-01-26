@@ -55,7 +55,7 @@ L2CacheBlock * L2CopyToCache(hwaddr_t addr){
 	}
 
 	baddr = addr & 0xffffffc0;
-	printf("copy to cache2 baddr = 0x%x\n",baddr );
+	printf("copy to cache2 baddr = 0x%x, addr = 0x%x\n",baddr,addr );
 	for(i = 0; i < L2CacheBlockSize; i++){
 		(cb + index) -> data[i] = dram_read(baddr + i,1);
 	}
