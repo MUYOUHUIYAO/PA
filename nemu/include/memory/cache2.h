@@ -21,7 +21,7 @@ L2CacheBlock L2cache[L2CacheRow];
 
 #define L2GROUPNUM (L2CacheRow/L2ROWNUM)
 
-#define L2TAG1(addr) ((addr >> 22) & 0x3fffff)	//区号
+#define L2TAG1(addr) ((addr >> 22) & 0x3ff)	//区号
 #define L2INDEX(addr) ((addr >> 10) & 0xfff)	//区内组号 12位
 #define L2TAG2(addr) ((addr >> 6) & 0xf)		//组内块号 4位
 #define L2ADDR(addr) (addr & 0x3f)		//块内偏移 6位
@@ -29,7 +29,7 @@ L2CacheBlock L2cache[L2CacheRow];
 #define L2TAG(addr) ((L2TAG1(addr) << 4) & (L2TAG2(addr)) & (~0u) )
 
 #define L2GPADDR(addr) ((L2CacheBlock *)(&L2cache[0] + L2ROWNUM * L2INDEX(addr))) 
-#define L2TAG2ADDR(tag, addr) (((tag & 0x3f0) << 18) & ((tag & 0xf) << 6) & (addr & 0x3ffC00))
+#define L2TAG2ADDR(tag, addr) (((tag & 0x3ff0) << 18) & ((tag & 0xf) << 6) & (addr & 0x3ffc00) & 0xffffffc0)
 
 uint64_t L2px;
 
