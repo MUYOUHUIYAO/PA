@@ -32,6 +32,12 @@ typedef struct {
 	swaddr_t eip;
 
 	uint32_t EFLAGS;	//32位标志寄存器
+	uint32_t CR0;
+	uint16_t CS, DS, SS, ES, FS, GS;
+	struct{
+		uint32_t base;
+		uint16_t limit;
+	}GDTR;
 
 } CPU_state;
 
