@@ -3,6 +3,7 @@
 
 
 static void do_execute (){
+	printf("0x%x\n",op_src -> val );
 	uint16_t limit = swaddr_read(op_src -> val, 2);
 	uint32_t base = swaddr_read(op_src -> val + 2, 4);
 #if DATA_BYTE == 2
