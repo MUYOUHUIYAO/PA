@@ -37,6 +37,7 @@
 #include "control/jcc.h"
 #include "control/jmp.h"
 #include "control/ret.h"
+#include "control/lgdt.h"
 
 #include "string/rep.h"
 #include "string/movs.h"

@@ -80,15 +80,15 @@ make_group(group4,
 /* 0xff */
 make_group(group5,
 	inc_rm_v, dec_rm_v, call_rm_v, inv, 
-	jmp_rm_v, inv, inv, inv)
+	jmp_rm_v, inv, push_m_v, inv)
 
 make_group(group6,
 	inv, inv, inv, inv, 
 	inv, inv, inv, inv)
 
 make_group(group7,
-	inv, inv, inv, inv, 
-	inv, inv, push_m_v, inv)
+	inv, inv, lgdt_i_v, inv, 
+	inv, inv, inv, inv)
 
 
 /* TODO: Add more instructions!!! */
