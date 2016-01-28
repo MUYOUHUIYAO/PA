@@ -2,6 +2,7 @@
 #define __REG_H__
 
 #include "common.h"
+#include "../../lib-common/x86-inc/cpu.h"
 
 enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
 enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
@@ -32,7 +33,7 @@ typedef struct {
 	swaddr_t eip;
 
 	uint32_t EFLAGS;	//32位标志寄存器
-	uint32_t CR0;
+	CR0 cr0;
 	uint16_t CS, DS, SS, ES, FS, GS;
 	struct{
 		uint32_t base;
