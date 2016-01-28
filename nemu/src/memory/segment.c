@@ -9,13 +9,13 @@ typedef struct data64
 
 static void check_segReg(){
 	if(current_sreg.val == cpu.CS.val){
-		printf("current_sreg is CS");
+		printf("current_sreg is CS 0x%x", cpu.CS.val);
 	}else if(current_sreg.val == cpu.DS.val){
-		printf("current_sreg is DS" );
+		printf("current_sreg is DS 0x%x", cpu.DS.val);
 	}else if(current_sreg.val == cpu.SS.val){
-		printf("current_sreg is SS" );
+		printf("current_sreg is SS 0x%x", cpu.SS.val );
 	}else if(current_sreg.val == cpu.ES.val){
-		printf("current_sreg is ES" );
+		printf("current_sreg is ES 0x%x", cpu.ES.val );
 	}
 
 	printf("\t PE = %d\n", cpu.cr0.protect_enable );
