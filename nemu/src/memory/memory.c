@@ -1,6 +1,6 @@
 #include "common.h"
 #include "memory/cache.h"
-#include "nemu.h"
+#include "cpu/reg.h"
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
