@@ -14,6 +14,14 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  * cpu.gpr[1]._8[1], we will get the 'ch' register. Hint: Use `union'.
  * For more details about the register encoding scheme, see i386 manual.
  */
+ typedef union{
+	uint16_t val;
+	struct{
+		uint16_t RPL:2;
+		uint16_t TI:1;
+		uint16_t index:13;
+	};
+}SELECTOR;
 
 typedef struct {
 	union{
@@ -34,7 +42,9 @@ typedef struct {
 
 	uint32_t EFLAGS;	//32位标志寄存器
 	CR0 cr0;
-	uint16_t CS, DS, SS, ES, FS, GS;
+
+	SELECTOR CS, DS, SS, ES;
+
 	struct{
 		uint32_t base;
 		uint16_t limit;
@@ -43,6 +53,7 @@ typedef struct {
 } CPU_state;
 
 extern CPU_state cpu;
+extern SELECTOR current_sreg;
 
 enum   {E_CF, E_PF, E_ZF, E_SF, E_IF, E_DF, E_OF, E_AF };
 extern const uint32_t set_EFLAGS_num[];
