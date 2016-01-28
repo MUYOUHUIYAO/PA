@@ -7,7 +7,20 @@ typedef struct data64
 	uint32_t high;
 }data;
 
+static void check_segReg(){
+	if(current_sreg.val == cpu.CS.val){
+		printf("current_sreg is CS\n");
+	}else if(current_sreg.val == cpu.DS.val){
+		printf("current_sreg is DS\n" );
+	}else if(current_sreg.val == cpu.SS.val){
+		printf("current_sreg is SS\n" );
+	}else if(current_sreg.val == cpu.ES.val){
+		printf("current_sreg is ES\n" );
+	}
+}
+
 lnaddr_t seg_translate(swaddr_t addr, size_t len, SELECTOR selector){
+	check_segReg();
 	if(cpu.cr0.protect_enable == 0) return addr;
 	printf("cpu.cr0.protect_enable = %u\n", cpu.cr0.protect_enable);
 
