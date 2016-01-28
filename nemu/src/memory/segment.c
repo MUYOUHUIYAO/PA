@@ -18,7 +18,7 @@ static void check_segReg(){
 		printf("current_sreg is ES" );
 	}
 
-	printf("PE = %d\n", cpu.cr0.protect_enable );
+	printf("\t PE = %d\n", cpu.cr0.protect_enable );
 }
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, SELECTOR selector){
