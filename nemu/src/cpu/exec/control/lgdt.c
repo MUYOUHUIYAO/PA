@@ -12,4 +12,4 @@
 #include "lgdt-template.h"
 #undef DATA_BYTE
 
-make_helper_v(lgdt_i)
+make_helper_v(lgdt_m)
