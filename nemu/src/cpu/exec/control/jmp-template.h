@@ -38,7 +38,7 @@ make_helper(ljmp){
 	cpu.CS.val = op2;
 	cpu.eip = (uint32_t)op1;
 
-	print_asm("ljmp %x:%xH", op1, op2);
+	print_asm("ljmp %x:%xH", op2, op1);
 
 	return 7;
 }
