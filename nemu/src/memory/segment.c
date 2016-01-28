@@ -9,14 +9,16 @@ typedef struct data64
 
 static void check_segReg(){
 	if(current_sreg.val == cpu.CS.val){
-		printf("current_sreg is CS\n");
+		printf("current_sreg is CS");
 	}else if(current_sreg.val == cpu.DS.val){
-		printf("current_sreg is DS\n" );
+		printf("current_sreg is DS" );
 	}else if(current_sreg.val == cpu.SS.val){
-		printf("current_sreg is SS\n" );
+		printf("current_sreg is SS" );
 	}else if(current_sreg.val == cpu.ES.val){
-		printf("current_sreg is ES\n" );
+		printf("current_sreg is ES" );
 	}
+
+	printf("PE = %d\n", cpu.cr0.protect_enable );
 }
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, SELECTOR selector){
