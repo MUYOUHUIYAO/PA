@@ -35,8 +35,8 @@ make_helper(ljmp){
 	uint32_t op1 = instr_fetch(eip + 1, 4);
 	uint16_t op2 = instr_fetch(eip + 5, 2);
 
-	cpu.CS.val = op1;
-	cpu.eip = (uint32_t)op2;
+	cpu.CS.val = op2;
+	cpu.eip = (uint32_t)op1;
 
 	print_asm("ljmp %x:%xH", op1, op2);
 
