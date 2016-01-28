@@ -143,6 +143,7 @@ static int cmd_info(char *args){
 		printf("edi\t\t0x%X\t\t%u\n",cpu.edi,cpu.edi);
 		printf("eip\t\t0x%X\t\t0x%X\n",cpu.eip,cpu.eip);
 		printf("EFLAGS\t\t0x%.8x\n",cpu.EFLAGS);
+		printf("PE\t\t0x%X\n",cpu.cr0.protect_enable);
 	}else if(!strcmp("w",args)){
 		WP *tail=getHead();
 		if(tail==NULL){
