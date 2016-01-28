@@ -1,5 +1,4 @@
 #include "nemu.h"
-#include "../../lib-common/x86-inc/mmu.h"
 
 typedef struct data64
 {
