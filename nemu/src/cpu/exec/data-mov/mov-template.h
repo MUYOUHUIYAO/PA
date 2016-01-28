@@ -40,10 +40,9 @@ make_helper(mov_r2cr_l){
 
 make_helper(mov_cr2r_l){
 	int len = decode_rm2r_l(eip + 1);
-
-	print_asm("movl %%cr0, %s", op_dest -> str);
 	OPERAND_W(op_dest, cpu.cr0.val);
 
+	print_asm("movl %%cr0, %s", op_dest -> str);
 	return len+1;
 
 }
