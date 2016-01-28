@@ -4,6 +4,7 @@
 
 CPU_state cpu;
 SELECTOR current_sreg;
+bool isSEG;
 
 
 const uint32_t set_EFLAGS_num[] = {0x00000001, 0x00000004, 0x00000040, 0x00000080, 0x00000200, 0x00000400, 0x00000800, 0x00000010};

@@ -54,6 +54,7 @@ typedef struct {
 
 extern CPU_state cpu;
 extern SELECTOR current_sreg;
+extern bool isSEG;
 
 enum   {E_CF, E_PF, E_ZF, E_SF, E_IF, E_DF, E_OF, E_AF };
 extern const uint32_t set_EFLAGS_num[];
