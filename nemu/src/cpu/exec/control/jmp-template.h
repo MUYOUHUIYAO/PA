@@ -30,4 +30,18 @@ make_helper(concat(jmp_rm_, SUFFIX)){
 }
 #endif
 
+#if DATA_BYTE == 4
+make_helper(ljmp){
+	uint32_t op1 = instr_fetch(eip + 1, 4);
+	uint16_t op2 = instr_fetch(eip + 5, 2);
+
+	cpu.CS.val = op1;
+	cpu.eip = (uint32_t)op2;
+
+	print_asm("ljmp %x:%xH", op1, op2);
+
+	return 7;
+}
+#endif
+
 #include "cpu/exec/template-end.h"
