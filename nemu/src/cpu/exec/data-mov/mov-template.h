@@ -33,7 +33,7 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 make_helper(mov_r2cr_l){
 	int len = decode_r2rm_l(eip + 1);
 	cpu.cr0.val = op_src->val;
-
+	printf("cr0 = %d\n", cpu.cr0.protect_enable);
 	print_asm("movl %%%s, %%cr0", op_src -> str);
 	return len+1;
 }
