@@ -23,7 +23,6 @@ static void check_segReg(){
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, SELECTOR selector){
 	check_segReg();
-	return addr;
 	if(cpu.cr0.protect_enable == 0) return addr;
 	printf("cpu.cr0.protect_enable = %u\n", cpu.cr0.protect_enable);
 
@@ -38,8 +37,8 @@ lnaddr_t seg_translate(swaddr_t addr, size_t len, SELECTOR selector){
 	segdesc = (SegDesc *)(&r);
 
 	uint32_t base = (segdesc -> base_31_24 << 24)| (segdesc -> base_23_16 << 16) | (segdesc -> base_15_0);
-	//uint32_t limit = ((segdesc -> limit_19_16 << 16) | (segdesc -> limit_15_0)) & 0xfffff;
+	uint32_t limit = ((segdesc -> limit_19_16 << 16) | (segdesc -> limit_15_0)) & 0xfffff;
 	
-	//Assert(addr + len < limit, "segment out limit, 0x%x, %d, 0x%x", addr, len, limit);	
+	Assert(addr + len < limit, "segment out limit, 0x%x, %d, 0x%x", addr, len, limit);	
 	return base + addr;
 }
