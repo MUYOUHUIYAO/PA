@@ -9,6 +9,7 @@ typedef struct data64
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, SELECTOR selector){
 	if(cpu.cr0.protect_enable == 0) return addr;
+	printf("cpu.cr0.protect_enable = %u\n", cpu.cr0.protect_enable);
 
 	uint32_t segdesc_addr = cpu.GDTR.base;
 	//uint16_t segdesc_limit = cpu.GDTR.limit;
