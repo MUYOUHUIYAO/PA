@@ -90,6 +90,7 @@ void restart() {
 	cpu.eip = ENTRY_START;
 	cpu.EFLAGS = 0x00000002;		//为EFLAGS赋初值
 	cpu.cr0.val = 0x0;
+	printf("cr0 initial\n");
 
 	/* Initialize DRAM. */
 	init_ddr3();
