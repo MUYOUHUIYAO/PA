@@ -23,6 +23,7 @@ static void check_segReg(){
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, SELECTOR selector){
 	check_segReg();
+	return addr;
 	if(cpu.cr0.protect_enable == 0) return addr;
 	printf("cpu.cr0.protect_enable = %u\n", cpu.cr0.protect_enable);
 
