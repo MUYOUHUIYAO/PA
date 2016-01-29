@@ -60,13 +60,13 @@ make_helper(mov_rm2sreg_w){
 			print_asm("mov %s, %%es", op_src -> str);
 			break;			//es
 		case 1: cpu.CS.val = op_src -> val;
-			print_asm("mov %s, %%es", op_src -> str);
+			print_asm("mov %s, %%cs", op_src -> str);
 			break;			//cs
 		case 2: cpu.SS.val = op_src -> val;
-			print_asm("mov %s, %%es", op_src -> str);
+			print_asm("mov %s, %%ss", op_src -> str);
 			break;			//ss
 		case 3: cpu.DS.val = op_src -> val;
-			print_asm("mov %s, %%es", op_src -> str);
+			print_asm("mov %s, %%ds", op_src -> str);
 			break;			//ds
 	}
 	return 2;
