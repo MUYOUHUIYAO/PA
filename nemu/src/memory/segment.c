@@ -1,10 +1,5 @@
 #include "nemu.h"
 
-typedef struct data64
-{
-	uint32_t low;
-	uint32_t high;
-}data;
 /*
 static int check_segReg(){
 	if(current_sreg.val == cpu.CS.val){
@@ -26,19 +21,18 @@ static int check_segReg(){
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, SELECTOR selector){
 	//check_segReg();
-	if(cpu.cr0.protect_enable == 0 || !isSEG) return addr;
+	if(cpu.cr0.protect_enable == 0) return addr;
 	//printf("cpu.cr0.protect_enable = %u\n", cpu.cr0.protect_enable);
 
 	uint32_t segdesc_addr = cpu.GDTR.base;
 	//uint16_t segdesc_limit = cpu.GDTR.limit;
 	data r;
-	SegDesc *segdesc;
+	SegDesc *segdesc = NULL;
 	uint16_t index = selector.index;
 
 	r.low = lnaddr_read(segdesc_addr + 8 * index, 4);
 	r.high = lnaddr_read(segdesc_addr + 8 * index + 4, 4);
 	printf("0x%x, 0x%x\n", r.low, r.high );
-	segdesc = (SegDesc *)(&r);
 
 	uint32_t base = (segdesc -> base_31_24 << 24)| (segdesc -> base_23_16 << 16) | (segdesc -> base_15_0);
 	uint32_t limit = ((segdesc -> limit_19_16 << 16) | (segdesc -> limit_15_0)) & 0xfffff;

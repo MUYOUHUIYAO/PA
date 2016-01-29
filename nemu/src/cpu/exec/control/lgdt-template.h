@@ -10,6 +10,7 @@ static void do_execute (){
 #endif
 	cpu.GDTR.limit = limit;
 	cpu.GDTR.base = base;
+	insertSegDesc(base, limit);
 	print_asm_template1();
 }
 

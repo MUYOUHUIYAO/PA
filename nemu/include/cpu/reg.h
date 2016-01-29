@@ -14,6 +14,13 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  * cpu.gpr[1]._8[1], we will get the 'ch' register. Hint: Use `union'.
  * For more details about the register encoding scheme, see i386 manual.
  */
+
+ typedef struct data64
+{
+	uint32_t low;
+	uint32_t high;
+}data;
+
  typedef union{
 	uint16_t val;
 	struct{
@@ -54,7 +61,7 @@ typedef struct {
 
 extern CPU_state cpu;
 extern SELECTOR current_sreg;
-extern bool isSEG;
+extern uint32_t SegDesc_index;
 
 enum   {E_CF, E_PF, E_ZF, E_SF, E_IF, E_DF, E_OF, E_AF };
 extern const uint32_t set_EFLAGS_num[];
@@ -73,6 +80,8 @@ static inline int check_EFLAGS_index(int index){
 	assert(index >=0 && index < 8);
 	return index;
 }
+
+void insertSegDesc(uint32_t, uint32_t);
 
 #define set_EFLAGS(index) (cpu.EFLAGS = (cpu.EFLAGS | set_EFLAGS_num[index]))
 #define unset_EFLAGS(index) (cpu.EFLAGS =(cpu.EFLAGS & unset_EFLAGS_num[index]))
