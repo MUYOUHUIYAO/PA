@@ -61,5 +61,6 @@ void insertSegDesc(uint32_t base, uint32_t limit){
 	r = (data *)(&sd);
 	lnaddr_write(cpu.GDTR.base + SegDesc_index * 64, 4, r->low);	
 	lnaddr_write(cpu.GDTR.base + SegDesc_index * 64 + 4, 4, r -> high);
+	SegDesc_index++;
 }
 
