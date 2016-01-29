@@ -54,8 +54,8 @@ make_helper(mov_rm2sreg_w){
 	decode_rm2r_w(eip + 1);
 
 	uint8_t op = instr_fetch(eip + 1, 1);
-	printf("0x%x\n", op);
-	switch((op >> 3) && 0x7){
+	printf("0x%x\n", (op >> 3) & 0x7);
+	switch((op >> 3) & 0x7){
 		case 0: cpu.ES.val = op_src->val;
 			print_asm("mov %s, %%es", op_src -> str);
 			break;			//es
