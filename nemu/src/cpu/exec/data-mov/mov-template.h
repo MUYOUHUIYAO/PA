@@ -49,5 +49,29 @@ make_helper(mov_cr2r_l){
 
 #endif
 
+#if DATA_BYTE == 2
+make_helper(mov_rm2sreg_w){
+	decode_rm2r_w(eip + 1);
+
+	uint8_t op = instr_fetch(eip + 1, 1);
+
+	switch((op >> 3) && 0x7){
+		case 0: cpu.ES.val = op_src->val;
+			print_asm("mov %s, %%es", op_src -> str);
+			break;			//es
+		case 1: cpu.CS.val = op_src -> val;
+			print_asm("mov %s, %%es", op_src -> str);
+			break;			//cs
+		case 2: cpu.SS.val = op_src -> val;
+			print_asm("mov %s, %%es", op_src -> str);
+			break;			//ss
+		case 3: cpu.DS.val = op_src -> val;
+			print_asm("mov %s, %%es", op_src -> str);
+			break;			//ds
+	}
+	return 2;
+}
+#endif
+
 
 #include "cpu/exec/template-end.h"
