@@ -41,7 +41,7 @@ make_helper(ljmp){
 
 	print_asm("ljmp %x:%xH", op2, op1);
 
-	return 7;
+	return 0;
 }
 #endif
 
